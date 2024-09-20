@@ -12,8 +12,7 @@ export default function CardSearch({ result }) {
     return (
         <div
             onClick={handleClick}
-            className="bg-white border border-gray-200 rounded-lg shadow-lg  cursor-pointer"
-            style={{ width: '320px' }}  // Adjust width
+            className="bg-white border w-full md:w-[320px] border-gray-200 rounded-lg shadow-lg  cursor-pointer"
             role="button"
             tabIndex={0}
             onKeyDown={(e) => e.key === 'Enter' && handleClick()}
@@ -33,13 +32,15 @@ export default function CardSearch({ result }) {
             </div>
             <div className="p-2"> {/* Adjust padding */}
                 <div className='flex justify-between'>
-                    <div className="font-semibold text-black text-lg mb-1">{result.name}</div> {/* Adjust font size */}
-                    <div className="text-gray-600 flex items-center mb-2 text-sm">
-                        <FaMapMarkerAlt className="text-green-500 mr-1" /> {/* Adjust margin */}
-                        <span>{result.address}</span>
-                    </div>
+                    <div className="font-semibold whitespace-nowrap text-black md:text-sm text-lg mb-1">{result.name}</div> {/* Adjust font size */}
+                    <div className="text-green-600 font-bold text-md pr-2 mb-2"><span className='text-[12px] font-normal'>ETB</span>{result.regularPrice} {result.RentOrSell === 'rent' ? '/Month' : ''}</div> {/* Adjust font size */}
+
+
                 </div>
-                <div className="text-green-600 font-bold text-base mb-2">${result.regularPrice} {result.RentOrSell === 'rent' ? '/Month' : ''}</div> {/* Adjust font size */}
+                <div className="text-gray-600 flex items-center mb-2 text-[16px]">
+                    <FaMapMarkerAlt className="text-green-500 text-md mr-1" /> {/* Adjust margin */}
+                    <span>{result.address}</span>
+                </div>
 
 
                 <div className="text-gray-700 text-xs mb-2">

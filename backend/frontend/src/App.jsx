@@ -14,10 +14,12 @@ import MyListing from './pages/MyListing';
 import SearchBuy from './pages/SearchBuy';
 import SearchRent from './pages/SearchRent';
 import About from './pages/about';
-import SellYourHomePage from './pages/sell';
+import SellYourHomePage from './pages/sell/sell';
 import Footer from './component/footer';
 import AffordabilityCalculator from './pages/AfordablityCalcualtor';
 import Search from './pages/Search';
+import ListingPage from './pages/sell/AdressPage';
+import ConfirmationPage from './pages/sell/CorrectAdressPage';
 
 function App() {
   return (
@@ -27,11 +29,19 @@ function App() {
         <Route path='/' element={<Home />}></Route>
         <Route path='/login' element={<Login />}></Route>
         <Route path='/signup' element={<Signup />}></Route>
-        <Route path='/sell' element={<SellYourHomePage />}></Route>
         <Route path='/about' element={<About />}></Route>
         <Route path='/afordablityCalculator' element={<AffordabilityCalculator />}></Route>
         <Route path='/editListing/:id' element={<EditListing />}></Route>
         <Route path='/viewListing/:id' element={<ViewListing />}></Route>
+
+
+        //sell
+        <Route path='/sell' element={<SellYourHomePage />}></Route>
+        <Route path='/addadress' element={<ListingPage />}></Route>
+        <Route path='/ConfirmationPage' element={<ConfirmationPage />}></Route>
+
+
+
 
         <Route path='/search' element={<Search />}></Route>
         <Route path='/buy' element={<SearchBuy />}></Route>

@@ -1,8 +1,9 @@
 import React from 'react';
-import img1 from '../assets/images/landing.jpg';
-import img2 from '../assets/images/landing2.jpg';
-import img3 from '../assets/images/lux.jpeg';
-import img4 from '../assets/images/hom.jpeg';
+import img1 from '../../assets/images/landing.jpg';
+import img2 from '../../assets/images/landing2.jpg';
+import img3 from '../../assets/images/lux.jpeg';
+import img4 from '../../assets/images/hom.jpeg';
+import { Link } from 'react-router-dom';
 // import Footer from '../component/Footer';
 
 const SellYourHomePage = () => {
@@ -16,7 +17,7 @@ const SellYourHomePage = () => {
                     <div className="p-8">
                         <h1 className="text-4xl md:text-6xl font-bold mb-4">Sell Your Home with Gojo Real Estate</h1>
                         <p className="text-xl mb-6">Discover why working with us makes selling your home effortless and rewarding.</p>
-                        <a href="#contact" className="bg-yellow-500 text-black px-6 py-3 rounded-full text-lg font-semibold hover:bg-yellow-400 transition">Get Started</a>
+                        <Link to={"/addadress"} className="bg-yellow-500 text-black px-6 py-3 rounded-full text-lg font-semibold hover:bg-yellow-400 transition">Get Started</Link>
                     </div>
                 </div>
             </section>
@@ -55,14 +56,19 @@ const SellYourHomePage = () => {
                             <p className="mt-2">Clean, declutter, and stage your home to make it appealing to buyers.</p>
                         </div>
                         <div className="bg-white p-6 rounded-lg shadow-lg">
-                            <h3 className="text-xl font-semibold">2. Market Your Home</h3>
-                            <p className="mt-2">Create compelling listings with beautiful images and descriptions to attract buyers.</p>
+                            <h3 className="text-xl font-semibold">2. Photograph Your Home</h3>
+                            <p className="mt-2">Take high-quality photographs of your home, focusing on its best features and lighting to make it attractive to potential buyers.</p>
                         </div>
                         <div className="bg-white p-6 rounded-lg shadow-lg">
-                            <h3 className="text-xl font-semibold">3. Close the Sale</h3>
+                            <h3 className="text-xl font-semibold">3. Market Your Home</h3>
+                            <p className="mt-2">Use the photographs and create compelling listings with detailed descriptions to attract buyers.</p>
+                        </div>
+                        <div className="bg-white p-6 rounded-lg shadow-lg">
+                            <h3 className="text-xl font-semibold">4. Close the Sale</h3>
                             <p className="mt-2">Negotiate offers and complete the necessary paperwork to finalize the sale.</p>
                         </div>
                     </div>
+
                 </div>
             </section>
 

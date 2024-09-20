@@ -26,12 +26,14 @@ const Search = () => {
         sqftRange: { min: '', max: '' }
     });
 
+
     const [showDropdown, setShowDropdown] = useState({
         forSale: false,
         price: false,
         bedsBaths: false,
         homeType: false,
         more: false,
+        filter: false
     });
 
     const [listingsForMap, setListingsForMap] = useState([])
@@ -50,6 +52,7 @@ const Search = () => {
             bedsBaths: false,
             homeType: false,
             more: false,
+            filter: false
         });
     };
 
@@ -98,7 +101,7 @@ const Search = () => {
     return (
         <div className='border border-t-slate-500 pt-3'>
             <div className=' justify-center gap-1 flex'>
-                <div className="relative w-[40%]  max-w-lg mr-5">
+                <div className="relative hidden md:block w-[40%]  max-w-lg mr-5">
                     <input
                         name="searchQuery"
                         value={formData.searchQuery}
@@ -114,7 +117,7 @@ const Search = () => {
                 {/* For Sale Dropdown */}
                 <div className="relative">
                     <button
-                        className="border border-gray-500 flex gap-3 items-center text-[15px] px-4 py-[6px] rounded-md hover:bg-blue-100"
+                        className="border border-gray-500 flex gap-3 items-center text-[12px]  md:text-[15px] px-4 py-[6px] rounded-md hover:bg-blue-100"
                         onClick={() => toggleDropdown('forSale')}
                     >
                         For  {formData.forSale} <FaChevronDown />
@@ -138,6 +141,7 @@ const Search = () => {
                                     </div>
                                 ))}
                                 <button
+                                    onClick={closeAllDropdowns}
                                     className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors duration-300"
                                 >
                                     Apply
@@ -146,8 +150,162 @@ const Search = () => {
                         </div>
                     )}
                 </div>
+
+
+                {/* filter drop down for phone */}
+                <div className="relative block md:hidden">
+                    <button
+                        className="border border-gray-500 flex gap-3 items-center text-[12px]  md:text-[15px] px-4 py-[6px] rounded-md hover:bg-blue-100"
+                        onClick={() => toggleDropdown('filter')}
+                    >
+                        Filter  <FaChevronDown />
+                    </button>
+                    {showDropdown.filter && (
+                        <div className="fixed top-0 left-0 w-full h-screen bg-white shadow-lg z-10 p-4 overflow-y-auto">
+                            <div>
+                                <div className='flex justify-between'>
+                                    <p className="text-md text-slate-700 mb-3">Price Range</p>
+                                    <div className='text-red-600' onClick={closeAllDropdowns}>Cancel</div>
+                                </div>
+                                <div className="flex space-x-4 mb-4">
+                                    <div className="flex-1">
+                                        <label htmlFor="min-price" className="text-lg text-gray-500">Min:</label>
+                                        <input
+                                            type="number"
+                                            id="min-price"
+                                            name="priceRange.min" // Use this for nested state
+                                            value={formData.priceRange.min}
+                                            onChange={handleNestedInputChange} // Use the new handler
+                                            placeholder="0"
+                                            className="w-full border border-gray-300 rounded-md p-2"
+                                        />
+                                    </div>
+                                    <div className="flex-1">
+                                        <label htmlFor="max-price" className="text-lg text-gray-500">Max:</label>
+                                        <input
+                                            type="number"
+                                            id="max-price"
+                                            name="priceRange.max" // Use this for nested state
+                                            value={formData.priceRange.max}
+                                            onChange={handleNestedInputChange} // Use the new handler
+                                            placeholder="10000"
+                                            className="w-full border border-gray-300 rounded-md p-2"
+                                        />
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div>
+                                <p className="text-lg text-gray-600 mb-4">Select Bedrooms</p>
+                                <div className="flex flex-wrap mb-4">
+                                    {['Any', '1+', '2+', '3+', '4+', '5+'].map(option => (
+                                        <button
+                                            key={option}
+                                            onClick={() => handleSelectChange('beds', option)}
+                                            className={`w-12 h-12 border border-gray-300 text-md flex items-center justify-center ${formData.beds === option ? 'bg-blue-200' : ''} hover:bg-blue-100 focus:outline-none`}
+                                        >
+                                            {option}
+                                        </button>
+                                    ))}
+                                </div>
+                                <p className="text-lg text-gray-600 mb-4">Select Bathrooms</p>
+                                <div className="flex flex-wrap mb-4">
+                                    {['Any', '1+', '2+', '3+', '4+', '5+'].map(option => (
+                                        <button
+                                            key={option}
+                                            onClick={() => handleSelectChange('baths', option)}
+                                            className={`w-12 h-12 border border-gray-300 text-md flex items-center justify-center ${formData.baths === option ? 'bg-blue-200' : ''} hover:bg-blue-100 focus:outline-none`}
+                                        >
+                                            {option}
+                                        </button>
+                                    ))}
+                                </div>
+
+                            </div>
+                            <div>
+                                <p className="text-md text-slate-700 mb-3">Home Type</p>
+                                <div className="space-y-2 grid grid-cols-2 justify-between">
+                                    {Object.keys(formData.homeTypes).map((type) => (
+                                        <label key={type} className="flex items-center text-md">
+                                            <input
+                                                type="checkbox"
+                                                name="homeType"
+                                                value={type}
+                                                checked={formData.homeTypes[type]}
+                                                onChange={handleCheckboxChange}
+                                                className="form-checkbox text-blue-500 h-4 w-4 mr-2"
+                                            />
+                                            {type.replace(/-/g, ' ')}
+                                        </label>
+                                    ))}
+                                </div>
+
+                            </div>
+                            <div>
+                                <p className="text-lg text-gray-600 mb-4">Select Parking Spots</p>
+                                <div className="flex flex-wrap mb-4">
+                                    {['Any', '1+', '2+', '3+', '4+', '5+'].map(option => (
+                                        <button
+                                            key={option}
+                                            onClick={() => handleSelectChange('parkingSpots', option)}
+                                            className={`w-11 h-11 border border-gray-300 text-md flex items-center justify-center mb-2 ${formData.parkingSpots === option ? 'bg-blue-200' : ''} hover:bg-blue-100 focus:outline-none`}
+                                        >
+                                            {option}
+                                        </button>
+                                    ))}
+                                </div>
+                                <div className="flex items-center mb-4">
+                                    <input
+                                        type="checkbox"
+                                        id="basement"
+                                        name="hasBasement"
+                                        checked={formData.hasBasement}
+                                        onChange={(e) => setFormData(prev => ({ ...prev, hasBasement: e.target.checked }))}
+                                        className="form-checkbox text-blue-500 h-6 w-6 mr-2"
+                                    />
+                                    <label htmlFor="basement" className="text-md text-gray-600">Has Basement</label>
+                                </div>
+                                <p className="text-md text-slate-700 mb-3">Square Feet Range</p>
+                                <div className="flex space-x-4 mb-1">
+                                    <div className="flex-1">
+                                        <label htmlFor="min-sqft" className="text-lg text-gray-500">Min:</label>
+                                        <input
+                                            type="number"
+                                            id="min-sqft"
+                                            name="sqftRange.min"
+                                            value={formData.sqftRange.min}
+                                            onChange={handleNestedInputChange}
+                                            placeholder="0"
+                                            className="w-full border border-gray-300 rounded-md p-2"
+                                        />
+                                    </div>
+                                    <div className="flex-1">
+                                        <label htmlFor="max-sqft" className="text-lg text-gray-500">Max:</label>
+                                        <input
+                                            type="number"
+                                            id="max-sqft"
+                                            name="sqftRange.max"
+                                            value={formData.sqftRange.max}
+                                            onChange={handleNestedInputChange}
+                                            placeholder="10000"
+                                            className="w-full border border-gray-300 rounded-md p-2"
+                                        />
+                                    </div>
+                                </div>
+                                <button
+                                    onClick={closeAllDropdowns}
+                                    className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors duration-300 mt-4"
+                                >
+                                    Apply
+                                </button>
+                            </div>
+
+                        </div>
+                    )}
+                </div>
+
                 {/* Price Dropdown */}
-                <div className="relative">
+                <div className="relative hidden md:block">
                     <button
                         className="border border-gray-500 flex gap-3 items-center text-[15px] px-5 py-[6px] rounded-md hover:bg-blue-100"
                         onClick={() => toggleDropdown('price')}
@@ -184,6 +342,7 @@ const Search = () => {
                                 </div>
                             </div>
                             <button
+                                onClick={closeAllDropdowns}
                                 className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors duration-300"
                             >
                                 Apply
@@ -192,7 +351,7 @@ const Search = () => {
                     )}
                 </div>
                 {/* Beds & Baths Dropdown */}
-                <div className="relative">
+                <div className="relative  hidden md:block">
                     <button
                         className="border border-gray-500 flex gap-3 items-center text-[15px] px-5 py-[6px] rounded-md hover:bg-blue-100"
                         onClick={() => toggleDropdown('bedsBaths')}
@@ -226,6 +385,7 @@ const Search = () => {
                                 ))}
                             </div>
                             <button
+                                onClick={closeAllDropdowns}
                                 className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors duration-300 mt-4"
                             >
                                 Apply
@@ -234,7 +394,7 @@ const Search = () => {
                     )}
                 </div>
                 {/* Home Type Dropdown */}
-                <div className="relative">
+                <div className="relative  hidden md:block">
                     <button
                         className="border border-gray-500 flex gap-3 items-center text-[15px] px-5 py-[6px] rounded-md hover:bg-blue-100"
                         onClick={() => toggleDropdown('homeType')}
@@ -260,6 +420,7 @@ const Search = () => {
                                 ))}
                             </div>
                             <button
+                                onClick={closeAllDropdowns}
                                 className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors duration-300 mt-4"
                             >
                                 Apply
@@ -268,7 +429,7 @@ const Search = () => {
                     )}
                 </div>
                 {/* More Dropdown */}
-                <div className="relative">
+                <div className="relative  hidden md:block">
                     <button
                         className="border border-gray-500 flex gap-3 items-center text-[15px] px-5 py-[6px]  rounded-md hover:bg-blue-100"
                         onClick={() => toggleDropdown('more')}
@@ -328,6 +489,7 @@ const Search = () => {
                                 </div>
                             </div>
                             <button
+                                onClick={closeAllDropdowns}
                                 className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition-colors duration-300 mt-4"
                             >
                                 Apply
@@ -336,18 +498,18 @@ const Search = () => {
                     )}
                 </div>
                 <div>
-                    <button onClick={handleSubmit} className='px-6 py-[6px] rounded-md bg-blue-500 text-white'>Save Search</button>
+                    <button onClick={handleSubmit} className='px-6 py-[4px] md:py-[6px] rounded-md bg-blue-500 text-white'>Save Search</button>
                 </div>
                 <div
                     className={`fixed inset-0 ${Object.values(showDropdown).includes(true) ? 'block' : 'hidden'}`}
                     onClick={closeAllDropdowns}
                 />
             </div>
-            <div className='border border-t-gray-500 flex gap-4  pt-0 mt-2  w-full'>
-                <div className='bg-slate-800 w-[50%]  z-0  h-[calc(100vh-146px)]'>
+            <div className='border border-t-gray-500 flex flex-col  md:flex-row gap-4  pt-0 mt-2  w-full'>
+                <div className='bg-slate-800 w-[100%]  md:w-[50%]  z-0 md:h-[calc(100vh-145px)]  h-[300px] '>
                     <LeafletMap listingsForMap={listingsForMap} />
                 </div>
-                <div className='w-[57%] '>
+                <div className='w-[100%] md:w-[57%] '>
                     <SearchListings setListingsForMap={setListingsForMap} SearchFields={formData} />
                 </div>
             </div>

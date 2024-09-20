@@ -9,7 +9,7 @@ function RentAffordabilityCalculator() {
     const [result, setResult] = useState(null);
 
     const calculateAffordability = () => {
-        const grossIncome = parseFloat(netIncome) / 0.75; // Assumes 25% tax rate
+        const grossIncome = parseFloat(netIncome) / 0.85; // Assumes 25% tax rate
         const maxRent = grossIncome * 0.4; // 40% of gross income
         const affordableRent = maxRent - parseFloat(debt) - parseFloat(savings) - parseFloat(expenses);
 

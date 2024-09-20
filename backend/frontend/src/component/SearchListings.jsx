@@ -39,7 +39,7 @@ export default function SearchListings({ SearchFields, setListingsForMap }) {
 
 
     return (
-        <div className=' gap-6 overflow-y-scroll h-[calc(100vh-145px)] pl-0  pt-2'>
+        <div className=' gap-6 md:overflow-y-scroll md:h-[calc(100vh-145px)] pl-0  pt-2'>
             <div className='font-bold text-[20px] text-gray-600'>Real Estate & Homes For Sale</div>
             <div className='flex justify-between items-center '>
                 <div className='font-bold text-lg text-gray-500'>{Data?.length} results</div>
@@ -110,7 +110,7 @@ export default function SearchListings({ SearchFields, setListingsForMap }) {
 
             </div>
             <div className='h-[600px] '>
-                {Data ? (Data.length > 0 ? (<div className='grid grid-cols-2  justify-center  gap-4 p-10 pl-4 pt-4'>{
+                {Data ? (Data.length > 0 ? (<div className='grid  md:grid-cols-2 items-center pr-5  justify-center  gap-2  pt-4'>{
                     Data.map((data) => (
                         <CardSearch key={data.id} result={data} />
                     ))

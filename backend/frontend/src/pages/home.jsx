@@ -139,7 +139,7 @@ export default function Home() {
           <p className='text-center p-4 text-gray-700'>Find your place with an immersive photo
             experience and the most listings, including
             things you won’t find anywhere else.</p>
-          <Link to={'/search'}>
+          <Link className='text-center' to={'/search'}>
             <button className='border border-black p-2 px-4 rounded-xl'>Browse homes</button>
           </Link>
         </div>
@@ -147,17 +147,32 @@ export default function Home() {
           <img className='w-40' src={sellImg} alt="" />
           <h2 className='text-2xl font-extrabold'>Sell A Home</h2>
           <p className='text-center p-4 text-gray-700'>No matter what path you take to sell your home, we can help you navigate a successful sale.</p>
-          <button className='border border-black p-2 px-4 rounded-xl'>See Your Options</button>
-
+          <Link className='text-center' to={'/sell'}>
+            <button className='border border-black p-2 px-4 rounded-xl'>See Your Options</button>
+          </Link>
         </div>
         <div className='md:w-[360px] w-full border border-gray-300 bg-white rounded-2xl gap-3 py-10 px-5 justify-center flex flex-col items-center shadow-[0_4px_20px_rgba(0,0,0,0.2)]'>
           <img className='w-40' src={rentImg} alt="" />
           <h2 className='text-2xl font-extrabold'>Rent A Home</h2>
-          <p className='text-center p-4 text-gray-700'>We’re creating a seamless online experience – from shopping on the largest rental network, to applying, to paying rent.</p>
-          <button className='border border-black p-2 px-4 rounded-xl'>Find Rentals</button>
-
+          <Link className='text-center' to={'/rent'}>
+            <p className='text-center p-4 text-gray-700'>We’re creating a seamless online experience – from shopping on the largest rental network, to applying, to paying rent.</p>
+            <button className='border border-black p-2 px-4 rounded-xl'>Find Rentals</button>
+          </Link>
         </div>
       </div>
+
+      <div className='flex mt-10 justify-center'>
+        <div className='w-[90%]'>
+          <div className='text-[26px] font-bold'>
+            Homes for you
+          </div>
+          <div className='text-gray-600'>
+            11+ new Listings
+          </div>
+          <HorizontalScroller listings={listings} />
+        </div>
+      </div>
+
     </div>
   );
 }

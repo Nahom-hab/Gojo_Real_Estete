@@ -76,7 +76,7 @@ export default function Navigation() {
               <Link to="/about" onClick={closeSidebar} className={`block py-2 px-3 ${location.pathname === '/about' ? 'text-red-500' : ''}`}>About</Link>
             </li>
             <li>
-              <Link to="/afordablityCalculator" onClick={closeSidebar} className={`block py-2 px-3 ${location.pathname === '/afordablityCalculator' ? 'text-red-500' : ''}`}>Affordablity Calculator</Link>
+              <Link to="/afordablityCalculator" onClick={closeSidebar} className={`block py-2 px-3 ${location.pathname === '/afordablityCalculator' ? 'text-red-500' : ''}`}>Affordablity</Link>
             </li>
 
 
@@ -118,7 +118,7 @@ export default function Navigation() {
             </li>
           )}
         </ul>
-        <nav ref={sidebarRef} className={`fixed top-0 left-0 w-full h-full bg-slate-50  ${menuOpen ? 'block' : 'hidden'} transition-transform duration-300 ease-in-out`} style={{ zIndex: 50 }}>
+        <nav ref={sidebarRef} className={`fixed top-0 left-0 w-full z-50 h-full bg-slate-50  ${menuOpen ? 'block' : 'hidden'} transition-transform duration-300 ease-in-out`} style={{ zIndex: 50 }}>
           <div className="flex flex-col w-full items-start  h-full">
             <div className='flex justify-center w-full'>
               <Link to="/" className="text-[34px] items-center flex gap-2 font-bold">
@@ -131,14 +131,10 @@ export default function Navigation() {
                 <Link to="/" onClick={closeSidebar} className={`block ${location.pathname === '/' ? 'text-red-500' : ''}`}>Home</Link>
                 <FaChevronDown />
               </li>
+
               <li className='flex justify-between p-3 px-5 items-center   border border-t-gray-400  w-full text-lg '>
 
-                <Link to="/about" onClick={closeSidebar} className={`block ${location.pathname === '/about' ? 'text-red-500' : ''}`}>About</Link>
-                <FaChevronDown />
-              </li>
-              <li className='flex justify-between p-3 px-5 items-center   border border-t-gray-400  w-full text-lg '>
-
-                <Link to="/" onClick={closeSidebar} className={`block  ${location.pathname === '/' ? 'text-red-500' : ''}`}>Buy</Link>
+                <Link to="/buy" onClick={closeSidebar} className={`block  ${location.pathname === '/buy' ? 'text-red-500' : ''}`}>Buy</Link>
                 <FaChevronDown />
               </li>
               <li className='flex justify-between p-3 px-5 items-center   border border-t-gray-400  w-full text-lg '>
