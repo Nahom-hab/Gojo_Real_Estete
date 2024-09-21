@@ -147,7 +147,7 @@ export default function ListingInputs() {
 
     return (
         <div className="flex justify-center items-center  bg-gray-100">
-            <div className="w-full  bg-white p-8 px-20 rounded-lg shadow-lg">
+            <div className="w-full  bg-white p-2 md:p-6 md:px-20 rounded-lg shadow-lg">
                 <h2 className='lg:text-4xl text-3xl font-bold pb-1 border pt-5 border-x-0 border-b-0 border-t-slate-400'>Listing For Sell or Rent</h2>
                 <div className='text-xl border border-b-slate-400 border-x-0 pb-8 mb-6 border-t-0'> {formData.address}</div>
 
@@ -399,7 +399,7 @@ export default function ListingInputs() {
 
                             <button
                                 type="submit"
-                                className=" bg-blue-700 hover:bg-blue-500    w-[50%] text-white py-2 px-4 rounded-md shadow mt-4"
+                                className=" bg-blue-700 hover:bg-blue-500  w-full  md:w-[50%] text-white py-2 px-4 rounded-md shadow mt-4"
                             >
                                 Post Listing
                             </button>
