@@ -6,7 +6,7 @@ export default function Card({ result }) {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate(`/viewListing/${result._id}`);
+        navigate(`/viewListing/${result._id}`, { state: result });
     };
 
     return (

@@ -61,9 +61,9 @@ const SignupPage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 py-6">
+    <div className="flex flex-col items-center justify-center h-[90vh] bg-gray-100 py-6">
       <h1 className="text-2xl font-bold mb-8">Sign Up</h1>
-      <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+      <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-md w-[36%]">
         <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-2">
           <input
             type="text"

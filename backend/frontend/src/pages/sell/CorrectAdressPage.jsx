@@ -18,9 +18,7 @@ const ConfirmationPage = () => {
 
     const handleConfirm = () => {
         const confirmedData = { ...formData, latitude, longitude };
-        console.log('Confirmed Data:', confirmedData);
-        // Navigate to the desired route with confirmed data
-        navigate('/next-route', { state: { confirmedData } });
+        navigate('/listingInputs', { state: { confirmedData } });
     };
 
     const handleChangeLocation = () => {

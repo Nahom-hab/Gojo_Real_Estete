@@ -20,6 +20,8 @@ import AffordabilityCalculator from './pages/AfordablityCalcualtor';
 import Search from './pages/Search';
 import ListingPage from './pages/sell/AdressPage';
 import ConfirmationPage from './pages/sell/CorrectAdressPage';
+import LIstingInputs from './pages/sell/LIstingInputs';
+import SuccessListingUpload from './pages/sell/succsesLIstingUpload';
 
 function App() {
   return (
@@ -35,10 +37,15 @@ function App() {
         <Route path='/viewListing/:id' element={<ViewListing />}></Route>
 
 
+
         //sell
         <Route path='/sell' element={<SellYourHomePage />}></Route>
         <Route path='/addadress' element={<ListingPage />}></Route>
         <Route path='/ConfirmationPage' element={<ConfirmationPage />}></Route>
+        <Route path='/listingInputs' element={<LIstingInputs />}></Route>
+        <Route path='/listingSuccuss' element={<SuccessListingUpload />}></Route>
+
+
 
 
 

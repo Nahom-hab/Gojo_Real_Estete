@@ -2,10 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Card from '../component/Card';
-import img1 from '../assets/images/landing.jpg';
-import img2 from '../assets/images/landing2.jpg';
-import img3 from '../assets/images/lux.jpeg';
-import img4 from '../assets/images/hom.jpeg';
+
 
 export default function MyListing() {
   const { currentUser } = useSelector((state) => state.user);

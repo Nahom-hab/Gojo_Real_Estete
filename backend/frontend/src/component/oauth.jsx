@@ -36,7 +36,7 @@ export default function Oauth() {
     <button
       onClick={handleGoogleClick}
       type='button'
-      className="mt-2 py-3 px-6 text-lg bg-gray-400 text-black border-none rounded-md cursor-pointer transition duration-300 hover:bg-gray-300"
+      className="mt-2 py-3 px-6 w-full text-lg bg-gray-400 text-black border-none rounded-md cursor-pointer transition duration-300 hover:bg-gray-300"
     >
       CONTINUE WITH GOOGLE
     </button>

@@ -4,9 +4,8 @@ import { FaMapMarkerAlt } from 'react-icons/fa';
 
 export default function CardSearch({ result }) {
     const navigate = useNavigate();
-
     const handleClick = () => {
-        navigate(`/viewListing/${result._id}`);
+        navigate(`/viewListing/${result._id}`, { state: result });
     };
 
     return (

@@ -52,9 +52,9 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-[80vh] bg-gray-100">
+    <div className="flex flex-col items-center  w-full justify-center h-[80vh] bg-gray-100">
       <h1 className="text-2xl mb-8">Login</h1>
-      <form onSubmit={handleSubmit} className="flex flex-col w-full max-w-xs p-8 bg-white rounded-lg shadow-md">
+      <form onSubmit={handleSubmit} className="flex flex-col w-[35%]  p-8 bg-white rounded-lg shadow-md">
         <label htmlFor="email" className="text-base mb-1">
           <input
             type="email"
