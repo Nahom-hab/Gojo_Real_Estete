@@ -2,22 +2,24 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 
-export default function ScrollCard({ result }) {
+export default function ScrollCard({ result, similar }) {
     const navigate = useNavigate();
 
+
+
     const handleClick = () => {
-        navigate(`/viewListing/${result._id}`, { state: result });
+        navigate(`/viewListing/${result._id}`, { state: { result, similar } });
     };
 
     return (
         <div
             onClick={handleClick}
-            className="bg-white border flex-none w-[279px] p-2 border-gray-200 rounded-lg shadow-lg  cursor-pointer "
+            className="bg-white border flex-none w-full md:w-[279px] p-2 border-gray-200 rounded-lg shadow-lg  cursor-pointer "
             role="button"
             tabIndex={0}
             onKeyDown={(e) => e.key === 'Enter' && handleClick()}
         >
-            <div className="overflow-hidden h-40 rounded-t-lg"> {/* Adjust height */}
+            <div className="overflow-hidden h-40 rounded-t-lg">
                 {result.imageURLs.length > 0 ? (
                     <img
                         className="object-cover w-full h-full transition-transform duration-500 transform hover:scale-110"

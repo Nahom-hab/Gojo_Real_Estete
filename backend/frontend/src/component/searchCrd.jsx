@@ -2,10 +2,14 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 
-export default function CardSearch({ result }) {
+export default function CardSearch({ result, similar }) {
     const navigate = useNavigate();
+    console.log(similar);
+    console.log(result);
+
+
     const handleClick = () => {
-        navigate(`/viewListing/${result._id}`, { state: result });
+        navigate(`/viewListing/${result._id}`, { state: { result, similar } });
     };
 
     return (

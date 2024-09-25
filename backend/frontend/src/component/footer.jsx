@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebookF, faTwitter, faInstagram, faLinkedin, faGithub } from '@fortawesome/free-brands-svg-icons';
 import logo from '../assets/images/logoo.png';
 
 export default function Footer() {
-    const { currentUser } = useSelector(state => state.user);
     const location = useLocation();
     const [one, setOne] = useState(false)
     const [two, setTwo] = useState(false)

@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { signInFailure, signInStart, signInSuccess } from '../redux/user/userSlice';
 import Oauth from '../component/oauth';
 
 const Login = () => {
@@ -10,8 +8,6 @@ const Login = () => {
     password: '',
     showPassword: false,
   });
-  const { error } = useSelector((state) => state.user);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -26,7 +22,6 @@ const Login = () => {
     e.preventDefault();
     const { showPassword, ...data } = formData;
 
-    dispatch(signInStart());
 
     try {
       const res = await fetch('/api/auth/login', {
@@ -39,15 +34,12 @@ const Login = () => {
 
       if (!res.ok) {
         const { error } = await res.json();
-        dispatch(signInFailure(error.message));
         return;
       }
 
       const result = await res.json();
-      dispatch(signInSuccess(result)); // Assuming result contains user data or token
       navigate('/');
     } catch (err) {
-      dispatch(signInFailure(err.message));
     }
   };
 

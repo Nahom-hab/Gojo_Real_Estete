@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import Card from '../component/Card';
 import { FaSearch } from 'react-icons/fa';
 import landingImage from '../assets/images/lake.jpg'; // Import the image
 import HorizontalScroller from '../component/HorizontalScroller';

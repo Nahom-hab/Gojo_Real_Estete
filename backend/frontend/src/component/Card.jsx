@@ -2,11 +2,11 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 
-export default function Card({ result }) {
+export default function Card({ result, similar }) {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate(`/viewListing/${result._id}`, { state: result });
+        navigate(`/viewListing/${result._id}`, { state: { result, similar } });
     };
 
     return (

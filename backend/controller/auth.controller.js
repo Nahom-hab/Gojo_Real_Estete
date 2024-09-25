@@ -14,8 +14,8 @@ export const signup = async (req, res, next) => {
    } catch (err) {
       next(err)
    }
-
 }
+
 
 export const login = async (req, res, next) => {
    const { email, password } = req.body

@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {
+      width: {
+        'pc': '1200px'
+      },
       scrollbar: {
         hidden: 'hidden'
       }

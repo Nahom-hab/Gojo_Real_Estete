@@ -1,11 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { FaChevronDown, FaSearch } from 'react-icons/fa';
-import { useSelector } from 'react-redux';
+import { FaChevronDown } from 'react-icons/fa';
 import logo from '../assets/images/logoo.png'
 
 export default function Navigation() {
-  const { currentUser } = useSelector(state => state.user);
+  // const { currentUser } = useSelector(state => state.user);
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const sidebarRef = useRef(null);
@@ -106,17 +105,17 @@ export default function Navigation() {
           <li>
             <Link to="/mylisting" onClick={closeSidebar} className={`block py-2 mr-7 px-2 ${location.pathname === '/mylisting' ? 'text-red-500' : ''}`}>Manage Listings</Link>
           </li>
-          {currentUser ? (
+          {/* {currentUser ? (
             <li>
               <Link to="/profile" onClick={closeSidebar}>
                 <img className="rounded-full w-10" src={currentUser.photoURL} alt="profile" />
               </Link>
             </li>
-          ) : (
-            <li>
-              <Link to="/login" onClick={closeSidebar} className={`block py-2 px-3 ${location.pathname === '/login' ? 'text-red-500' : ''}`}>Login</Link>
-            </li>
-          )}
+          ) : ( */}
+          <li>
+            <Link to="/login" onClick={closeSidebar} className={`block py-2 px-3 ${location.pathname === '/login' ? 'text-red-500' : ''}`}>Login</Link>
+          </li>
+          {/* )} */}
         </ul>
         <nav ref={sidebarRef} className={`fixed top-0 left-0 w-full z-50 h-full bg-slate-50  ${menuOpen ? 'block' : 'hidden'} transition-transform duration-300 ease-in-out`} style={{ zIndex: 50 }}>
           <div className="flex flex-col w-full items-start  h-full">
@@ -163,7 +162,7 @@ export default function Navigation() {
 
               </li>
 
-              {currentUser && (
+              {/* {currentUser && (
                 <li className='flex justify-between p-3 px-5 items-center   border border-t-gray-400  w-full text-lg '>
 
 
@@ -171,20 +170,20 @@ export default function Navigation() {
                   <FaChevronDown />
 
                 </li>
-              )}
+              )} */}
 
             </ul>
 
           </div>
         </nav>
         <div className='flex md:hidden'>
-          {currentUser ? (
+          {/* {currentUser ? (
             <Link to="/profile" onClick={closeSidebar}>
               <img className=" rounded-full w-10" src={currentUser.photoURL} alt="profile" />
             </Link>
-          ) : (
-            <Link to="/login" onClick={closeSidebar} className={`block py-2 px-3 ${location.pathname === '/login' ? 'text-red-500' : ''}`}>Login</Link>
-          )}
+          ) : ( */}
+          <Link to="/login" onClick={closeSidebar} className={`block py-2 px-3 ${location.pathname === '/login' ? 'text-red-500' : ''}`}>Login</Link>
+          {/* )} */}
         </div>
 
       </div>

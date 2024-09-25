@@ -6,6 +6,8 @@ import PLaceScrollCard from './PllceHolder';
 
 const HorizontalScroller = ({ listings }) => {
     const scrollRef = useRef(null);
+    console.log(listings);
+
 
     const scrollLeft = () => {
         scrollRef.current.scrollBy({
@@ -35,14 +37,14 @@ const HorizontalScroller = ({ listings }) => {
                     className="ml-4 mr-4 flex  overflow-x-scroll gap-5 scrollbar-hidden"
                 >
 
-                    {listings.length > 0 ? listings.map((result) => <ScrollCard key={result.id} result={result} />) : (
+                    {listings.length > 0 ? listings.map((result) => <ScrollCard key={result.name} similar={false} result={result} />) : (
                         <div className='flex gap-5'>
-                            <PLaceScrollCard />
-                            <PLaceScrollCard />
-                            <PLaceScrollCard />
-                            <PLaceScrollCard />
-                            <PLaceScrollCard />
-                            <PLaceScrollCard />
+                            <PLaceScrollCard key={1} />
+                            <PLaceScrollCard key={2} />
+                            <PLaceScrollCard key={3} />
+                            <PLaceScrollCard key={4} />
+                            <PLaceScrollCard key={5} />
+                            <PLaceScrollCard key={6} />
                         </div>)}
                     {listings.length > 0 ? listings.map((result) => <ScrollCard key={result.id} result={result} />) : <PLaceScrollCard />}
                     <div className='flex  items-center'>

@@ -1,9 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaMapMarkerAlt } from 'react-icons/fa';
 
 export default function SearchingPlaceCard() {
-    const navigate = useNavigate();
     return (
         <div
             className="bg-white border flex-none w-[320px] p-2 border-gray-100 rounded-lg shadow-lg  cursor-pointer "

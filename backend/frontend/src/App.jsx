@@ -4,7 +4,6 @@ import Signup from './pages/signup';
 import Profile from './pages/profile';
 import Login from './pages/login';
 import Home from './pages/home';
-import CreateLising from './pages/CreateLising';
 import Navigation from './component/navigation';
 import './App.css';
 import ProtectedRoute from './component/protectedRoute';
@@ -56,7 +55,6 @@ function App() {
 
         <Route element={<ProtectedRoute />}>
           <Route path='/profile' element={<Profile />}></Route>
-          <Route path='/createListing' element={<CreateLising />}></Route>
           <Route path='/mylisting' element={<MyListing />}></Route>
         </Route>
       </Routes>
