@@ -3,11 +3,13 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useDropzone } from 'react-dropzone';
 import { FaTimes } from 'react-icons/fa';
 import photo from '../../assets/images/photo.png'
+import useUser from '../../zustand/useUser';
 
 
 export default function ListingInputs() {
     const location = useLocation();
     const navigate = useNavigate();
+    const { isEng } = useUser()
     const ListingAddressLocation = location.state?.confirmedData || {};
     const [error, setError] = useState(null)
     const [formData, setFormData] = useState({
@@ -154,7 +156,7 @@ export default function ListingInputs() {
     return (
         <div className="flex justify-center items-center  bg-gray-100">
             <div className="w-full  bg-white p-4 md:p-6 md:px-20 rounded-lg shadow-lg">
-                <h2 className='lg:text-4xl text-3xl font-bold pb-1 border pt-5 border-x-0 border-b-0 border-t-slate-400'>Listing For Sell or Rent</h2>
+                <h2 className='lg:text-4xl text-3xl font-bold pb-1 border pt-5 border-x-0 border-b-0 border-t-slate-400'>{isEng ? 'Listing For Sell or Rent' : 'የሚሸጥ ወይም የሚከራይ ዝርዝር'}</h2>
                 <div className='text-xl border border-b-slate-400 border-x-0 pb-8 mb-6 border-t-0'> {formData.address}</div>
 
                 <form onSubmit={handleSubmit} className="pt-4  space-y-4">

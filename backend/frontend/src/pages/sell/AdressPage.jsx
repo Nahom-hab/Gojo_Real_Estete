@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Change to useNavigate
+import { useNavigate } from 'react-router-dom';
 import bg from '../../assets/images/Adresshouse2.jpeg';
+import useUser from '../../zustand/useUser'; // Adjust import based on your state management
 
 const ListingPage = () => {
-    const navigate = useNavigate(); // Initialize useNavigate
+    const navigate = useNavigate();
+    const { isEng } = useUser(); // Get the isEng state
     const [formData, setFormData] = useState({
         streetAddress: '',
         city: '',
-        latitude: '',
-        longitude: '',
+        latitude: '38.7525',
+        longitude: '9.0192',
     });
 
     const [errors, setErrors] = useState({
@@ -41,8 +43,7 @@ const ListingPage = () => {
         e.preventDefault();
         if (!errors.latitude && !errors.longitude) {
             console.log('Form Submitted', formData);
-            // Navigate to the new route with form data
-            navigate('/ConfirmationPage', { state: { formData } }); // Use navigate instead of history.push
+            navigate('/ConfirmationPage', { state: { formData } });
         } else {
             console.log('Errors in form data:', errors);
         }
@@ -58,54 +59,54 @@ const ListingPage = () => {
                 />
                 <div className="absolute bottom-0 w-full bg-blue-500 bg-opacity-65 p-4 text-white shadow-lg">
                     <div className='text-2xl md:text-3xl font-bold border border-x-0 border-t-0 w-fit mb-5 pb-2 text-white border-b-slate-200'>
-                        Post your Listing on Gojo for Free
+                        {isEng ? "Post your Listing on Gojo for Free" : "እባኮትን የእቃዎን ዝርዝር በጎጆ ላይ ይዘጋጁ በነፃ"}
                     </div>
                     <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-4">
                         <div className='flex-1'>
-                            <label className='font-bold'>Street Address :</label>
+                            <label className='font-bold'>{isEng ? "Street Address :" : "የጎዳን አድራሻ :"}</label>
                             <input
                                 type="text"
                                 name="streetAddress"
                                 value={formData.streetAddress}
                                 onChange={handleChange}
-                                placeholder="Street Address"
+                                placeholder={isEng ? "Street Address" : "የጎዳን አድራሻ"}
                                 className="p-2 w-full outline-blue-500 border-blue-400 text-black rounded-md"
                                 required
                             />
                         </div>
                         <div className='flex-1'>
-                            <label className='font-bold'>City Name :</label>
+                            <label className='font-bold'>{isEng ? "City Name :" : "የከተማ ስም :"}</label>
                             <input
                                 type="text"
                                 name="city"
                                 value={formData.city}
                                 onChange={handleChange}
-                                placeholder="City"
+                                placeholder={isEng ? "City" : "ከተማ"}
                                 className="p-2 w-full outline-blue-500 border-blue-400 text-black rounded-md"
                                 required
                             />
                         </div>
                         <div className='flex-1'>
-                            <label className='font-bold'>Latitude :</label>
+                            <label className='font-bold'>{isEng ? "Latitude (optional)" : "ላቲትዩድ :(አማራጭ)"}</label>
                             <input
                                 type="text"
                                 name="latitude"
                                 value={formData.latitude}
                                 onChange={handleChange}
-                                placeholder="Latitude"
+                                placeholder={isEng ? "Latitude (optional)" : "ላቲትዩድ : (አማራጭ)"}
                                 className="p-2 w-full outline-blue-500 border-blue-400 text-black rounded-md"
                                 required
                             />
                             {errors.latitude && <p className="text-white text-[13px] pt-2">{errors.latitude}</p>}
                         </div>
                         <div className='flex-1'>
-                            <label className='font-bold'>Longitude :</label>
+                            <label className='font-bold'>{isEng ? "Longitude :" : "ሎንጊትዩድ :"}</label>
                             <input
                                 type="text"
                                 name="longitude"
                                 value={formData.longitude}
                                 onChange={handleChange}
-                                placeholder="Longitude"
+                                placeholder={isEng ? "Longitude" : "ሎንጊትዩድ"}
                                 className="p-2 w-full text-black outline-blue-500 border-blue-400 rounded-md"
                                 required
                             />
@@ -115,14 +116,14 @@ const ListingPage = () => {
                             type="submit"
                             className="bg-blue-700 hover:bg-blue-800 text-white py-2 px-4 rounded-md transition duration-300"
                         >
-                            Save Place
+                            {isEng ? "Save Place" : "መነሻ ቦታ ይዘጋጁ"}
                         </button>
                     </form>
                 </div>
             </div>
 
             <div className="p-6">
-                <h2 className="text-2xl font-bold mb-4">WHY Post on Gojo</h2>
+                <h2 className="text-2xl font-bold mb-4">{isEng ? "WHY Post on Gojo" : "ለምን በጎጆ ይዘጋጁ"}</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {/* Features Section */}
                     <div className="bg-white border rounded-lg shadow-lg p-4 transform transition-transform duration-300 hover:scale-105">
@@ -131,8 +132,8 @@ const ListingPage = () => {
                             alt="Easy Listing"
                             className="w-full h-32 object-cover mb-2 rounded-md"
                         />
-                        <h3 className="text-lg font-semibold">Easy Listing</h3>
-                        <p className="text-gray-600">Quickly post your property listings with our user-friendly interface, designed for real estate agents.</p>
+                        <h3 className="text-lg font-semibold">{isEng ? "Easy Listing" : "አቀማመጥ ይቀላቀል"}</h3>
+                        <p className="text-gray-600">{isEng ? "Quickly post your property listings with our user-friendly interface, designed for real estate agents." : "በቀላሉ ለድርጅቶች የተዘጋጀ የተጠቃሚ አንቀጽ ይጠቀሙ ይቅርታ ይዘጋጁ."}</p>
                     </div>
 
                     <div className="bg-white border rounded-lg shadow-lg p-4 transform transition-transform duration-300 hover:scale-105">
@@ -141,8 +142,8 @@ const ListingPage = () => {
                             alt="Advanced Search"
                             className="w-full h-32 object-cover mb-2 rounded-md"
                         />
-                        <h3 className="text-lg font-semibold">Advanced Search</h3>
-                        <p className="text-gray-600">Help buyers find their dream property with advanced search filters tailored to their needs.</p>
+                        <h3 className="text-lg font-semibold">{isEng ? "Advanced Search" : "የተሻሻለ ፈልግ"}</h3>
+                        <p className="text-gray-600">{isEng ? "Help buyers find their dream property with advanced search filters tailored to their needs." : "የተሻሻለ ፈልግ ይህ ይህ ይዘጋጁ."}</p>
                     </div>
 
                     <div className="bg-white border rounded-lg shadow-lg p-4 transform transition-transform duration-300 hover:scale-105">
@@ -151,8 +152,8 @@ const ListingPage = () => {
                             alt="Instant Notifications"
                             className="w-full h-32 object-cover mb-2 rounded-md"
                         />
-                        <h3 className="text-lg font-semibold">Instant Notifications</h3>
-                        <p className="text-gray-600">Receive instant notifications when buyers show interest in your home, ensuring you never miss an opportunity.</p>
+                        <h3 className="text-lg font-semibold">{isEng ? "Instant Notifications" : "የበለጠ ማስታወቂያዎች"}</h3>
+                        <p className="text-gray-600">{isEng ? "Receive instant notifications when buyers show interest in your home, ensuring you never miss an opportunity." : "በገንዘብ ላይ ይጠቀሙ."}</p>
                     </div>
                 </div>
             </div>

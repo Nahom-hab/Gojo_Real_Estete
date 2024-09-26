@@ -1,8 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { FavoritedListing } from '../assets/data/favorite'
 import FavoriteCard from '../component/FavoriteCard'
+import { useLocation } from 'react-router-dom';
 
 export default function Favorite() {
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pathname]);
 
     return (
         <div className='flex justify-center p-2 mt-10'>

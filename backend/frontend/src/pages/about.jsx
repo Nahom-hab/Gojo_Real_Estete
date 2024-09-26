@@ -1,41 +1,66 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import useUser from '../zustand/useUser';
 
 const About = () => {
+    const { pathname } = useLocation();
+    const { isEng } = useUser()
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pathname]);
+
     return (
         <div className="max-w-6xl mx-auto p-5">
             <section className="text-center py-12">
-                <h1 className="text-4xl mb-4 animate__animated animate__fadeIn animate__delay-1s">Welcome to RealEstate Finder</h1>
+                <h1 className="text-4xl mb-4 animate__animated animate__fadeIn animate__delay-1s">
+                    {isEng ? 'Welcome to RealEstate Finder' : 'ወደ እውነተኛ እና የሚገኝ ቤት መርሃ ግብር ይቀበሉ'}
+                </h1>
                 <p className="text-xl text-gray-700 animate__animated animate__fadeIn animate__delay-2s">
-                    Your trusted partner in navigating the real estate market, dedicated to making your journey seamless and rewarding.
-                    With a commitment to excellence and a focus on your unique needs, we're here to help you find your dream property.
+                    {isEng
+                        ? 'Your trusted partner in navigating the real estate market, dedicated to making your journey seamless and rewarding. With a commitment to excellence and a focus on your unique needs, we\'re here to help you find your dream property.'
+                        : 'የእቅፍ ገጽታ የሚስትእር የሆኑ ነው፣ በዚህ ዓለም የሚኖሩ የገንዘብ ገጽታን ለእናንተ በመርሃ ግብር ይቀበሉ፡፡'}
                 </p>
             </section>
 
             <section className="my-10 px-6">
-                <h2 className="text-4xl border-b-2 border-gray-300 pb-2 mb-4 animate__animated animate__fadeIn animate__delay-1s">Our Story</h2>
+                <h2 className="text-4xl border-b-2 border-gray-300 pb-2 mb-4 animate__animated animate__fadeIn animate__delay-1s">
+                    {isEng ? 'Our Story' : 'የእኛ ታሪክ'}
+                </h2>
                 <p className="mb-4 animate__animated animate__fadeIn animate__delay-2s">
-                    Founded in 2010, RealEstate Finder has consistently aimed to redefine the real estate experience.
-                    Our journey has been marked by the success of our clients and our unwavering dedication to providing personalized service.
+                    {isEng
+                        ? 'Founded in 2010, RealEstate Finder has consistently aimed to redefine the real estate experience. Our journey has been marked by the success of our clients and our unwavering dedication to providing personalized service.'
+                        : 'በ2010 ተመሥርቷል፣ የእውነተኛ ማህበር የነበረውን ልምድ እንዲያስተዋውቀው ካለው ወቅት ጀምሮ የታዋቂ ጋዜጣ ነው። ይህ ጉዞ የእኛ ዋስትና ወይም አቅም ይታወቃል።'}
                 </p>
                 <p className="mb-4 animate__animated animate__fadeIn animate__delay-3s">
-                    Our experienced team is dedicated to ensuring you receive the highest level of service, whether you're looking to buy, sell, or invest.
+                    {isEng
+                        ? 'Our experienced team is dedicated to ensuring you receive the highest level of service, whether you\'re looking to buy, sell, or invest.'
+                        : 'የእኛ ተሞክሮ የሚያነሱ የእንዲህ ያለው የሚሸጡ ዝርዝሮችን ለማግኘት ይህ የሚይዙ ይህ የሚሸጡ ዝርዝሮችን ለማግኘት ይወዳል።'}
                 </p>
             </section>
 
             <section className="my-10 px-6">
-                <h2 className="text-4xl border-b-2 border-gray-300 pb-2 mb-4 animate__animated animate__fadeIn animate__delay-1s">Our Values</h2>
+                <h2 className="text-4xl border-b-2 border-gray-300 pb-2 mb-4 animate__animated animate__fadeIn animate__delay-1s">
+                    {isEng ? 'Our Values' : 'የእኛ እሴቶች'}
+                </h2>
                 <div className="flex flex-wrap gap-6">
-                    {['Integrity', 'Excellence', 'Customer Focus', 'Innovation'].map((value, index) => (
+                    {[{ en: 'Integrity', am: 'እምነት' }, { en: 'Excellence', am: 'እርምጃ' }, { en: 'Customer Focus', am: 'የደንበኛ ትኩረት' }, { en: 'Innovation', am: 'አዳዲስነት' }].map((value, index) => (
                         <div key={index} className="flex-1 min-w-[220px] bg-gray-300 p-5 rounded-lg transition-transform duration-300 transform hover:scale-105 animate__animated animate__fadeIn animate__delay-2s">
-                            <h3 className="text-2xl mb-2">{value}</h3>
-                            <p className="text-gray-600">We believe in maintaining the highest ethical standards in all our interactions.</p>
+                            <h3 className="text-2xl mb-2">{isEng ? value.en : value.am}</h3>
+                            <p className="text-gray-600">
+                                {isEng
+                                    ? 'We believe in maintaining the highest ethical standards in all our interactions.'
+                                    : 'በእንደዚህ የሚኖሩበት የሚሆኑ ትክክለኛ የሚሆኑ አስተያየት እንደሌለ አላቀበውም።'}
+                            </p>
                         </div>
                     ))}
                 </div>
             </section>
 
             <section className="my-10 px-6 text-center">
-                <h2 className="text-4xl border-b-2 border-gray-300 pb-2 mb-4 animate__animated animate__fadeIn animate__delay-1s">Meet the Team</h2>
+                <h2 className="text-4xl border-b-2 border-gray-300 pb-2 mb-4 animate__animated animate__fadeIn animate__delay-1s">
+                    {isEng ? 'Meet the Team' : 'ቡድን ይዞታ'}
+                </h2>
                 <div className="flex flex-wrap justify-center">
                     {[
                         { name: "John Doe", role: "Founder & CEO", img: "https://via.placeholder.com/200", description: "With over 15 years in the industry, John has a passion for helping clients find their perfect home." },

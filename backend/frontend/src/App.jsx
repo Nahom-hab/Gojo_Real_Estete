@@ -27,6 +27,7 @@ import SignInSuccsus from './pages/auth/signInSuccsus';
 import Favorite from './pages/Favorite';
 import ContactUs from './pages/constactUs';
 import AccountPrompt from './pages/sell/AccountPrompt';
+import ListingWithPrice from './pages/ListingWithPrice';
 
 function App() {
   return (
@@ -56,6 +57,9 @@ function App() {
         <Route path='/listingInputs' element={<LIstingInputs />}></Route>
         <Route path='/listingSuccuss' element={<SuccessListingUpload />}></Route>
         <Route path='/signupSell' element={<AccountPrompt />}></Route>
+
+
+        <Route path='/ListingswithPrice' element={<ListingWithPrice />}></Route>
 
 
 

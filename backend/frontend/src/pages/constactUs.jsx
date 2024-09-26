@@ -1,22 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedin, FaPhoneAlt, FaMapMarkerAlt, FaEnvelope } from 'react-icons/fa';
-// import Footer from '../components/Footer';
-// import useLanguage from '../zustand/useConversationStore';
+import { useLocation } from 'react-router-dom';
+import useUser from '../zustand/useUser';
 
 export default function ContactUs() {
-    // const { isEng } = useLanguage();
-    const isEng = true
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pathname]);
+
+    const { isEng } = useUser() // Assuming this will be dynamically set
 
     return (
         <div>
             <div className="py-5 md:px-[11%] md:mt-2 px-[4%]">
-                <h1 className="text-4xl font-pbold text-third-200  mb-5">
+                <h1 className="text-4xl font-pbold text-third-200 mb-5">
                     {isEng ? 'Contact Us' : 'እባኮትን ይደውሉ'}
                 </h1>
 
                 <div className="flex justify-between md:flex-row flex-col gap-16">
-                    {/* Contact Form */}
-
                     {/* Contact Info */}
                     <div className="w-full md:w-[48%] bg-gray-100 text-black p-8 rounded-2xl shadow-lg">
                         <h2 className="text-3xl font-psemibold mb-6">
@@ -59,7 +62,7 @@ export default function ContactUs() {
                             <a href="https://facebook.com" className="bg-third-200 p-2 rounded-full text-blue-700 hover:opacity-90">
                                 <FaFacebookF className='text-3xl' />
                             </a>
-                            <a href="https://twitter.com" className="bg-third-200 p-2 rounded-full text-blue-400  hover:opacity-90">
+                            <a href="https://twitter.com" className="bg-third-200 p-2 rounded-full text-blue-400 hover:opacity-90">
                                 <FaTwitter className='text-3xl' />
                             </a>
                             <a href="https://instagram.com" className="bg-third-200 p-2 rounded-full text-red-500 hover:opacity-90">
@@ -70,6 +73,8 @@ export default function ContactUs() {
                             </a>
                         </div>
                     </div>
+
+                    {/* Contact Form */}
                     <div className="w-full md:w-[48%] bg-gray-100 p-8 rounded-2xl shadow-lg">
                         <h2 className="text-3xl text-black font-psemibold mb-6">
                             {isEng ? 'Get in Touch' : 'በማስተዋል ይደውሉ'}
@@ -107,9 +112,7 @@ export default function ContactUs() {
                             </button>
                         </form>
                     </div>
-
                 </div>
-
             </div>
         </div>
     );

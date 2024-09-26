@@ -1,10 +1,12 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import useUser from '../../zustand/useUser';
 
 export default function Otpcheck() {
     const location = useLocation();
     const userData = location.state || {};
     const navigate = useNavigate();
+    const { isEng } = useUser(); // Include isEng from state
     const [error, setError] = useState('');
     const [otpSentMessage, setOtpSentMessage] = useState('');
     const [code, setCode] = useState({
@@ -17,10 +19,8 @@ export default function Otpcheck() {
     const [counter, setCounter] = useState(30);
     const [isResendDisabled, setIsResendDisabled] = useState(true);
 
-    // Create refs for the input fields
     const inputRefs = useRef([]);
 
-    // Timer to handle resend countdown
     useEffect(() => {
         if (counter > 0) {
             const timer = setTimeout(() => {
@@ -28,11 +28,10 @@ export default function Otpcheck() {
             }, 1000);
             return () => clearTimeout(timer);
         } else {
-            setIsResendDisabled(false); // Enable the resend button when the countdown ends
+            setIsResendDisabled(false);
         }
     }, [counter]);
 
-    // Handle input changes and manage forward and backward focus
     const handleInputChange = (e, index) => {
         const { name, value } = e.target;
         if (value.length <= 1) {
@@ -41,23 +40,20 @@ export default function Otpcheck() {
                 [name]: value,
             }));
 
-            // Move focus to the next input if current input is filled
             if (value && index < inputRefs.current.length - 1) {
                 inputRefs.current[index + 1].focus();
             }
         }
     };
 
-    // Handle backspace (move backward)
     const handleKeyDown = (e, index) => {
         if (e.key === 'Backspace' && !code[e.target.name] && index > 0) {
             inputRefs.current[index - 1].focus();
         }
     };
 
-    // Handle OTP resend with timer
     const handleResendOtp = async () => {
-        if (isResendDisabled) return; // Prevent resending if disabled
+        if (isResendDisabled) return;
 
         try {
             const res = await fetch('/api/auth/sendOtp', {
@@ -71,12 +67,12 @@ export default function Otpcheck() {
             if (res.ok) {
                 const message = await res.json();
                 console.log(message);
-                setOtpSentMessage('OTP resent successfully!');
-                setIsResendDisabled(true); // Disable the resend button again
-                setCounter(30); // Reset the timer
+                setOtpSentMessage(isEng ? 'OTP resent successfully!' : 'OTP በተሳካነት ተላክቷል!');
+                setIsResendDisabled(true);
+                setCounter(30);
             } else {
                 const errorData = await res.json();
-                setError(errorData.message || 'Failed to resend OTP');
+                setError(errorData.message || (isEng ? 'Failed to resend OTP' : 'OTP ወደ ቀደም አልተላከም'));
             }
 
         } catch (error) {
@@ -84,7 +80,6 @@ export default function Otpcheck() {
         }
     };
 
-    // Handle OTP form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
         const otp = `${code.first}${code.second}${code.third}${code.fourth}${code.fifth}`;
@@ -130,14 +125,17 @@ export default function Otpcheck() {
             }
 
         } else {
-            setError('Enter a valid verification code');
+            setError(isEng ? 'Enter a valid verification code' : 'እባኮትን እውቅና ኮድ ይግቡ');
         }
     };
 
     return (
         <div className='flex flex-col w-full mt-32 items-center p-4 md:p-10'>
             <div className='text-green-600 flex flex-col items-center font-bold text-2xl md:text-3xl mb-6'>
-                We have sent a Verification Code <span className='block text-xl'>to {userData.email}</span>
+                {isEng
+                    ? 'We have sent a Verification Code'
+                    : 'የማረጋገጫ ኮድ ተላክቷል'}
+                <span className='block text-xl'>{isEng ? `to ${userData.email}` : `ወደ ${userData.email}`}</span>
             </div>
             <form onSubmit={handleSubmit} className='flex flex-col items-center gap-2'>
                 <div className='flex gap-3'>
@@ -157,10 +155,9 @@ export default function Otpcheck() {
                 </div>
 
                 <button className='bg-green-500 w-[90%] text-xl text-white font-bold rounded-lg px-5 py-3'>
-                    Submit
+                    {isEng ? 'Submit' : 'ማመለሻ'}
                 </button>
 
-                {/* Resend OTP and Timer */}
                 <div className='mt-4'>
                     <button
                         type="button"
@@ -168,20 +165,17 @@ export default function Otpcheck() {
                         className={`text-green-600 font-bold hover:cursor-pointer hover:text-green-300 ${isResendDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
                         disabled={isResendDisabled}
                     >
-                        Resend OTP
+                        {isEng ? 'Resend OTP' : 'OTP ይቀይሩ'}
                     </button>
                     {isResendDisabled && (
                         <span className='ml-4 text-red-500'>
-                            Resend available in {counter}s
+                            {isEng ? `Resend available in ${counter}s` : `ወደ እነዚያ ወቅት በ${counter}s ይቀይሩ`}
                         </span>
                     )}
                 </div>
             </form>
 
-            {/* OTP Sent Message */}
             {otpSentMessage && <p className='text-green-500 mt-2'>{otpSentMessage}</p>}
-
-            {/* Error Message */}
             {error && <p className='text-red-500 mt-2'>{error}</p>}
         </div>
     );

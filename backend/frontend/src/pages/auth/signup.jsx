@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import useUser from '../../zustand/useUser';
 
 const SignupPage = () => {
+  const { isEng } = useUser(); // Include isEng from state
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -27,7 +29,7 @@ const SignupPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
-      setPasswordError('Passwords do not match');
+      setPasswordError(isEng ? 'Passwords do not match' : 'የይለፍ ቃልዎች አይገናኙም');
       return;
     }
     setPasswordError('');
@@ -42,7 +44,7 @@ const SignupPage = () => {
         },
         body: JSON.stringify({ email: data.email, username: data.username }),
       });
-      const { message, userExists } = await response.json()
+      const { message, userExists } = await response.json();
       console.log(message);
 
       if (!userExists) {
@@ -55,40 +57,35 @@ const SignupPage = () => {
         });
 
         if (res.ok) {
-          const message = await res.json()
+          const message = await res.json();
           console.log(message);
-
-
           navigate('/otpcheck', { state: data });
         } else {
           const errorData = await res.json();
-          setSignupError(errorData.message || 'Signup failed');
+          setSignupError(errorData.message || (isEng ? 'Signup failed' : 'የማዕከል ማስታወቂያ ተቋርጧል'));
         }
-
       } else {
-        setSignupError(message)
+        setSignupError(message);
       }
 
     } catch (error) {
       console.error('Error signing up:', error);
-      setSignupError('An error occurred. Please try again.');
+      setSignupError(isEng ? 'An error occurred. Please try again.' : 'አደገኛ ስህተት አጋጥሟል። እባኮትን ይሞክሩ');
     } finally {
       setLoading(false);
     }
-
-
   };
 
   return (
-    <div className="flex flex-col items-center justify-center  h-[90vh] md:h-[90vh] bg-gray-50 py-6">
-      <h1 className="text-3xl font-bold mb-6 text-gray-800">Create Your Account</h1>
+    <div className="flex flex-col items-center justify-center h-[90vh] md:h-[90vh] bg-gray-50 py-6">
+      <h1 className="text-3xl font-bold mb-6 text-gray-800">{isEng ? 'Create Your Account' : 'የእርስዎን አካውንት ይፍጠሩ'}</h1>
       <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-lg w-[80%] md:w-[40%] space-y-4">
         <label htmlFor="username" className="block">
           <input
             type="text"
             id="username"
             name="username"
-            placeholder="Username"
+            placeholder={isEng ? 'Username' : 'የተጠቃሚ ስም'}
             value={formData.username}
             onChange={handleInputChange}
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors"
@@ -100,7 +97,7 @@ const SignupPage = () => {
             type="email"
             id="email"
             name="email"
-            placeholder="Email"
+            placeholder={isEng ? 'Email' : 'ኢሜይል'}
             value={formData.email}
             onChange={handleInputChange}
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors"
@@ -112,7 +109,7 @@ const SignupPage = () => {
             type={formData.showPassword ? 'text' : 'password'}
             id="password"
             name="password"
-            placeholder="Password"
+            placeholder={isEng ? 'Password' : 'የይለፍ ቃል'}
             value={formData.password}
             onChange={handleInputChange}
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors"
@@ -124,7 +121,7 @@ const SignupPage = () => {
             type={formData.showPassword ? 'text' : 'password'}
             id="confirmPassword"
             name="confirmPassword"
-            placeholder="Confirm Password"
+            placeholder={isEng ? 'Confirm Password' : 'የይለፍ ቃልዎን ያረጋግጡ'}
             value={formData.confirmPassword}
             onChange={handleInputChange}
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors"
@@ -141,7 +138,7 @@ const SignupPage = () => {
               onChange={handleInputChange}
               className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-2 focus:ring-indigo-500"
             />
-            <span>Show Password</span>
+            <span>{isEng ? 'Show Password' : 'የይለፍ ቃልዎን አሳይ'}</span>
           </label>
         </div>
         <button
@@ -149,17 +146,16 @@ const SignupPage = () => {
           className="w-full py-3 mt-4 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
           disabled={loading}
         >
-          {loading ? 'Signing Up...' : 'Sign Up'}
+          {loading ? (isEng ? 'Signing Up...' : 'በመዝገብ ላይ...') : (isEng ? 'Sign Up' : 'ይመዝገቡ')}
         </button>
         {passwordError && <div className="text-red-500 mt-2 text-sm">{passwordError}</div>}
         {signupError && <div className="text-red-500 mt-2 text-sm">{signupError}</div>}
       </form>
       <p className="mt-6 text-sm text-gray-600">
-        Already have an account? <Link to="/login" className="text-indigo-600 hover:underline">Login</Link>
+        {isEng ? 'Already have an account?' : 'አካውንት የለዎትም?'} <Link to="/login" className="text-indigo-600 hover:underline">Login</Link>
       </p>
     </div>
   );
-
 };
 
 export default SignupPage;
