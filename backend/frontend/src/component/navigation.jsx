@@ -2,10 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaChevronDown } from 'react-icons/fa';
 import logo from '../assets/images/logoo.png'
+import useUser from '../zustand/useUser';
 
 export default function Navigation() {
   // const { currentUser } = useSelector(state => state.user);
-  const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const sidebarRef = useRef(null);
 
@@ -34,11 +34,20 @@ export default function Navigation() {
 
   const location = useLocation();
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    const urlParams = new URLSearchParams();
-    urlParams.set('searchTerm', searchTerm);
-    navigate(`/search?${urlParams.toString()}`);
+  // const handleSearch = (e) => {
+  //   e.preventDefault();
+  //   const urlParams = new URLSearchParams();
+  //   urlParams.set('searchTerm', searchTerm);
+  //   navigate(`/search?${urlParams.toString()}`);
+  // };
+  const { isEng, setIsEng } = useUser()
+  const handleLanguageChange = (event) => {
+    const selectedLanguage = event.target.value;
+    const isEnglish = selectedLanguage === 'English';
+    setIsEng(isEnglish);
+
+    // Save language preference to localStorage
+    localStorage.setItem('isEng', isEnglish);
   };
 
   useEffect(() => {
@@ -75,7 +84,7 @@ export default function Navigation() {
               <Link to="/about" onClick={closeSidebar} className={`block py-2 px-3 ${location.pathname === '/about' ? 'text-red-500' : ''}`}>About</Link>
             </li>
             <li>
-              <Link to="/afordablityCalculator" onClick={closeSidebar} className={`block py-2 px-3 ${location.pathname === '/afordablityCalculator' ? 'text-red-500' : ''}`}>Affordablity</Link>
+              <Link to="/contactUs" onClick={closeSidebar} className={`block py-2 px-3 ${location.pathname === '/contactUs' ? 'text-red-500' : ''}`}>Contact Us</Link>
             </li>
 
 
@@ -100,11 +109,11 @@ export default function Navigation() {
           </li>
 
           <li>
-            <Link to="/Advertise" onClick={closeSidebar} className={`block py-2 px-2 ${location.pathname === '/about' ? 'text-red-500' : ''}`}>Advertise</Link>
+            <Link to="/favorite" onClick={closeSidebar} className={`block py-2 px-2 ${location.pathname === '/favorite' ? 'text-red-500' : ''}`}>Favorite</Link>
           </li>
-          <li>
-            <Link to="/mylisting" onClick={closeSidebar} className={`block py-2 mr-7 px-2 ${location.pathname === '/mylisting' ? 'text-red-500' : ''}`}>Manage Listings</Link>
-          </li>
+          {/* <li>
+            <Link to="/mylisting" onClick={closeSidebar} className={`block py-2 mr-7 px-2 ${location.pathname === '/mylisting' ? 'text-red-500' : ''}`}>My Listings</Link>
+          </li> */}
           {/* {currentUser ? (
             <li>
               <Link to="/profile" onClick={closeSidebar}>
@@ -115,6 +124,16 @@ export default function Navigation() {
           <li>
             <Link to="/login" onClick={closeSidebar} className={`block py-2 px-3 ${location.pathname === '/login' ? 'text-red-500' : ''}`}>Login</Link>
           </li>
+          <div className=' lg:ml-0 ml-6'>
+            <select
+              className='lg:block bg-[#FFF4E9] border-none outline-none'
+              value={isEng ? 'English' : 'Amharic'}
+              onChange={handleLanguageChange}
+            >
+              <option value='English'>English</option>
+              <option value='Amharic'>Amharic</option>
+            </select>
+          </div>
           {/* )} */}
         </ul>
         <nav ref={sidebarRef} className={`fixed top-0 left-0 w-full z-50 h-full bg-slate-50  ${menuOpen ? 'block' : 'hidden'} transition-transform duration-300 ease-in-out`} style={{ zIndex: 50 }}>
@@ -151,9 +170,26 @@ export default function Navigation() {
               </li>
               <li className='flex justify-between p-3 px-5 items-center   border border-t-gray-400  w-full text-lg '>
 
+                <Link to="/mylisting" onClick={closeSidebar} className={`block  ${location.pathname === '/mylisting' ? 'text-red-500' : ''}`}>My Listings</Link>
+                <FaChevronDown />
+
+              </li>
+              <li className='flex justify-between p-3 px-5 items-center   border border-t-gray-400  w-full text-lg '>
+
+                <Link to="/favorite" onClick={closeSidebar} className={`block ${location.pathname === '/favorite' ? 'text-red-500' : ''}`}>Favorite</Link>
+                <FaChevronDown />
+              </li>
+              <li className='flex justify-between p-3 px-5 items-center   border border-t-gray-400  w-full text-lg '>
+
                 <Link to="/about" onClick={closeSidebar} className={`block   ${location.pathname === '/about' ? 'text-red-500' : ''}`}>About</Link>
                 <FaChevronDown />
 
+
+              </li>
+              <li className='flex justify-between p-3 px-5 items-center   border border-t-gray-400  w-full text-lg '>
+
+                <Link to="/contactUs" onClick={closeSidebar} className={`block ${location.pathname === '/contactUs' ? 'text-red-500' : ''}`}>Contact Us</Link>
+                <FaChevronDown />
               </li>
               <li className='flex justify-between p-3 px-5 items-center   border border-t-gray-400  w-full text-lg '>
 
@@ -161,6 +197,16 @@ export default function Navigation() {
                 <FaChevronDown />
 
               </li>
+              <div className=' lg:ml-0 ml-6'>
+                <select
+                  className='lg:block bg-[#FFF4E9] border-none outline-none'
+                  value={isEng ? 'English' : 'Amharic'}
+                  onChange={handleLanguageChange}
+                >
+                  <option value='English'>English</option>
+                  <option value='Amharic'>Amharic</option>
+                </select>
+              </div>
 
               {/* {currentUser && (
                 <li className='flex justify-between p-3 px-5 items-center   border border-t-gray-400  w-full text-lg '>

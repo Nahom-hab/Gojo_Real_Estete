@@ -3,21 +3,37 @@ import img1 from '../../assets/images/landing.jpg';
 import img2 from '../../assets/images/landing2.jpg';
 import img3 from '../../assets/images/lux.jpeg';
 import img4 from '../../assets/images/hom.jpeg';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import useUser from '../../zustand/useUser';
 // import Footer from '../component/Footer';
 
 const SellYourHomePage = () => {
+    const { user } = useUser();
+    const navigate = useNavigate();
+
+    const handleRoute = () => {
+        if (user) {
+            navigate("/addadress");
+        } else {
+            navigate("/signupSell");
+        }
+    };
+
     return (
         <div className="bg-gray-100">
             {/* Hero Section */}
-            <section className="relative h-screen">
+            <section className="relative md:h-screen h-[60vh]">
                 <img src={img1} alt="Hero Background" className="absolute inset-0 w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-black opacity-50"></div>
                 <div className="relative flex items-center justify-center h-full text-center text-white">
                     <div className="p-8">
                         <h1 className="text-4xl md:text-6xl font-bold mb-4">Sell Your Home with Gojo Real Estate</h1>
                         <p className="text-xl mb-6">Discover why working with us makes selling your home effortless and rewarding.</p>
-                        <Link to={"/addadress"} className="bg-yellow-500 text-black px-6 py-3 rounded-full text-lg font-semibold hover:bg-yellow-400 transition">Get Started</Link>
+                        <button
+                            onClick={handleRoute}
+                            className="bg-yellow-500 text-black px-6 py-3 rounded-full text-lg font-semibold hover:bg-yellow-400 transition">
+                            Get Started
+                        </button>
                     </div>
                 </div>
             </section>
@@ -68,7 +84,6 @@ const SellYourHomePage = () => {
                             <p className="mt-2">Negotiate offers and complete the necessary paperwork to finalize the sale.</p>
                         </div>
                     </div>
-
                 </div>
             </section>
 
@@ -89,7 +104,6 @@ const SellYourHomePage = () => {
                     <a href="mailto:contact@gojorealestate.com" className="bg-black text-yellow-500 px-6 py-3 rounded-full text-lg font-semibold hover:bg-gray-800 transition">Contact Us</a>
                 </div>
             </section>
-            {/* <Footer /> */}
         </div>
     );
 };

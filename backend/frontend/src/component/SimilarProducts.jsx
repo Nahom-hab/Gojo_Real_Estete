@@ -1,5 +1,4 @@
 import React from 'react'
-import { listings } from '../assets/data/data';
 import ScrollCard from './scrollCard';
 
 export default function SimilarProducts({ data, text }) {

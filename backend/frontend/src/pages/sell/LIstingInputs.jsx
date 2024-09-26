@@ -9,7 +9,7 @@ export default function ListingInputs() {
     const location = useLocation();
     const navigate = useNavigate();
     const ListingAddressLocation = location.state?.confirmedData || {};
-
+    const [error, setError] = useState(null)
     const [formData, setFormData] = useState({
         name: "adama homes",
         description: "baaoajaljaljalaj",
@@ -110,21 +110,27 @@ export default function ListingInputs() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (formData.imageUrls.length > 0 && (formData.imageUrls.length === formData.imageFiles.length)) {
 
-        try {
-            const fullFormData = {
-                ...formData,
-                imageUrls: formData.imageUrls, // Use the uploaded image URLs
-            };
+            try {
+                const fullFormData = {
+                    ...formData,
+                    imageUrls: formData.imageUrls, // Use the uploaded image URLs
+                };
 
-            const { imageFiles, ...otherFormData } = fullFormData;
+                const { imageFiles, ...otherFormData } = fullFormData;
 
-            console.log(otherFormData);
-            navigate('/listingSuccuss', { state: otherFormData });
-        } catch (error) {
-            console.log(error.message);
+                console.log(otherFormData);
+                navigate('/listingSuccuss', { state: otherFormData });
+            } catch (error) {
+                console.log(error.message);
 
+            }
+
+        } else {
+            setError('Upload the images Before you submit your listing')
         }
+
 
         // Redirect after form submission
     };
@@ -403,6 +409,7 @@ export default function ListingInputs() {
                             >
                                 Post Listing
                             </button>
+                            {error ? (<p className='text-red-600'>{error}</p>) : ''}
                         </div>
                     </div>
 

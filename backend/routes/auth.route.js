@@ -1,13 +1,18 @@
 import express from 'express'
-import { google, login, signout, signup, userdata } from '../controller/auth.controller.js'
+import { login, sendOtp, signout, signup, userdata, verifyOtp, userExists } from '../controller/auth.controller.js'
 
-const router=express.Router()
+const router = express.Router()
 
 
-router.post('/signup',signup)
-router.post('/login',login)
-router.post('/google',google)
-router.post('/getuser',userdata)
-router.get('/signout',signout)
+router.post('/signup', signup)
+router.post('/login', login)
+router.post('/login', userExists)
+router.post('/userExists', userdata)
+router.get('/signout', signout)
+router.post('/sendOtp', sendOtp)
+router.post('/VerifyOtp', verifyOtp)
+
+
+
 
 export default router
