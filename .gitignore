@@ -1,7 +1,7 @@
 # Node modules directory
 node_modules/
-uploads/
-uploads
+
+
 
 # Build output
 build/
