@@ -12,7 +12,12 @@ import useUser from '../zustand/useUser';
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
-  const { AllListings, setAllListings, isEng } = useUser()
+  const { AllListings, user, setAllListings, isEng } = useUser()
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   const [offerData, setOfferData] = useState([]);
   const [rentData, setRentData] = useState([]);
@@ -22,11 +27,6 @@ export default function Home() {
   const location = useLocation();
 
   const handleSearch = (e) => {
-    const { pathname } = useLocation();
-
-    useEffect(() => {
-      window.scrollTo(0, 0);
-    }, [pathname]);
     e.preventDefault();
     const urlParams = new URLSearchParams();
     urlParams.set('searchTerm', searchTerm);
@@ -35,18 +35,6 @@ export default function Home() {
   const handlePrice = (price) => {
     navigate('/ListingswithPrice', { state: price })
   }
-
-  // useEffect(() => {
-  //   const fetchalllistings = async () => {
-  //     const res = await fetch(`/api/listing/all`);
-  //     if (res.ok) {
-  //       const data = await res.json();
-  //       setAllListings(data);
-  //     }
-  //   }
-  //   fetchalllistings()
-
-  // }, [])
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);

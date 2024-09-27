@@ -7,9 +7,9 @@ import Home from './pages/home';
 import Navigation from './component/navigation';
 import './App.css';
 import ProtectedRoute from './component/protectedRoute';
-import EditListing from './pages/editListing';
+import EditListing from './pages/MyListing/EditListing';
 import ViewListing from './pages/viewlisting';
-import MyListing from './pages/MyListing';
+import MyListing from './pages/MyListing/MyListing';
 import SearchBuy from './pages/SearchBuy';
 import SearchRent from './pages/SearchRent';
 import About from './pages/about';
@@ -41,6 +41,9 @@ function App() {
         <Route path='/afordablityCalculator' element={<AffordabilityCalculator />}></Route>
         <Route path='/editListing/:id' element={<EditListing />}></Route>
         <Route path='/viewListing/:id' element={<ViewListing />}></Route>
+
+
+        <Route path='/editListing/:id' element={<EditListing />}></Route>
 
 
         //auth

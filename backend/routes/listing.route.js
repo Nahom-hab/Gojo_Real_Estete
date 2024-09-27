@@ -1,18 +1,27 @@
+import express from 'express';
+import {
+    createListing,
+    getListings,
+    getListingById,
+    updateListing,
+    deleteListing
+} from '../controller/listing.controller.js'
 
-import { Router } from 'express'
-import { createListing, deleteListing, editListing, getAlllisting, getlisting, searchListings } from '../controller/listing.controller.js'
-import { verifyUser } from '../utils/verifyuser.js'
+const router = express.Router();
 
-const router = Router()
+// Create a new listing
+router.post('/', createListing);
 
-router.post('/create', verifyUser, createListing)
-router.post('/editListing/:id', verifyUser, editListing)
-router.delete('/deleteListing/:id', verifyUser, deleteListing)
-router.get('/getListing/:id', getlisting)
-router.get('/get', searchListings)
-router.get('/getAll', getAlllisting)
+// Get all listings
+router.get('/', getListings);
 
+// Get a single listing by ID
+router.get('/:id', getListingById);
 
+// Update a listing by ID
+router.put('/:id', updateListing);
 
+// Delete a listing by ID
+router.delete('/:id', deleteListing);
 
-export default router
+export default router;

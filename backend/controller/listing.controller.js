@@ -1,158 +1,86 @@
-import Listing from "../models/listingModel.js"
+import Listing from "../models/listingModel.js";
 
+// @desc    Create a new listing
+// @route   POST /api/listings
+// @access  Public (or protected if needed)
+export const createListing = async (req, res) => {
+    const {
+        name, description, address, regularPrice, discountedPrice, bathrooms,
+        bedrooms, phoneNumber, basement, parking, RentOrSell, HomeType,
+        imageURLs, userRef, lat, lon
+    } = req.body;
 
-export const createListing = async (req, res, next) => {
     try {
-        const listing = await Listing.create(req.body)
-        res.status(201).json(listing)
+        const newListing = new Listing({
+            name, description, address, regularPrice, discountedPrice, bathrooms,
+            bedrooms, phoneNumber, basement, parking, RentOrSell, HomeType,
+            imageURLs, userRef, lat, lon
+        });
+
+        const savedListing = await newListing.save();
+        res.status(201).json(savedListing);
     } catch (error) {
-        next(error)
+        res.status(400).json({ message: error.message });
     }
-}
+};
 
-export const deleteListing = async (req, res, next) => {
+// @desc    Get all listings
+// @route   GET /api/listings
+// @access  Public
+export const getListings = async (req, res) => {
+    try {
+        const listings = await Listing.find();
+        res.json(listings);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
 
+// @desc    Get a single listing by ID
+// @route   GET /api/listings/:id
+// @access  Public
+export const getListingById = async (req, res) => {
     try {
         const listing = await Listing.findById(req.params.id);
         if (!listing) {
-            return next(errorHandeler(404, 'listing  not found'));
+            return res.status(404).json({ message: 'Listing not found' });
         }
-        else {
-            if (req.user.id === listing.userRef) {
-                try {
-                    const delListing = await Listing.findByIdAndDelete(req.params.id);
-                    res.status(200).json('listing deleted succsusfully')
-                } catch (error) {
-                    next(error);
-                }
-            }
-        }
+        res.json(listing);
     } catch (error) {
-        next(error);
+        res.status(500).json({ message: error.message });
     }
-}
+};
 
-
-
-export const editListing = async (req, res, next) => {
-
+// @desc    Update a listing
+// @route   PUT /api/listings/:id
+// @access  Public (or protected if needed)
+export const updateListing = async (req, res) => {
     try {
-        const listing = await Listing.findById(req.params.id);
-        if (!listing) {
-            return next(errorHandeler(404, 'listing  not found'));
+        const updatedListing = await Listing.findByIdAndUpdate(
+            req.params.id,
+            { $set: req.body },
+            { new: true, runValidators: true }
+        );
+        if (!updatedListing) {
+            return res.status(404).json({ message: 'Listing not found' });
         }
-        else {
-            if (req.user.id === listing.userRef) {
-                try {
-                    const updatedListng = await Listing.findByIdAndUpdate(
-                        req.params.id,
-                        req.body,
-                        { new: true }
-                    );
-
-                    if (!updatedListng) {
-                        return next(errorHandeler(404, 'User not found'));
-                    } else {
-                        res.status(200).json(updatedListng)
-                    }
-
-                } catch (error) {
-                    next(error);
-                }
-            }
-        }
+        res.json(updatedListing);
     } catch (error) {
-        next(error);
+        res.status(400).json({ message: error.message });
     }
-}
+};
 
-export const getlisting = async (req, res, next) => {
+// @desc    Delete a listing
+// @route   DELETE /api/listings/:id
+// @access  Public (or protected if needed)
+export const deleteListing = async (req, res) => {
     try {
-        const listing = await Listing.findById(req.params.id)
-        if (!listing) {
-            return res.json('no listing found')
+        const deletedListing = await Listing.findByIdAndDelete(req.params.id);
+        if (!deletedListing) {
+            return res.status(404).json({ message: 'Listing not found' });
         }
-        res.status(200).json(listing)
+        res.json({ message: 'Listing deleted successfully' });
     } catch (error) {
-        next(error)
-    }
-}
-export const getAlllisting = async (req, res, next) => {
-    try {
-        const listing = await Listing.find()
-        if (!listing) {
-            return res.json('no listing found')
-        }
-        res.status(200).json(listing)
-    } catch (error) {
-        next(error)
-    }
-}
-export const searchListings = async (req, res, next) => {
-    try {
-        const limit = parseInt(req.query.limit) || 9;
-        const startIndex = parseInt(req.query.startIndex) || 0;
-
-        let offer = req.query.offer;
-        let furnished = req.query.furnished;
-        let parking = req.query.parking;
-        let type = req.query.type;
-
-        if (offer === undefined) {
-            offer = { $in: [false, true] };
-        } if (offer === 'true') {
-            offer = true;
-        }
-        if (offer === 'false') {
-            offer = false
-        }
-
-        if (furnished === undefined) {
-            furnished = { $in: [false, true] };
-        } if (furnished === 'true') {
-            furnished = true;
-        }
-        if (furnished === 'false') {
-            furnished = false
-        }
-
-
-        if (parking === undefined) {
-            parking = { $in: [false, true] };
-        } if (parking === 'true') {
-            parking = true;
-        }
-        if (parking === 'false') {
-            parking = false
-        }
-
-        if (type === undefined || type === 'all') {
-            type = { $in: ['sale', 'rent'] };
-        }
-
-        const searchTerm = req.query.searchTerm || '';
-        const sort = req.query.sort || 'createdAt'; // Field to sort by
-        const order = req.query.order || 'desc';     // Sort direction
-
-        // Construct sort object
-        const sortObject = {};
-        sortObject[sort] = order === 'desc' ? -1 : 1;
-
-
-        const listings = await Listing.find({
-            name: { $regex: searchTerm, $options: 'i' },
-            offer,
-            furnished,
-            parking,
-            type,
-        })
-            .sort(sortObject)
-            .limit(limit)
-            .skip(startIndex);
-
-        res.status(200).json(listings);
-    } catch (error) {
-        console.error(error);
-        next(error);
+        res.status(500).json({ message: error.message });
     }
 };

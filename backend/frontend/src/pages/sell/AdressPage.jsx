@@ -9,8 +9,8 @@ const ListingPage = () => {
     const [formData, setFormData] = useState({
         streetAddress: '',
         city: '',
-        latitude: '38.7525',
-        longitude: '9.0192',
+        latitude: '9.0192',
+        longitude: '38.7525',
     });
 
     const [errors, setErrors] = useState({

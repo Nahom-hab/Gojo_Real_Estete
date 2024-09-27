@@ -1,11 +1,12 @@
 import React from 'react';
 import { FaBath, FaBed, FaHome, FaParking, FaPhone } from 'react-icons/fa';
 import { Link, useLocation } from 'react-router-dom';
-import useUser from '../../zustand/useUser'; // Adjust the import based on your state management
+import useUser from '../../zustand/useUser';
+
 
 export default function SuccessListingUpload() {
     const location = useLocation();
-    const { isEng } = useUser(); // Get the isEng state
+    const { isEng } = useUser();
     const ListingData = location.state || {};
     console.log(ListingData.imageUrls);
 

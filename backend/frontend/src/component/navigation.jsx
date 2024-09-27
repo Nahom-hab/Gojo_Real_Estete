@@ -98,13 +98,18 @@ export default function Navigation() {
             </Link>
           </li>
           <li>
+            <Link to="/mylisting" onClick={closeSidebar} className={`block py-2 px-2 ${location.pathname === '/mylisting' ? 'text-red-500' : ''}`}>
+              {isEng ? 'My Listings' : 'የእኔ ቤቶች'}
+            </Link>
+          </li>
+          <li>
             <Link to="/login" onClick={closeSidebar} className={`block py-2 px-3 ${location.pathname === '/login' ? 'text-red-500' : ''}`}>
               Login
             </Link>
           </li>
           <div className='lg:ml-0 ml-6'>
             <select
-              className='lg:block bg-[#FFF4E9] border-none outline-none'
+              className='lg:block border-none outline-none'
               value={isEng ? 'English' : 'Amharic'}
               onChange={handleLanguageChange}
             >
@@ -165,7 +170,7 @@ export default function Navigation() {
               </li>
               <li className='flex justify-between p-3 px-5 items-center border border-t-gray-400 w-full text-lg '>
                 <Link to="/mylisting" onClick={closeSidebar} className={`block ${location.pathname === '/mylisting' ? 'text-red-500' : ''}`}>
-                  {isEng ? 'My Listings' : 'የእኔ ዝርዝር'}
+                  {isEng ? 'My Listings' : 'የእኔ ቤቶች'}
                 </Link>
                 <FaChevronDown />
               </li>
@@ -177,7 +182,7 @@ export default function Navigation() {
               </li>
               <div className='lg:ml-0 ml-6'>
                 <select
-                  className='lg:block bg-[#FFF4E9] border-none outline-none'
+                  className='lg:block  border-none outline-none'
                   value={isEng ? 'English' : 'Amharic'}
                   onChange={handleLanguageChange}
                 >

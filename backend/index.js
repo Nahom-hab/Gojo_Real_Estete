@@ -10,6 +10,9 @@ import userRouter from './routes/user.route.js';
 import uploadRoutes from './routes/upload.route.js';
 import authRouter from './routes/auth.route.js';
 import ListingRouter from './routes/listing.route.js';
+import favoriteRouter from './routes/saved.route.js';
+import AdminRouter from './routes/admin.route.js';
+
 
 const app = express();
 dotenv.config();
@@ -35,6 +38,8 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // API routes
 app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/admin', AdminRouter);
+app.use('/api/saved', favoriteRouter);
 app.use('/api/listing', ListingRouter);
 app.use('/api/upload', uploadRoutes);
 

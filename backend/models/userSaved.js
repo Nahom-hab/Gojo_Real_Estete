@@ -5,10 +5,10 @@ const SavedSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    listingId: {
+    FavoritedId: [{
         type: String,
         required: true,
-    }
+    }]
 }, {
     timestamps: true
 })

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useDropzone } from 'react-dropzone';
 import { FaTimes } from 'react-icons/fa';
@@ -6,33 +6,40 @@ import photo from '../../assets/images/photo.png'
 import useUser from '../../zustand/useUser';
 
 
-export default function ListingInputs() {
+export default function EditListing() {
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pathname]);
     const location = useLocation();
     const navigate = useNavigate();
     const { isEng, user } = useUser()
-    const ListingAddressLocation = location.state?.confirmedData || {};
+    const listing = location.state || {};
     const [error, setError] = useState(null)
     const [formData, setFormData] = useState({
         name: "adama homes",
         description: `Experience luxury living in this stunning home featuring spacious interiors, 
         modern amenities, and beautifully landscaped outdoor spaces. Perfectly located near top schools
          and shopping, it’s the ideal retreat for families and professionals alike.`,
-        address: `${ListingAddressLocation.streetAddress || ''} ${ListingAddressLocation.city || ''}`,
-        regularPrice: 250000,
-        discountedPrice: 200000,
-        bathrooms: 3,
-        bedrooms: 3,
-        phoneNumber: '0907702898',
-        basement: false,
-        parking: 1,
-        RentOrSell: "sale",
-        HomeType: "villa",
-        imageFiles: [],
-        imageUrls: [],
-        lat: ListingAddressLocation.latitude || '',
-        lon: ListingAddressLocation.longitude || '',
-        userRef: user._id
+        address: listing.address,
+        regularPrice: listing.regularPrice,
+        discountedPrice: listing.discountedPrice,
+        bathrooms: listing.bathrooms,
+        bedrooms: listing.bedrooms,
+        phoneNumber: listing.phoneNumber,
+        basement: listing.basement,
+        parking: listing.parking,
+        RentOrSell: listing.RentOrSell,
+        HomeType: listing.HomeType,
+        imageFiles: listing.imageURLs,
+        imageUrls: listing.imageURLs,
+        lat: listing.lat,
+        lon: listing.lon,
+        userRef: listing.userRef
     });
+    const [imageUrls, setImageUrls] = useState(listing.imageURLs || []); // Store uploaded image URLs
+
     const [clicked, setCicked] = useState(false)
     const [uploading, setUploading] = useState(false); // To track the upload status
     const [coverImageIndex, setCoverImageIndex] = useState(0); // Track cover image index
@@ -50,28 +57,22 @@ export default function ListingInputs() {
                 [name]: type === 'checkbox' ? checked : value
             }));
         }
+
     };
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         onDrop: (acceptedFiles) => {
-            addImage({ target: { files: acceptedFiles } });
+            const files = acceptedFiles.map(file => Object.assign(file, {
+                preview: URL.createObjectURL(file),
+            }));
+            setFormData(prev => ({
+                ...prev,
+                imageFiles: [...prev.imageFiles, ...files], // Add new files
+            }));
         },
         accept: 'image/*',
     });
 
-    const handleSetCoverImage = (index) => {
-        // Move the selected image to the front
-        const updatedFiles = [...formData.imageFiles];
-        const [coverImage] = updatedFiles.splice(index, 1); // Remove the selected cover image
-        updatedFiles.unshift(coverImage); // Add it to the front
 
-        setFormData((prev) => ({
-            ...prev,
-            imageFiles: updatedFiles,
-        }));
-
-        // Update the cover image index
-        setCoverImageIndex(0);
-    };
 
     const handleImageUpload = async () => {
         if (formData.imageFiles.length > 0) {
@@ -85,9 +86,6 @@ export default function ListingInputs() {
                 const response = await fetch('/api/upload', {
                     method: 'POST',
                     body: uploadData,
-                    headers: {
-                        'Accept': 'application/json',
-                    },
                 });
 
                 if (!response.ok) {
@@ -95,13 +93,7 @@ export default function ListingInputs() {
                 }
 
                 const data = await response.json();
-                const imageUrls = data.imagePaths;
-                console.log(imageUrls);
-                // Adjust according to your API
-                setFormData((prev) => ({
-                    ...prev,
-                    imageUrls,
-                }));
+                setImageUrls(data.imagePaths); // Set the uploaded image URLs
             } catch (error) {
                 console.error('Image upload failed:', error);
             } finally {
@@ -124,8 +116,8 @@ export default function ListingInputs() {
 
                 const { imageFiles, ...otherFormData } = fullFormData;
 
-                const res = await fetch('/api/listing/', {
-                    method: 'POST',
+                const res = await fetch(`/api/listing/${listing._id}`, {
+                    method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -137,7 +129,6 @@ export default function ListingInputs() {
                     return;
                 }
                 const data = await res.json()
-                console.log(data);
 
 
 
@@ -165,10 +156,22 @@ export default function ListingInputs() {
     };
 
     const removeImage = (index) => {
+        const updatedFiles = formData.imageFiles.filter((_, i) => i !== index);
         setFormData(prev => ({
             ...prev,
-            imageFiles: prev.imageFiles.filter((_, i) => i !== index), // Remove the selected image
+            imageFiles: updatedFiles,
         }));
+    };
+
+    const handleSetCoverImage = (index) => {
+        const updatedFiles = [...formData.imageFiles];
+        const [coverImage] = updatedFiles.splice(index, 1); // Remove the selected cover image
+        updatedFiles.unshift(coverImage); // Add it to the front
+        setFormData(prev => ({
+            ...prev,
+            imageFiles: updatedFiles,
+        }));
+        setCoverImageIndex(0);
     };
 
     return (
@@ -212,21 +215,17 @@ export default function ListingInputs() {
                             />
                         </div>
                     </div>
-                    {/* Image Upload */}
-                    <div className="flex flex-col justify-between gap-2  ">
+                    <div className="flex flex-col justify-between gap-2">
                         <div className='flex justify-between'>
-                            <label className="block text-xl font-medium text-gray-700">Photo:</label>
-                            <div className={`bg-blue-400 text-white hover:opacity-70 ${clicked ? 'cursor-not-allowed' : ''} hover:cursor-pointer  rounded-md  px-3 py-2`} onClick={() => {
-                                handleImageUpload()
-                                setCicked(true)
-                            }}>{uploading ? (
-                                <div className="flex items-center justify-center">
-                                    <div className="animate-spin rounded-full h-5 w-5 border-t-4 border-b-4 border-blue-500"></div>
-                                </div>
-                            ) : 'Upload'}
+                            <label className="block text-xl font-medium text-gray-700">Photos:</label>
+                            <div className={`bg-blue-400 text-white hover:opacity-70 ${clicked ? 'cursor-not-allowed' : ''} hover:cursor-pointer rounded-md px-3 py-2`} onClick={handleImageUpload}>
+                                {uploading ? (
+                                    <div className="flex items-center justify-center">
+                                        <div className="animate-spin rounded-full h-5 w-5 border-t-4 border-b-4 border-blue-500"></div>
+                                    </div>
+                                ) : 'Upload'}
                             </div>
                         </div>
-
 
                         <div {...getRootProps()} className={`border-2 border-dashed rounded-md p-4 w-full transition duration-200 ${isDragActive ? 'border-blue-500' : 'border-gray-300'}`}>
                             <input {...getInputProps()} />
@@ -235,29 +234,28 @@ export default function ListingInputs() {
                                     <p className="text-blue-500">Drop the images here...</p>
                                 ) : (
                                     <div className='flex flex-col items-center gap-2'>
-                                        <img src={photo} className='w-16 h-16' alt="" />
+                                        <img src={photo} className='w-16 h-16' alt="Upload placeholder" />
                                         <p className="text-gray-700 text-center">Drag and drop photos here to upload</p>
                                     </div>
                                 )}
-                                <span className="text-white px-2 py-1 bg-blue-600 rounded-lg text-md ml-2">Add new photo</span>
+                                <span className="text-white px-2 py-1 bg-blue-600 rounded-lg text-md">Add new photo</span>
                             </div>
                         </div>
-
                     </div>
 
                     {formData.imageFiles.length > 0 && (
                         <div className="grid grid-cols-3 md:px-36 gap-4 mt-4">
-                            {Array.from(formData.imageFiles).map((file, index) => (
+                            {formData.imageFiles.map((file, index) => (
                                 <div key={index} className="relative">
                                     <img
-                                        src={URL.createObjectURL(file)}
+                                        src={file.preview || file} // Use preview for uploaded files
                                         alt={`Uploaded ${index + 1}`}
                                         className={`w-full h-24 object-cover rounded-md ${coverImageIndex === index ? 'border-2 border-blue-500' : ''}`}
                                     />
                                     {coverImageIndex === index && (
                                         <span className="absolute top-0 left-0 bg-blue-500 text-white text-xs p-2 border border-slate-700 rounded-br-md">Cover Image</span>
                                     )}
-                                    {coverImageIndex !== index &&
+                                    {coverImageIndex !== index && (
                                         <button
                                             type="button"
                                             onClick={() => handleSetCoverImage(index)}
@@ -265,8 +263,7 @@ export default function ListingInputs() {
                                         >
                                             Set as Cover
                                         </button>
-                                    }
-
+                                    )}
                                     <button
                                         type="button"
                                         onClick={() => removeImage(index)}
