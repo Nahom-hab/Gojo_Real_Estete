@@ -19,7 +19,6 @@ export default function Favorite() {
                     const list = AllListings.filter((li) => FavoritedId.includes(li._id));
                     setFavoritedListing(list);
                     setFavorite(Favorite);
-                    localStorage.setItem('Favorite', JSON.stringify(list));
                 } else {
                     console.log('error fetching favorites');
                 }
@@ -30,7 +29,8 @@ export default function Favorite() {
             }
         };
         fetchFav();
-    }, [user, AllListings, setFavorite, Favorite]);
+
+    }, []);
 
     const { pathname } = useLocation();
 
@@ -46,7 +46,7 @@ export default function Favorite() {
                         <FaSpinner className="animate-spin w-24 h-24 text-4xl text-green-600" />
                     </div>
                 ) : (
-                    FavoritedListing.length > 0 ? (
+                    FavoritedListing?.length > 0 ? (
                         <div className='flex flex-col items-start'>
                             <div className='text-3xl text-green-600 mb-5'>Your Favorite Listings</div>
                             <div className='grid w-fit lg:grid-cols-4 grid-cols-2 gap-4 md:grid-cols-3 justify-center'>

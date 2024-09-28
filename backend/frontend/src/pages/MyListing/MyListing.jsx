@@ -7,7 +7,7 @@ export default function MyListing() {
   const { pathname } = useLocation();
   const [showActive, setShowActive] = useState(false);
   const { user, AllListings } = useUser(); // Assume user has a userRef for listings
-  const userRef = user._id; // Replace with actual userRef
+  const userRef = user?._id; // Replace with actual userRef
 
   useEffect(() => {
     window.scrollTo(0, 0);
