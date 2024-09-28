@@ -225,7 +225,7 @@ export default function Navigation() {
 
               </Link>
             ) : (
-              <Link to="/login" onClick={closeSidebar} className={`block py-2 px-3 ${location.pathname === '/login' ? 'text-red-500' : ''}`}>
+              <Link to="/login" onClick={closeSidebar} className={`block py-2 px-3 mr-20 ${location.pathname === '/login' ? 'text-red-500' : ''}`}>
                 Login
               </Link>
             )}
