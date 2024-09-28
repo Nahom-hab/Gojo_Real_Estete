@@ -1,6 +1,7 @@
 import Admin from '../models/AdminModel.js';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import Listing from '../models/listingModel.js';
 
 // @desc    Admin login
 // @route   POST /api/admin/login
@@ -87,3 +88,46 @@ export const deleteAdmin = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+// Activate Listing Controller
+export const activateListing = async (req, res, next) => {
+    const { id } = req.params;  // Retrieve listing ID from the URL params
+    console.log(id);
+
+    try {
+        const listing = await Listing.findById(id);
+
+        if (!listing) {
+            return res.status(404).json({ message: "Listing not found" });
+        }
+
+        listing.activated = true;
+        await listing.save();
+
+        return res.status(200).json({ message: "Listing activated successfully", listing });
+    } catch (error) {
+        next(error);  // Pass the error to an error handling middleware
+    }
+};
+
+// Deactivate Listing Controller
+export const deactivateListing = async (req, res, next) => {
+    const { id } = req.params;  // Retrieve listing ID from the URL params
+
+    try {
+        const listing = await Listing.findById(id);
+
+        if (!listing) {
+            return res.status(404).json({ message: "Listing not found" });
+        }
+
+        listing.activated = false;
+        await listing.save();
+
+        return res.status(200).json({ message: "Listing deactivated successfully", listing });
+    } catch (error) {
+        next(error);  // Pass the error to an error handling middleware
+    }
+};
+
+

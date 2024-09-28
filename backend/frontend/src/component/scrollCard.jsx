@@ -8,13 +8,13 @@ export default function ScrollCard({ result, similar }) {
 
 
     const handleClick = () => {
-        navigate(`/viewListing/${result.name}`, { state: { result, similar } });
+        navigate(`/viewListing/${result._id}`, { state: { result, similar } });
     };
 
     return (
         <div
             onClick={handleClick}
-            className="bg-white border flex-none w-full md:w-[279px] p-2 border-gray-200 rounded-lg shadow-lg  cursor-pointer "
+            className="dark:bg-gray-900 dark:text-white bg-white border flex-none w-full md:w-[279px] p-2  dark:border-gray-600 border-gray-200 rounded-lg shadow-lg  cursor-pointer "
             role="button"
             tabIndex={0}
             onKeyDown={(e) => e.key === 'Enter' && handleClick()}
@@ -33,16 +33,16 @@ export default function ScrollCard({ result, similar }) {
                 )}
             </div>
             <div className="p-4"> {/* Adjust padding */}
-                <div className="font-semibold text-black text-lg mb-1">{result.name}</div> {/* Adjust font size */}
-                <div className="text-gray-600 flex items-center mb-2 text-sm">
+                <div className="font-semibold dark:text-white text-black text-lg mb-1">{result.name}</div> {/* Adjust font size */}
+                <div className="dark:text-gray-300 text-gray-600 flex items-center mb-2 text-sm">
                     <FaMapMarkerAlt className="text-green-500 mr-1" /> {/* Adjust margin */}
                     <span>{result.address}</span>
                 </div>
-                <div className="text-gray-700 text-xs mb-3">
+                <div className="dark:text-gray-300 text-gray-700 text-xs mb-3">
                     {result.description.slice(0, 60)}{result.description.length > 60 ? '...' : ''} {/* Adjust slice */}
                 </div>
-                <div className="text-green-600 font-bold text-base mb-3">${result.regularPrice} {result.RentOrSell === 'rent' ? '/Month' : ''}</div> {/* Adjust font size */}
-                <div className="flex gap-2 text-xs text-gray-600"> {/* Adjust font size */}
+                <div className="text-green-600 font-bold text-base mb-3">${result.regularPrice.toLocaleString()} {result.RentOrSell === 'rent' ? '/Month' : ''}</div> {/* Adjust font size */}
+                <div className="flex gap-2 text-xs dark:text-gray-300 text-gray-600"> {/* Adjust font size */}
                     <div>{result.bathrooms} bathrooms</div>
                     <div>{result.bedrooms} bedrooms</div>
                 </div>

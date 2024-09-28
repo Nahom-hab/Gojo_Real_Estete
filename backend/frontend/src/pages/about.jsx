@@ -11,12 +11,12 @@ const About = () => {
     }, [pathname]);
 
     return (
-        <div className="max-w-6xl mx-auto p-5">
+        <div className="p-10 dark:text-white dark:bg-gray-800 mx-auto pt-5">
             <section className="text-center py-12">
                 <h1 className="text-4xl mb-4 animate__animated animate__fadeIn animate__delay-1s">
                     {isEng ? 'Welcome to RealEstate Finder' : 'ወደ እውነተኛ እና የሚገኝ ቤት መርሃ ግብር ይቀበሉ'}
                 </h1>
-                <p className="text-xl text-gray-700 animate__animated animate__fadeIn animate__delay-2s">
+                <p className="text-xl dark:text-gray-300 text-gray-700 animate__animated animate__fadeIn animate__delay-2s">
                     {isEng
                         ? 'Your trusted partner in navigating the real estate market, dedicated to making your journey seamless and rewarding. With a commitment to excellence and a focus on your unique needs, we\'re here to help you find your dream property.'
                         : 'የእቅፍ ገጽታ የሚስትእር የሆኑ ነው፣ በዚህ ዓለም የሚኖሩ የገንዘብ ገጽታን ለእናንተ በመርሃ ግብር ይቀበሉ፡፡'}
@@ -24,7 +24,7 @@ const About = () => {
             </section>
 
             <section className="my-10 px-6">
-                <h2 className="text-4xl border-b-2 border-gray-300 pb-2 mb-4 animate__animated animate__fadeIn animate__delay-1s">
+                <h2 className="text-4xl border-b-2 dark:border-gray-600 dark:bg-gray-900 border-gray-300 pb-2 mb-4 animate__animated animate__fadeIn animate__delay-1s">
                     {isEng ? 'Our Story' : 'የእኛ ታሪክ'}
                 </h2>
                 <p className="mb-4 animate__animated animate__fadeIn animate__delay-2s">
@@ -40,14 +40,14 @@ const About = () => {
             </section>
 
             <section className="my-10 px-6">
-                <h2 className="text-4xl border-b-2 border-gray-300 pb-2 mb-4 animate__animated animate__fadeIn animate__delay-1s">
+                <h2 className="text-4xl border-b-2 dark:border-gray-600 dark:bg-gray-900 border-gray-300 pb-2 mb-4 animate__animated animate__fadeIn animate__delay-1s">
                     {isEng ? 'Our Values' : 'የእኛ እሴቶች'}
                 </h2>
                 <div className="flex flex-wrap gap-6">
                     {[{ en: 'Integrity', am: 'እምነት' }, { en: 'Excellence', am: 'እርምጃ' }, { en: 'Customer Focus', am: 'የደንበኛ ትኩረት' }, { en: 'Innovation', am: 'አዳዲስነት' }].map((value, index) => (
-                        <div key={index} className="flex-1 min-w-[220px] bg-gray-300 p-5 rounded-lg transition-transform duration-300 transform hover:scale-105 animate__animated animate__fadeIn animate__delay-2s">
+                        <div key={index} className="flex-1 min-w-[220px] dark:border-gray-600 dark:bg-gray-900 bg-gray-300 p-5 rounded-lg transition-transform duration-300 transform hover:scale-105 animate__animated animate__fadeIn animate__delay-2s">
                             <h3 className="text-2xl mb-2">{isEng ? value.en : value.am}</h3>
-                            <p className="text-gray-600">
+                            <p className="dark:text-gray-300 text-gray-600">
                                 {isEng
                                     ? 'We believe in maintaining the highest ethical standards in all our interactions.'
                                     : 'በእንደዚህ የሚኖሩበት የሚሆኑ ትክክለኛ የሚሆኑ አስተያየት እንደሌለ አላቀበውም።'}
@@ -58,7 +58,7 @@ const About = () => {
             </section>
 
             <section className="my-10 px-6 text-center">
-                <h2 className="text-4xl border-b-2 border-gray-300 pb-2 mb-4 animate__animated animate__fadeIn animate__delay-1s">
+                <h2 className="text-4xl border-b-2 dark:border-gray-600 dark:bg-gray-900 border-gray-300 pb-2 mb-4 animate__animated animate__fadeIn animate__delay-1s">
                     {isEng ? 'Meet the Team' : 'ቡድን ይዞታ'}
                 </h2>
                 <div className="flex flex-wrap justify-center">
@@ -66,11 +66,11 @@ const About = () => {
                         { name: "John Doe", role: "Founder & CEO", img: "https://via.placeholder.com/200", description: "With over 15 years in the industry, John has a passion for helping clients find their perfect home." },
                         { name: "Jane Smith", role: "Chief Officer", img: "https://via.placeholder.com/200", description: "Jane ensures that our operations run smoothly, making the real estate process effortless for our clients." },
                     ].map((member, index) => (
-                        <div key={index} className="flex-1 max-w-[200px] mx-3 mb-6 animate__animated animate__fadeIn animate__delay-2s">
+                        <div key={index} className="flex-1 max-w-[200px] mx-3 pb-3 rounded-lg dark:bg-gray-900 border-gray-300 mb-6 animate__animated animate__fadeIn animate__delay-2s">
                             <img src={member.img} alt={member.name} className="w-full h-48 object-cover rounded-lg mb-2" />
                             <h3 className="text-lg">{member.name}</h3>
                             <p>{member.role}</p>
-                            <p className="text-[12px] text-gray-600">{member.description}</p>
+                            <p className="text-[12px] dark:text-gray-300 text-gray-600">{member.description}</p>
                         </div>
                     ))}
                 </div>

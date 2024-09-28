@@ -6,6 +6,7 @@ import otpGenerator from "otp-generator";
 import { transporter } from "../config/transporter.config.js";
 
 import Otp from "../models/otp.js";
+import Message from "../models/message.js";
 
 // Signup function
 export const signup = async (req, res, next) => {
@@ -22,7 +23,16 @@ export const signup = async (req, res, next) => {
 
       // Create a new user
       const newuser = new User({ username, password: hashedpassword, email });
-      await newuser.save();
+      const saveduser = await newuser.save();
+
+      const user = await User.findById(saveduser._id)
+
+      const newMessage = new Message({
+         name: user.username,
+         message: `New user signed up ${user.username}`,
+         type: 'user'
+      })
+      await newMessage.save()
 
       res.status(201).json("User created successfully");
    } catch (err) {

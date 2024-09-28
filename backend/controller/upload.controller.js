@@ -29,7 +29,6 @@ const upload = multer({
 
 // Middleware to handle file uploads
 export const uploadMiddleware = (req, res, next) => {
-    console.log(req.files); // Check if files are being received
     upload.array('images', 10)(req, res, (err) => {
         if (err) {
             console.error('Upload error:', err);
@@ -41,7 +40,6 @@ export const uploadMiddleware = (req, res, next) => {
 
 // Controller for handling image uploads
 export const uploadImages = (req, res) => {
-    console.log(req.files); // Log the received files
     try {
         const imagePaths = req.files.map((file) => `/uploads/${file.filename}`);
         res.json({ imagePaths });

@@ -40,7 +40,7 @@ export default function Card({ result, similar }) {
                 <div className="text-gray-700 text-xs mb-3">
                     {result.description.slice(0, 60)}{result.description.length > 60 ? '...' : ''} {/* Adjust slice */}
                 </div>
-                <div className="text-green-600 font-bold text-base mb-3">${result.regularPrice} /Month</div> {/* Adjust font size */}
+                <div className="text-green-600 font-bold text-base mb-3">${result.regularPrice.toLocaleString()} /Month</div> {/* Adjust font size */}
                 <div className="flex gap-2 text-xs text-gray-600"> {/* Adjust font size */}
                     <div>{result.bathrooms} bathrooms</div>
                     <div>{result.bedrooms} bedrooms</div>

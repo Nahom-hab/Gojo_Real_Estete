@@ -6,7 +6,7 @@ export default function Otpcheck() {
     const location = useLocation();
     const userData = location.state || {};
     const navigate = useNavigate();
-    const { isEng } = useUser(); // Include isEng from state
+    const { isEng } = useUser();
     const [error, setError] = useState('');
     const [otpSentMessage, setOtpSentMessage] = useState('');
     const [code, setCode] = useState({
@@ -18,6 +18,7 @@ export default function Otpcheck() {
     });
     const [counter, setCounter] = useState(30);
     const [isResendDisabled, setIsResendDisabled] = useState(true);
+    const [isLoading, setIsLoading] = useState(false); // Loading state
 
     const inputRefs = useRef([]);
 
@@ -55,6 +56,7 @@ export default function Otpcheck() {
     const handleResendOtp = async () => {
         if (isResendDisabled) return;
 
+        setIsLoading(true); // Start loading
         try {
             const res = await fetch('/api/auth/sendOtp', {
                 method: 'POST',
@@ -66,7 +68,6 @@ export default function Otpcheck() {
 
             if (res.ok) {
                 const message = await res.json();
-                console.log(message);
                 setOtpSentMessage(isEng ? 'OTP resent successfully!' : 'OTP በተሳካነት ተላክቷል!');
                 setIsResendDisabled(true);
                 setCounter(30);
@@ -74,9 +75,10 @@ export default function Otpcheck() {
                 const errorData = await res.json();
                 setError(errorData.message || (isEng ? 'Failed to resend OTP' : 'OTP ወደ ቀደም አልተላከም'));
             }
-
         } catch (error) {
             console.log(error);
+        } finally {
+            setIsLoading(false); // End loading
         }
     };
 
@@ -106,7 +108,6 @@ export default function Otpcheck() {
                             });
 
                             if (res.ok) {
-                                console.log('Signup successful');
                                 navigate('/signUpSuccess');
                             } else {
                                 const errorData = await res.json();
@@ -130,12 +131,12 @@ export default function Otpcheck() {
     };
 
     return (
-        <div className='flex flex-col w-full mt-32 items-center p-4 md:p-10'>
-            <div className='text-green-600 flex flex-col items-center font-bold text-2xl md:text-3xl mb-6'>
+        <div className='flex flex-col w-full  items-center px-4 h-screen  md:px-10 bg-gray-50 dark:bg-gray-900 pt-32'>
+            <div className='text-green-600 flex flex-col items-center font-bold text-lg md:text-3xl mb-6'>
                 {isEng
                     ? 'We have sent a Verification Code'
                     : 'የማረጋገጫ ኮድ ተላክቷል'}
-                <span className='block text-xl'>{isEng ? `to ${userData.email}` : `ወደ ${userData.email}`}</span>
+                <span className='block text-[13px] md:text-xl'>{isEng ? `to ${userData.email}` : `ወደ ${userData.email}`}</span>
             </div>
             <form onSubmit={handleSubmit} className='flex flex-col items-center gap-2'>
                 <div className='flex gap-3'>
@@ -146,7 +147,7 @@ export default function Otpcheck() {
                             value={code[field]}
                             name={field}
                             type="text"
-                            className='bg-slate-300 w-14 h-14 rounded-lg text-2xl p-3 outline-green-500 text-center'
+                            className='bg-slate-300 dark:bg-gray-700 w-14 h-14 rounded-lg text-2xl p-3 outline-green-500 text-center dark:text-gray-200'
                             onChange={(e) => handleInputChange(e, index)}
                             onKeyDown={(e) => handleKeyDown(e, index)}
                             maxLength={1}
@@ -154,7 +155,7 @@ export default function Otpcheck() {
                     ))}
                 </div>
 
-                <button className='bg-green-500 w-[90%] text-xl text-white font-bold rounded-lg px-5 py-3'>
+                <button className='bg-green-500 w-[90%] text-xl text-white font-bold rounded-lg px-5 py-3 hover:bg-green-600 transition'>
                     {isEng ? 'Submit' : 'ማመለሻ'}
                 </button>
 
@@ -162,10 +163,17 @@ export default function Otpcheck() {
                     <button
                         type="button"
                         onClick={handleResendOtp}
-                        className={`text-green-600 font-bold hover:cursor-pointer hover:text-green-300 ${isResendDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
-                        disabled={isResendDisabled}
+                        className={`text-green-600 font-bold hover:cursor-pointer hover:text-green-300 ${isResendDisabled || isLoading ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        disabled={isResendDisabled || isLoading}
                     >
-                        {isEng ? 'Resend OTP' : 'OTP ይቀይሩ'}
+                        {isLoading ? (
+                            <>
+                                <span className="loader"></span> {/* Spinner */}
+                                {isEng ? ' Resending...' : ' ወደ እንደዚያ እቀይሩ...'}
+                            </>
+                        ) : (
+                            (isEng ? 'Resend OTP' : 'OTP ይቀይሩ')
+                        )}
                     </button>
                     {isResendDisabled && (
                         <span className='ml-4 text-red-500'>
@@ -177,6 +185,26 @@ export default function Otpcheck() {
 
             {otpSentMessage && <p className='text-green-500 mt-2'>{otpSentMessage}</p>}
             {error && <p className='text-red-500 mt-2'>{error}</p>}
+
+            {/* Spinner CSS */}
+            <style>
+                {`
+                    .loader {
+                        border: 4px solid rgba(255, 255, 255, 0.3);
+                        border-radius: 50%;
+                        border-top: 4px solid #fff;
+                        width: 20px;
+                        height: 20px;
+                        animation: spin 0.6s linear infinite;
+                        display: inline-block;
+                        margin-right: 8px;
+                    }
+                    @keyframes spin {
+                        0% { transform: rotate(0deg); }
+                        100% { transform: rotate(360deg); }
+                    }
+                `}
+            </style>
         </div>
     );
 }

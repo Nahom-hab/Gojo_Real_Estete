@@ -1,4 +1,6 @@
 import Listing from "../models/listingModel.js";
+import Message from "../models/message.js";
+import User from "../models/userModel.js";
 
 // @desc    Create a new listing
 // @route   POST /api/listings
@@ -17,12 +19,52 @@ export const createListing = async (req, res) => {
             imageURLs, userRef, lat, lon
         });
 
+        const user = await User.findById(userRef)
+        console.log(user);
+
         const savedListing = await newListing.save();
+        const newMessage = new Message({
+            name: `${name} in ${address}`,
+            listingId: savedListing._id,
+            message: `New listing created for ${RentOrSell} by ${user.username}`,
+            type: 'listing'
+        })
+        await newMessage.save()
+
         res.status(201).json(savedListing);
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
 };
+export const manyListing = async (req, res) => {
+    const listings = req.body;
+
+    if (!Array.isArray(listings)) {
+        return res.status(400).json({ message: "Request body must be an array of listings." });
+    }
+
+    console.log(listings);
+
+    try {
+        // Create an array of promises for saving listings
+        const savePromises = listings.map(listingData => {
+            const newListing = new Listing(listingData);
+            return newListing.save();
+        });
+
+        // Wait for all promises to resolve
+        const savedListings = await Promise.all(savePromises);
+
+        res.status(201).json({
+            message: 'Successfully created all listings',
+            count: savedListings.length,
+            listings: savedListings // Optional: return the saved listings
+        });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
+
 
 // @desc    Get all listings
 // @route   GET /api/listings
@@ -64,6 +106,15 @@ export const updateListing = async (req, res) => {
         if (!updatedListing) {
             return res.status(404).json({ message: 'Listing not found' });
         }
+        const user = await User.findById(req.body.userRef)
+
+        const newMessage = new Message({
+            name: `${req.body.name} in ${req.body.address}`,
+            listingId: updatedListing._id,
+            message: `${user.username} edited ${req.body.name} listing`,
+            type: 'listing'
+        })
+        await newMessage.save()
         res.json(updatedListing);
     } catch (error) {
         res.status(400).json({ message: error.message });

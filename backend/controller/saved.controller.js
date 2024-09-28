@@ -14,7 +14,7 @@ export const createOrUpdateSavedList = async (req, res) => {
             // User already has a saved list, push new favorite IDs into the list
             const newFavorites = FavoritedId.filter(id => !savedList.FavoritedId.includes(id)); // Avoid duplicates
             if (newFavorites.length === 0) {
-                return res.status(400).json({ message: 'No new favorites to add' });
+                return res.status(200).json({ message: 'No new favorites to add' });
             }
 
             savedList.FavoritedId.push(...newFavorites);
@@ -73,6 +73,7 @@ export const removeFavoriteFromList = async (req, res) => {
 // @route   DELETE /api/saved/:userId
 // @access  Public (or protected if needed)
 export const deleteSavedList = async (req, res) => {
+
     try {
         const deletedSavedList = await Saved.findOneAndDelete({ userId: req.params.userId });
         if (!deletedSavedList) {

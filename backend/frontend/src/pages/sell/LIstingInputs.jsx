@@ -172,8 +172,8 @@ export default function ListingInputs() {
     };
 
     return (
-        <div className="flex justify-center items-center  bg-gray-100">
-            <div className="w-full  bg-white p-4 md:p-6 md:px-20 rounded-lg shadow-lg">
+        <div className="flex justify-center items-center dark:bg-gray-800 dark:text-white  bg-gray-100 pb-32">
+            <div className="w-full dark:bg-gray-800  bg-white p-4 md:p-6 md:px-20 rounded-lg shadow-lg">
                 <h2 className='lg:text-4xl text-3xl font-bold pb-1 border pt-5 border-x-0 border-b-0 border-t-slate-400'>{isEng ? 'Listing For Sell or Rent' : 'የሚሸጥ ወይም የሚከራይ ዝርዝር'}</h2>
                 <div className='text-xl border border-b-slate-400 border-x-0 pb-8 mb-6 border-t-0'> {formData.address}</div>
 
@@ -184,7 +184,7 @@ export default function ListingInputs() {
 
                         {/* Regular Price */}
                         <div>
-                            <label htmlFor="regularPrice" className="block text-sm font-medium text-gray-700">Set Regular Price(<span className='text-green-500 font-bold'>ETB</span>):</label>
+                            <label htmlFor="regularPrice" className="block text-sm font-medium dark:text-white text-gray-700">Set Regular Price(<span className='text-green-500 font-bold'>ETB</span>):</label>
                             <input
                                 type="number"
                                 id="regularPrice"
@@ -192,14 +192,14 @@ export default function ListingInputs() {
                                 placeholder='ETB'
                                 value={formData.regularPrice}
                                 onChange={handleChange}
-                                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                className="mt-1 block w-full p-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                 required
                             />
                         </div>
 
                         {/* Discounted Price */}
                         <div>
-                            <label htmlFor="discountedPrice" className="block text-sm font-medium text-gray-700">Discounted Price:</label>
+                            <label htmlFor="discountedPrice" className="block text-sm font-medium dark:text-white text-gray-700">Discounted Price:</label>
                             <input
                                 type="number"
                                 id="discountedPrice"
@@ -207,7 +207,7 @@ export default function ListingInputs() {
                                 placeholder='ETB'
                                 value={formData.discountedPrice}
                                 onChange={handleChange}
-                                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                className="mt-1 block w-full p-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                 required
                             />
                         </div>
@@ -215,7 +215,7 @@ export default function ListingInputs() {
                     {/* Image Upload */}
                     <div className="flex flex-col justify-between gap-2  ">
                         <div className='flex justify-between'>
-                            <label className="block text-xl font-medium text-gray-700">Photo:</label>
+                            <label className="block text-xl font-medium dark:text-white text-gray-700">Photo:</label>
                             <div className={`bg-blue-400 text-white hover:opacity-70 ${clicked ? 'cursor-not-allowed' : ''} hover:cursor-pointer  rounded-md  px-3 py-2`} onClick={() => {
                                 handleImageUpload()
                                 setCicked(true)
@@ -236,7 +236,7 @@ export default function ListingInputs() {
                                 ) : (
                                     <div className='flex flex-col items-center gap-2'>
                                         <img src={photo} className='w-16 h-16' alt="" />
-                                        <p className="text-gray-700 text-center">Drag and drop photos here to upload</p>
+                                        <p className="text-gray-700 dark:text-white text-center">Drag and drop photos here to upload</p>
                                     </div>
                                 )}
                                 <span className="text-white px-2 py-1 bg-blue-600 rounded-lg text-md ml-2">Add new photo</span>
@@ -281,27 +281,27 @@ export default function ListingInputs() {
                     <div className='flex gap-3'>
                         <div className='space-y-2 w-[50%]'>
                             <div className=''>
-                                <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name:</label>
+                                <label htmlFor="name" className="block text-sm dark:text-white font-medium text-gray-700">Name:</label>
                                 <input
                                     type="text"
                                     id="name"
                                     name="name"
                                     value={formData.name}
                                     onChange={handleChange}
-                                    className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+                                    className="mt-1 block w-full p-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-md shadow-sm"
                                     required
                                 />
                             </div>
 
                             {/* Description */}
                             <div className=''>
-                                <label htmlFor="description" className="block text-sm font-medium text-gray-700">Description:</label>
+                                <label htmlFor="description" className="block text-sm dark:text-white font-medium text-gray-700">Description:</label>
                                 <textarea
                                     id="description"
                                     name="description"
                                     value={formData.description}
                                     onChange={handleChange}
-                                    className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                    className="mt-1 block w-full p-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                     required
                                 />
                             </div>
@@ -312,42 +312,42 @@ export default function ListingInputs() {
                             <div className='flex justify-between gap-4 '>
                                 {/* bathroom */}
                                 <div className='w-full'>
-                                    <label htmlFor="bathrooms" className="block text-sm font-medium text-gray-700">Bathrooms:</label>
+                                    <label htmlFor="bathrooms" className="block text-sm dark:text-white font-medium text-gray-700">Bathrooms:</label>
                                     <input
                                         type="number"
                                         id="bathrooms"
                                         name="bathrooms"
                                         value={formData.bathrooms}
                                         onChange={handleChange}
-                                        className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                        className="mt-1 block w-full p-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                         required
                                     />
                                 </div>
 
                                 {/* Bedrooms */}
                                 <div className='w-full'>
-                                    <label htmlFor="bedrooms" className="block text-sm font-medium text-gray-700">Bedrooms:</label>
+                                    <label htmlFor="bedrooms" className="block text-sm dark:text-white font-medium text-gray-700">Bedrooms:</label>
                                     <input
                                         type="number"
                                         id="bedrooms"
                                         name="bedrooms"
                                         value={formData.bedrooms}
                                         onChange={handleChange}
-                                        className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                        className="mt-1 block w-full p-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                         required
                                     />
                                 </div>
                             </div>
 
                             <div className=''>
-                                <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700">Phone Number:</label>
+                                <label htmlFor="phoneNumber" className="block text-sm dark:text-white font-medium text-gray-700">Phone Number:</label>
                                 <input
                                     type="text"
                                     id="phoneNumber"
                                     name="phoneNumber"
                                     value={formData.phoneNumber}
                                     onChange={handleChange}
-                                    className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                    className="mt-1 block w-full p-2 border border-gray-300  dark:border-gray-600 dark:bg-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                     required
                                 />
                             </div>
@@ -359,27 +359,27 @@ export default function ListingInputs() {
 
                             {/* Parking */}
                             <div>
-                                <label htmlFor="parking" className="block text-sm font-medium text-gray-700">Parking Spaces:</label>
+                                <label htmlFor="parking" className="block text-sm  dark:text-white font-medium text-gray-700">Parking Spaces:</label>
                                 <input
                                     type="number"
                                     id="parking"
                                     name="parking"
                                     value={formData.parking}
                                     onChange={handleChange}
-                                    className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                    className="mt-1 block w-full p-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                     required
                                 />
                             </div>
 
                             {/* Rent or Sell */}
                             <div>
-                                <label htmlFor="RentOrSell" className="block text-sm font-medium text-gray-700">Rent or Sell:</label>
+                                <label htmlFor="RentOrSell" className="block text-sm dark:text-white font-medium text-gray-700">Rent or Sell:</label>
                                 <select
                                     id="RentOrSell"
                                     name="RentOrSell"
                                     value={formData.RentOrSell}
                                     onChange={handleChange}
-                                    className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                    className="mt-1 block w-full p-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                     required
                                 >
                                     <option value="rent">Rent</option>
@@ -395,20 +395,20 @@ export default function ListingInputs() {
                                     name="basement"
                                     checked={formData.basement}
                                     onChange={handleChange}
-                                    className="h-5 w-5 text-indigo-600 border-gray-300 rounded"
+                                    className="h-5 w-5 text-indigo-600 dark:border-gray-600 dark:bg-gray-900 border-gray-300 rounded"
                                 />
-                                <label htmlFor="basement" className="ml-2 block text-md text-gray-900">Has Basement</label>
+                                <label htmlFor="basement" className="ml-2 block text-md dark:text-white text-gray-900">Has Basement</label>
                             </div>
 
                             {/* Home Type */}
                             <div>
-                                <label htmlFor="HomeType" className="block text-sm font-medium text-gray-700">Home Type:</label>
+                                <label htmlFor="HomeType" className="block text-sm font-medium dark:text-white text-gray-700">Home Type:</label>
                                 <select
                                     id="HomeType"
                                     name="HomeType"
                                     value={formData.HomeType}
                                     onChange={handleChange}
-                                    className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                    className="mt-1 block w-full p-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-900 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                     required
                                 >
                                     <option value="single-family">Single Family</option>

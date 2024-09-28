@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 
+
 function RentAffordabilityCalculator() {
     const [netIncome, setNetIncome] = useState('');
     const [debt, setDebt] = useState('');

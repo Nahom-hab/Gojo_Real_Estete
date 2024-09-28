@@ -22,7 +22,7 @@ router.get('/:userId', getSavedListByUserId);
 // @desc    Remove a favorite from a saved list
 // @route   DELETE /api/saved/removeFavorite
 // @access  Public (or protected if needed)
-router.delete('/removeFavorite', removeFavoriteFromList);
+router.delete('/', removeFavoriteFromList);
 
 // @desc    Delete a saved list by user ID
 // @route   DELETE /api/saved/:userId

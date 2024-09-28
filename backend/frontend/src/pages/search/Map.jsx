@@ -6,13 +6,13 @@ import 'leaflet/dist/leaflet.css';
 export default function LeafletMap({ listingsForMap }) {
     return (
         <div className="w-full h-full">
-            <MapContainer center={[37.7749, -122.4194]} zoom={5} scrollWheelZoom={true} className="h-full">
+            <MapContainer center={[9.06, 38.75]} zoom={10} scrollWheelZoom={true} className="h-full">
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 />
                 {listingsForMap.map((listing) => (
-                    <Marker key={listing.lat} position={[listing.lat, listing.lon]}>
+                    <Marker key={listing._id} position={[listing.lat, listing.lon]}>
                         <Popup>
                             <div className="max-w-xs p-3 bg-white rounded-lg shadow-lg">
                                 <div className='flex items-center justify-between'>

@@ -48,14 +48,14 @@ const ConfirmationPage = () => {
     };
 
     return (
-        <div className="p-7 pt-2">
-            <h2 className='lg:text-4xl text-3xl font-bold pb-1 border pt-5 border-x-0 border-b-0 border-t-slate-400'>
+        <div className="p-7 dark:bg-gray-800 dark:text-white pt-2 pb-44">
+            <h2 className='lg:text-4xl text-3xl font-bold pb-1 border pt-5 border-x-0 dark:text-white border-b-0 border-t-slate-400'>
                 {isEng ? "Listing For Sell or Rent" : "የምርት ወይም የእንቅስቃሴ ዝርዝር"}
             </h2>
             <div className='text-xl border border-b-slate-400 border-x-0 pb-5 border-t-0'>
                 {formData.streetAddress} | {formData.city}
             </div>
-            <h2 className="mt-5 mb-2 text-gray-500">
+            <h2 className="mt-5 mb-2 dark:text-gray-300 text-gray-500">
                 {isEng ? "Is this an accurate location of your home?" : "ይህ የቤትዎ ዕውነተኛ ቦታ ነው?"}
             </h2>
             <div className="h-80 w-full">

@@ -18,10 +18,8 @@ export default function EditListing() {
     const listing = location.state || {};
     const [error, setError] = useState(null)
     const [formData, setFormData] = useState({
-        name: "adama homes",
-        description: `Experience luxury living in this stunning home featuring spacious interiors, 
-        modern amenities, and beautifully landscaped outdoor spaces. Perfectly located near top schools
-         and shopping, it’s the ideal retreat for families and professionals alike.`,
+        name: listing.name,
+        description: listing.description,
         address: listing.address,
         regularPrice: listing.regularPrice,
         discountedPrice: listing.discountedPrice,
@@ -175,10 +173,10 @@ export default function EditListing() {
     };
 
     return (
-        <div className="flex justify-center items-center  bg-gray-100">
-            <div className="w-full  bg-white p-4 md:p-6 md:px-20 rounded-lg shadow-lg">
-                <h2 className='lg:text-4xl text-3xl font-bold pb-1 border pt-5 border-x-0 border-b-0 border-t-slate-400'>{isEng ? 'Listing For Sell or Rent' : 'የሚሸጥ ወይም የሚከራይ ዝርዝር'}</h2>
-                <div className='text-xl border border-b-slate-400 border-x-0 pb-8 mb-6 border-t-0'> {formData.address}</div>
+        <div className="flex justify-center items-center dark:text-white  dark:bg-gray-800 pb-44 md:px-10 dark:border dark:border-x-0 dark:border-gray-600  bg-gray-100">
+            <div className="w-full dark:bg-gray-800  bg-white p-4 md:p-6 md:px-20 rounded-lg shadow-lg">
+                <h2 className='lg:text-4xl text-3xl font-bold pb-1 border pt-5 dark:text-white border-x-0 border-b-0 border-t-slate-400'>{isEng ? 'Listing For Sell or Rent' : 'የሚሸጥ ወይም የሚከራይ ዝርዝር'}</h2>
+                <div className='text-xl border border-b-slate-400 border-x-0 dark:text-white pb-8 mb-6 border-t-0'> {formData.address}</div>
 
                 <form onSubmit={handleSubmit} className="pt-4  space-y-4">
 
@@ -187,7 +185,7 @@ export default function EditListing() {
 
                         {/* Regular Price */}
                         <div>
-                            <label htmlFor="regularPrice" className="block text-sm font-medium text-gray-700">Set Regular Price(<span className='text-green-500 font-bold'>ETB</span>):</label>
+                            <label htmlFor="regularPrice" className="block text-sm font-medium dark:text-gray-300 text-gray-700">Set Regular Price(<span className='text-green-500 font-bold'>ETB</span>):</label>
                             <input
                                 type="number"
                                 id="regularPrice"
@@ -195,14 +193,14 @@ export default function EditListing() {
                                 placeholder='ETB'
                                 value={formData.regularPrice}
                                 onChange={handleChange}
-                                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                className="mt-1 block w-full p-2 border dark:bg-gray-900 dark:border-gray-600 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                 required
                             />
                         </div>
 
                         {/* Discounted Price */}
                         <div>
-                            <label htmlFor="discountedPrice" className="block text-sm font-medium text-gray-700">Discounted Price:</label>
+                            <label htmlFor="discountedPrice" className="block text-sm font-medium dark:text-gray-300 text-gray-700">Discounted Price:</label>
                             <input
                                 type="number"
                                 id="discountedPrice"
@@ -210,14 +208,14 @@ export default function EditListing() {
                                 placeholder='ETB'
                                 value={formData.discountedPrice}
                                 onChange={handleChange}
-                                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                className="mt-1 block w-full p-2 border dark:bg-gray-900 dark:border-gray-600 border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                 required
                             />
                         </div>
                     </div>
                     <div className="flex flex-col justify-between gap-2">
                         <div className='flex justify-between'>
-                            <label className="block text-xl font-medium text-gray-700">Photos:</label>
+                            <label className="block text-xl font-medium dark:text-gray-200 text-gray-700">Photos:</label>
                             <div className={`bg-blue-400 text-white hover:opacity-70 ${clicked ? 'cursor-not-allowed' : ''} hover:cursor-pointer rounded-md px-3 py-2`} onClick={handleImageUpload}>
                                 {uploading ? (
                                     <div className="flex items-center justify-center">
@@ -227,7 +225,7 @@ export default function EditListing() {
                             </div>
                         </div>
 
-                        <div {...getRootProps()} className={`border-2 border-dashed rounded-md p-4 w-full transition duration-200 ${isDragActive ? 'border-blue-500' : 'border-gray-300'}`}>
+                        <div {...getRootProps()} className={`border-2 border-dashed rounded-md p-4   w-full transition duration-200 ${isDragActive ? 'border-blue-500' : 'border-gray-300'}`}>
                             <input {...getInputProps()} />
                             <div className="flex flex-col gap-2 items-center justify-center h-full">
                                 {isDragActive ? (
@@ -235,7 +233,7 @@ export default function EditListing() {
                                 ) : (
                                     <div className='flex flex-col items-center gap-2'>
                                         <img src={photo} className='w-16 h-16' alt="Upload placeholder" />
-                                        <p className="text-gray-700 text-center">Drag and drop photos here to upload</p>
+                                        <p className="dark:text-gray-200 text-gray-700 text-center">Drag and drop photos here to upload</p>
                                     </div>
                                 )}
                                 <span className="text-white px-2 py-1 bg-blue-600 rounded-lg text-md">Add new photo</span>
@@ -275,108 +273,94 @@ export default function EditListing() {
                             ))}
                         </div>
                     )}
-                    <div className='flex gap-3'>
+                    <div className='flex mt-5 gap-3'>
                         <div className='space-y-2 w-[50%]'>
                             <div className=''>
-                                <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name:</label>
+                                <label htmlFor="name" className="block text-sm font-medium dark:text-white text-gray-700">Name:</label>
                                 <input
                                     type="text"
                                     id="name"
                                     name="name"
                                     value={formData.name}
                                     onChange={handleChange}
-                                    className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm"
+                                    className="mt-1 block w-full p-2 border dark:bg-gray-900 dark:border-gray-600 border-gray-300 rounded-md shadow-sm"
                                     required
                                 />
                             </div>
-
-                            {/* Description */}
-                            <div className=''>
-                                <label htmlFor="description" className="block text-sm font-medium text-gray-700">Description:</label>
-                                <textarea
-                                    id="description"
-                                    name="description"
-                                    value={formData.description}
-                                    onChange={handleChange}
-                                    className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
-                                    required
-                                />
-                            </div>
-
-
 
 
                             <div className='flex justify-between gap-4 '>
                                 {/* bathroom */}
                                 <div className='w-full'>
-                                    <label htmlFor="bathrooms" className="block text-sm font-medium text-gray-700">Bathrooms:</label>
+                                    <label htmlFor="bathrooms" className="block text-sm font-medium dark:text-white text-gray-700">Bathrooms:</label>
                                     <input
                                         type="number"
                                         id="bathrooms"
                                         name="bathrooms"
                                         value={formData.bathrooms}
                                         onChange={handleChange}
-                                        className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                        className="mt-1 block w-full p-2 border border-gray-300 dark:bg-gray-900 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                         required
                                     />
                                 </div>
 
                                 {/* Bedrooms */}
                                 <div className='w-full'>
-                                    <label htmlFor="bedrooms" className="block text-sm font-medium text-gray-700">Bedrooms:</label>
+                                    <label htmlFor="bedrooms" className="block text-sm font-medium dark:text-white text-gray-700">Bedrooms:</label>
                                     <input
                                         type="number"
                                         id="bedrooms"
                                         name="bedrooms"
                                         value={formData.bedrooms}
                                         onChange={handleChange}
-                                        className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                        className="mt-1 block w-full p-2 border border-gray-300 dark:bg-gray-900 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                         required
                                     />
                                 </div>
                             </div>
 
                             <div className=''>
-                                <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700">Phone Number:</label>
+                                <label htmlFor="phoneNumber" className="block text-sm font-medium dark:text-white text-gray-700">Phone Number:</label>
                                 <input
                                     type="text"
                                     id="phoneNumber"
                                     name="phoneNumber"
                                     value={formData.phoneNumber}
                                     onChange={handleChange}
-                                    className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                    className="mt-1 block w-full p-2 border border-gray-300 rounded-md dark:bg-gray-900 dark:border-gray-600 shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                     required
                                 />
                             </div>
                         </div>
+
                         {/* Other form inputs... */}
 
-                        <div className='md:w-[50%] space-y-2 mt-5'>
+                        <div className='md:w-[50%] space-y-2 '>
 
 
                             {/* Parking */}
                             <div>
-                                <label htmlFor="parking" className="block text-sm font-medium text-gray-700">Parking Spaces:</label>
+                                <label htmlFor="parking" className="block text-sm font-medium dark:text-white text-gray-700">Parking Spaces:</label>
                                 <input
                                     type="number"
                                     id="parking"
                                     name="parking"
                                     value={formData.parking}
                                     onChange={handleChange}
-                                    className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                    className="mt-1 block w-full p-2 border border-gray-300 dark:bg-gray-900 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                     required
                                 />
                             </div>
 
                             {/* Rent or Sell */}
                             <div>
-                                <label htmlFor="RentOrSell" className="block text-sm font-medium text-gray-700">Rent or Sell:</label>
+                                <label htmlFor="RentOrSell" className="block text-sm font-medium dark:text-white text-gray-700">Rent or Sell:</label>
                                 <select
                                     id="RentOrSell"
                                     name="RentOrSell"
                                     value={formData.RentOrSell}
                                     onChange={handleChange}
-                                    className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                    className="mt-1 block w-full p-2 border border-gray-300 dark:bg-gray-900 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                     required
                                 >
                                     <option value="rent">Rent</option>
@@ -392,20 +376,20 @@ export default function EditListing() {
                                     name="basement"
                                     checked={formData.basement}
                                     onChange={handleChange}
-                                    className="h-5 w-5 text-indigo-600 border-gray-300 rounded"
+                                    className="h-5 w-5 text-indigo-600 dark:bg-gray-900 dark:border-gray-600 border-gray-300 rounded"
                                 />
-                                <label htmlFor="basement" className="ml-2 block text-md text-gray-900">Has Basement</label>
+                                <label htmlFor="basement" className="ml-2 block text-md dark:text-white text-gray-900">Has Basement</label>
                             </div>
 
                             {/* Home Type */}
                             <div>
-                                <label htmlFor="HomeType" className="block text-sm font-medium text-gray-700">Home Type:</label>
+                                <label htmlFor="HomeType" className="block text-sm font-medium dark:text-white text-gray-700">Home Type:</label>
                                 <select
                                     id="HomeType"
                                     name="HomeType"
                                     value={formData.HomeType}
                                     onChange={handleChange}
-                                    className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                    className="mt-1 block w-full p-2 border border-gray-300 dark:bg-gray-900 dark:border-gray-600 rounded-md shadow-sm dark:text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                                     required
                                 >
                                     <option value="single-family">Single Family</option>
@@ -420,16 +404,28 @@ export default function EditListing() {
                             </div>
 
 
-                            <button
-                                type="submit"
-                                className=" bg-blue-700 hover:bg-blue-500  w-full  md:w-[50%] text-white py-2 px-4 rounded-md shadow mt-4"
-                            >
-                                Post Listing
-                            </button>
-                            {error ? (<p className='text-red-600'>{error}</p>) : ''}
-                        </div>
-                    </div>
 
+                        </div>
+
+                    </div>
+                    <div className=''>
+                        <label htmlFor="description" className="block text-sm font-medium dark:text-white text-gray-700">Description:</label>
+                        <textarea
+                            id="description"
+                            name="description"
+                            value={formData.description}
+                            onChange={handleChange}
+                            className="mt-1 block w-full p-2 border border-gray-300 dark:bg-gray-900 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                            required
+                        />
+                    </div>
+                    <button
+                        type="submit"
+                        className=" bg-blue-700 hover:bg-blue-500  w-full text-2xl  md:w-[50%] text-white py-2 px-4 rounded-md shadow mt-4"
+                    >
+                        Post Listing
+                    </button>
+                    {error ? (<p className='text-red-600'>{error}</p>) : ''}
                 </form>
             </div>
         </div>

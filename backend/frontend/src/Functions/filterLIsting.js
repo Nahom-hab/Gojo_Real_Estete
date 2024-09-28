@@ -1,3 +1,5 @@
+import Fuse from 'fuse.js';
+
 export const filterListings = (listings = [], formData = {}) => {
     try {
         // Handle no filters scenario
@@ -6,6 +8,18 @@ export const filterListings = (listings = [], formData = {}) => {
             return listings;
         }
 
+        // Prepare fuzzy search options for 'address' and 'name'
+        let fuse = null;
+        if (formData.searchQuery) {
+            const fuseOptions = {
+                keys: ['address', 'name'],
+                threshold: 0.4, // Adjust this value to control the fuzziness (0 = exact match, 1 = very fuzzy)
+                includeScore: true // Optional: Includes search score if you need to sort results by relevance
+            };
+            fuse = new Fuse(listings, fuseOptions);
+        }
+
+        // Apply filters
         return listings.filter(listing => {
             // Check for RentOrSell
             if (formData.forSale && formData.forSale !== 'both' && listing.RentOrSell !== formData.forSale) {
@@ -59,6 +73,18 @@ export const filterListings = (listings = [], formData = {}) => {
                 (formData.sqftRange?.max && parseInt(listing.sqft) > parseInt(formData.sqftRange.max))) {
                 console.log(`Filtering out due to Square Feet Range: ${listing.sqft}`);
                 return false;
+            }
+
+            // Fuzzy Search with Fuse.js (for 'address' and 'name')
+            if (formData.searchQuery && fuse) {
+                const results = fuse.search(formData.searchQuery);
+                const matchedListings = results.map(result => result.item); // Extract matched listings
+                const isMatched = matchedListings.some(matched => matched === listing);
+
+                if (!isMatched) {
+                    console.log(`Filtering out due to Fuzzy Search: ${listing.address} or ${listing.name} did not match ${formData.searchQuery}`);
+                    return false;
+                }
             }
 
             // If all checks pass, include the listing

@@ -6,7 +6,10 @@ const useUser = create((set) => ({
     AllListings: JSON.parse(localStorage.getItem("listings")),
     setAllListings: (listings) => set({ listings }),
     isEng: JSON.parse(localStorage.getItem("isEng")),
-    setIsEng: (isEng) => set({ isEng })
+    setIsEng: (isEng) => set({ isEng }),
+    Favorite: [],
+    setFavorite: (Favorite) => set({ Favorite })
+
 }))
 
 export default useUser

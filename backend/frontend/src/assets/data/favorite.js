@@ -1,4 +1,4 @@
-export const FavoritedListing = [
+const FavoritedListin = [
 
 
     {
@@ -229,3 +229,6 @@ export const FavoritedListing = [
         "lat": 40.7128, // Approximate lat for Brookside (New York City)
         "lon": -74.0060 // Approximate lon for Brookside (New York City)
     },]
+
+
+export default FavoritedListin
