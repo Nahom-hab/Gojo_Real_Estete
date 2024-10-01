@@ -191,9 +191,9 @@ export default function Navigation() {
                 </Link>
                 <FaChevronDown />
               </li>
-              <div className='lg:ml-0 ml-6'>
+              <div className='lg:ml-0 mt-10 ml-6'>
                 <select
-                  className='lg:block  border-none outline-none'
+                  className='lg:block dark:bg-white dark:text-black  border-none px-5 py-2 text-lg rounded-lg outline-none'
                   value={isEng ? 'English' : 'Amharic'}
                   onChange={handleLanguageChange}
                 >
