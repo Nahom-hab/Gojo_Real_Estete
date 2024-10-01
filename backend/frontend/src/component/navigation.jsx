@@ -3,27 +3,15 @@ import { Link, useLocation } from 'react-router-dom';
 import { FaChevronDown } from 'react-icons/fa';
 import logo from '../assets/images/logoo.png';
 import useUser from '../zustand/useUser';
-import ThemeToggle from './toggle';
+import FetchListingHook from '../Functions/FetchListingHook';
 
 export default function Navigation() {
   const [menuOpen, setMenuOpen] = useState(false);
   const sidebarRef = useRef(null);
   const location = useLocation();
-  const { isEng, setIsEng, user, AllListings, setAllListings, setFavorite } = useUser();
-  useEffect(() => {
+  const { isEng, setIsEng, user } = useUser();
+  FetchListingHook()
 
-    const fetchListings = async () => {
-      const listingsResponse = await fetch('/api/listing');
-      if (!listingsResponse.ok) {
-        throw new Error('Network response was not ok');
-      }
-      const result = await listingsResponse.json();
-      setAllListings(result);
-      localStorage.setItem("listings", JSON.stringify(result));
-    }
-    fetchListings()
-
-  }, [])
 
 
   const toggleMenu = () => {

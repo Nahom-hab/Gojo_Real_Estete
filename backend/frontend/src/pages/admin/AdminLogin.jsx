@@ -1,27 +1,24 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import useAdmin from '../../zustand/useAdmin';// Import the Zustand store
 
 export default function AdminLogin() {
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [password2, setPassword2] = useState('');
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
-    const navigate = useNavigate()
+    const { setAdmin } = useAdmin(); // Get the setAdmin function from Zustand store
+    const navigate = useNavigate();
 
     const handleLogin = async (e) => {
         e.preventDefault();
         setError(null); // Reset errors
         setLoading(true); // Show loading
 
-        // Password match validation
-
-
         // Prepare request body
         const requestBody = {
-            email,
+            username,
             password,
-            password2,
         };
 
         try {
@@ -36,7 +33,15 @@ export default function AdminLogin() {
             const data = await response.json();
 
             if (response.ok) {
-                alert('Login successful');
+
+                // Set the admin details in Zustand
+                setAdmin({
+                    id: data.adminData._id,
+                    username: data.adminData.username,
+                    email: data.adminData.email,
+                });
+
+                // Navigate to admin dashboard
                 navigate('/admin/dashboard');
             } else {
                 // If login fails, show error message
@@ -59,20 +64,18 @@ export default function AdminLogin() {
 
                 <form onSubmit={handleLogin} className="mt-8">
                     <div className="mb-2">
-
                         <input
-                            type="email"
-                            id="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            type="text"
+                            id="username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
                             className="w-full text-lg px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-blue-500 focus:outline-none focus:ring"
-                            placeholder="Enter admin Email"
+                            placeholder="Enter username"
                             required
                         />
                     </div>
 
                     <div className="mb-2">
-
                         <input
                             type="password"
                             id="password"
@@ -80,19 +83,6 @@ export default function AdminLogin() {
                             onChange={(e) => setPassword(e.target.value)}
                             className="w-full text-lg px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-blue-500 focus:outline-none focus:ring"
                             placeholder="Enter password"
-                            required
-                        />
-                    </div>
-
-                    <div className="mb-4">
-
-                        <input
-                            type="password"
-                            id="password"
-                            value={password2}
-                            onChange={(e) => setPassword2(e.target.value)}
-                            className="w-full txt-lg px-4 py-2 mt-2 text-gray-700 bg-white border rounded-md focus:border-blue-500 focus:outline-none focus:ring"
-                            placeholder="Enter Your 2nd password"
                             required
                         />
                     </div>

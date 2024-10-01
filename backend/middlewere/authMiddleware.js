@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-const protect = (req, res, next) => {
+const AdminMiddleWere = (req, res, next) => {
     const token = req.cookies.token;
 
     if (!token) {
@@ -8,7 +8,7 @@ const protect = (req, res, next) => {
     }
 
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const decoded = jwt.verify(token, process.env.JWT_ADMIN_SECRET);
         req.admin = decoded; // Attach decoded admin data to request object
         next();
     } catch (error) {
@@ -16,4 +16,4 @@ const protect = (req, res, next) => {
     }
 };
 
-export default protect;
+export default AdminMiddleWere;

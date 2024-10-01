@@ -13,10 +13,12 @@ import useUser from '../zustand/useUser';
 export default function Home() {
   const { setAllListings, AllListings, isEng } = useUser()
   const { pathname } = useLocation();
+  const [loading, setLoading] = useState(false)
 
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true)
       const response = await fetch('/api/listing'); // Replace with your API endpoint
       if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -26,6 +28,7 @@ export default function Home() {
 
       setAllListings(result); // Set listings in state
       localStorage.setItem("listings", JSON.stringify(result)); // Save to localStorage
+      setLoading(false)
     };
     fetchData();
   }, []);

@@ -3,7 +3,7 @@ import ProductCardActive from '../../component/admin/AciveCard';
 import useUser from '../../zustand/useUser';
 
 export default function ActiveListings() {
-    const { AllListings, setAllListings } = useUser();
+    const { AllListings } = useUser();
     const [productList, setProductList] = useState(AllListings.filter((li) => !li.activated));
 
     const handleDeactivate = (id) => {

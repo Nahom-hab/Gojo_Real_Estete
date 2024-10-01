@@ -11,16 +11,23 @@ export const createListing = async (req, res) => {
         bedrooms, phoneNumber, basement, parking, RentOrSell, HomeType,
         imageURLs, userRef, lat, lon
     } = req.body;
+    const { id } = req.user
+    console.log(req.body);
 
+
+    if (userRef !== id) {
+        return res.json('cant create a listing with other user id')
+    }
     try {
         const newListing = new Listing({
             name, description, address, regularPrice, discountedPrice, bathrooms,
             bedrooms, phoneNumber, basement, parking, RentOrSell, HomeType,
             imageURLs, userRef, lat, lon
         });
+        console.log(imageURLs);
+
 
         const user = await User.findById(userRef)
-        console.log(user);
 
         const savedListing = await newListing.save();
         const newMessage = new Message({
@@ -97,7 +104,18 @@ export const getListingById = async (req, res) => {
 // @route   PUT /api/listings/:id
 // @access  Public (or protected if needed)
 export const updateListing = async (req, res) => {
+    const { id } = req.user
+
+
+
     try {
+        const listing = await Listing.findByIdAndUpdate(req.params.id)
+        if (!listing) {
+            return res.json('No listing found with this id')
+        }
+        if (listing.userRef !== id) {
+            return res.json('cant update other User listing')
+        }
         const updatedListing = await Listing.findByIdAndUpdate(
             req.params.id,
             { $set: req.body },

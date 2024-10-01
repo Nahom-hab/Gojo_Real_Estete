@@ -4,6 +4,7 @@ import useUser from '../../zustand/useUser';
 import ListCard from '../../component/admin/List';
 
 export default function UserListings() {
+
     const { AllListings } = useUser()
     const location = useLocation()
     const name = location.state || 'name'

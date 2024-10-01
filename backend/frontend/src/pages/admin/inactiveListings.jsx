@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import ProductCardInactive from '../../component/admin/InactiveCard';
 import useUser from '../../zustand/useUser';
 
 export default function InactiveListings() {
+
     const { AllListings, setAllListings } = useUser();
     const [productList, setProductList] = useState(AllListings.filter((li) => !li.activated));
 

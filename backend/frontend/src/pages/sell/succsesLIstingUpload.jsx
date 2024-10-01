@@ -2,13 +2,14 @@ import React from 'react';
 import { FaBath, FaBed, FaHome, FaParking, FaPhone } from 'react-icons/fa';
 import { Link, useLocation } from 'react-router-dom';
 import useUser from '../../zustand/useUser';
+import FetchListingHook from '../../Functions/FetchListingHook';
+
 
 export default function SuccessListingUpload() {
+    FetchListingHook()
     const location = useLocation();
     const { isEng } = useUser();
     const ListingData = location.state || {};
-    console.log(ListingData.imageUrls);
-
     return (
         <div className="flex items-center justify-center pt-10 md:px-4 pb-32 bg-gray-100 dark:bg-gray-800  ">
             <div className="bg-white dark:bg-gray-900 rounded-lg md:w-[80%] w-[92%] shadow-lg md:p-8 p-4 animate-fadeIn">
@@ -21,22 +22,22 @@ export default function SuccessListingUpload() {
                 </p>
                 <div className='flex md:flex-row flex-col gap-2'>
                     <div>
-                        {ListingData.imageUrls.length === 1 && (
-                            <img className='w-[600px] object-cover h-80 rounded-md' src={`http://localhost:8000${ListingData.imageUrls[0]}`} alt="" />
+                        {ListingData.imageURLs.length === 1 && (
+                            <img className='w-[600px] object-cover h-80 rounded-md' src={ListingData.imageURLs[0]} alt="" />
                         )}
 
-                        {ListingData.imageUrls.length === 2 && (
+                        {ListingData.imageURLs.length === 2 && (
                             <div className='flex flex-col gap-2'>
-                                <img className='md:w-80 w-full object-cover h-44 rounded-md' src={`http://localhost:8000${ListingData.imageUrls[0]}`} alt="" />
-                                <img className='md:w-80 w-full object-cover h-44 rounded-md' src={`http://localhost:8000${ListingData.imageUrls[1]}`} alt="" />
+                                <img className='md:w-80 w-full object-cover h-44 rounded-md' src={ListingData.imageURLs[0]} alt="" />
+                                <img className='md:w-80 w-full object-cover h-44 rounded-md' src={ListingData.imageURLs[1]} alt="" />
                             </div>
                         )}
-                        {ListingData.imageUrls.length >= 3 && (
+                        {ListingData.imageURLs.length >= 3 && (
                             <div className='flex md:flex-row flex-col gap-1'>
-                                <img className='md:w-80 w-full object-cover rounded-md h-[200px] md:h-[350px]' src={`http://localhost:8000${ListingData.imageUrls[0]}`} alt="" />
+                                <img className='md:w-80 w-full object-cover rounded-md h-[200px] md:h-[350px]' src={ListingData.imageURLs[0]} alt="" />
                                 <div className='flex md:flex-col gap-1'>
-                                    <img className='md:w-80 w-[50%] md:h-44 object-cover rounded-md' src={`http://localhost:8000${ListingData.imageUrls[1]}`} alt="" />
-                                    <img className='md:w-80 w-[50%] md:h-44 object-cover rounded-md' src={`http://localhost:8000${ListingData.imageUrls[2]}`} alt="" />
+                                    <img className='md:w-80 w-[50%] md:h-44 object-cover rounded-md' src={ListingData.imageURLs[1]} alt="" />
+                                    <img className='md:w-80 w-[50%] md:h-44 object-cover rounded-md' src={ListingData.imageURLs[3]} alt="" />
                                 </div>
                             </div>
                         )}

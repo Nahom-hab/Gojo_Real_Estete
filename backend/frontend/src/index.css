@@ -2,6 +2,57 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes shimmer {
+    0% {
+        background-position: -200px 0;
+    }
+
+    100% {
+        background-position: 200px 0;
+    }
+}
+
+.animate-shimmer {
+    background: linear-gradient(90deg,
+            rgba(255, 255, 255, 0.4) 0%,
+            /* Lighter starting color */
+            rgba(240, 240, 240, 0.8) 20%,
+            /* Lighter highlight color */
+            rgba(255, 255, 255, 0.4) 40%,
+            /* Lighter returning color */
+            rgba(240, 240, 240, 0.8) 60%,
+            /* Lighter highlight color */
+            rgba(255, 255, 255, 0.4) 80%,
+            /* Lighter returning color */
+            rgba(240, 240, 240, 0.8) 100%
+            /* Lighter highlight color */
+        );
+    background-size: 300% 100%;
+    /* Keep this for smoother animation */
+    animation: shimmer 1.5s infinite linear;
+    /* Keep this for smooth animation */
+    border-radius: 0.375rem;
+    /* Matches rounded-lg */
+}
+
+
+@layer utilities {
+    .animate-pulse {
+        animation: pulse 1s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+
+        0%,
+        100% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0.5;
+        }
+    }
+}
 
 /* styles.css */
 .scrollbar-hidden::-webkit-scrollbar {

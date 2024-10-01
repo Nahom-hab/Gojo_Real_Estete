@@ -1,34 +1,90 @@
 import React, { useEffect, useState } from 'react';
-import { FaBath, FaBed, FaHome, FaMapMarkerAlt, FaParking, FaPhone } from 'react-icons/fa';
+import { FaBath, FaBed, FaExclamationTriangle, FaHome, FaMapMarkerAlt, FaParking, FaPhone, FaSpinner, FaToggleOff, FaToggleOn } from 'react-icons/fa';
 import { useLocation } from 'react-router-dom';
 import useUser from '../../zustand/useUser';
 
 export default function ViewAdminListing() {
     const { pathname } = useLocation();
-    const { isEng } = useUser(); // Include isEng from state
-
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, [pathname]);
-
+    const { isEng, setAllListings } = useUser(); // Include isEng from state
     const location = useLocation();
     const result = location.state || {}; // Access state
     const [listing, setListing] = useState(result);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pathname]);
+
+    const handleActivate = async (type) => {
+
+        setLoading(true); // Start loading
+        try {
+            const response = await fetch(`/api/admin/${type}/${listing._id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+
+
+            if (response.ok) {
+                const data = await response.json();
+                if (data) {
+                    setListing(data.listing)
+                    console.log(`${type}d listing ${listing._id}`);
+                }
+                setLoading(false); // Stop loading
+
+                console.log(`Product with id: ${listing._id} has been ${type}ed.`);
+                const listingsResponse = await fetch('/api/listing');
+                if (!listingsResponse.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const result = await listingsResponse.json();
+                setAllListings(result);
+                localStorage.setItem("listings", JSON.stringify(result));
+            } else {
+                throw new Error(`Failed to ${type} product with id: ${listing._id}. Status: ${response.status}`);
+            }
+        } catch (error) {
+            console.error(`Failed to ${type} product with id: ${listing._id}`, error);
+            setError(error.message);
+        } finally {
+            setLoading(false); // Stop loading
+        }
+    };
+
+
+
+
     if (loading) {
-        return <p className="text-center text-gray-600">{isEng ? 'Loading...' : 'እቅፍ እባኮትን...'}</p>;
+        return (
+            <p className="text-center  py-56  text-gray-600">
+                <FaSpinner className="animate-spin text-6xl inline-block" />
+                {isEng ? ' Lks,djlkjoading...' : ' እቅፍ እባኮትን...'}
+            </p>
+        );
     }
 
     if (error) {
-        return <p className="text-center text-red-600">{isEng ? `Error: ${error}` : `ስህተት: ${error}`}</p>;
+        return (
+            <p className="text-center text-3xl py-56 text-red-600">
+                <FaExclamationTriangle className="inline-block text-5xl mr-2" />
+                {isEng ? `Error: ${error}` : `ስህተት: ${error}`}
+            </p>
+        );
     }
 
     if (!listing) {
-        return <p className="text-center text-gray-600">{isEng ? 'No listing found.' : 'የማዕከል አልተገኘም.'}</p>;
+        return (
+            <p className="text-center text-3xl py-56 text-gray-600">
+                <FaExclamationTriangle className="inline-block text-5xl mr-2" />
+                {isEng ? 'No listing found.' : 'የማዕከል አልተገኘም.'}
+            </p>
+        );
     }
-
     return (
         <div className=''>
             <div className="p-3 md:p-10 md:pt-20 items-center pt-8 md:flex">
@@ -59,15 +115,18 @@ export default function ViewAdminListing() {
                             <FaMapMarkerAlt className="text-green-600 inline-block mr-2" />
                             {listing.address}
                         </p>
-                        <div className='w-16 h-16 px-2 rounded-full border-2 md:mr-20 flex justify-center items-center text-[25px] bg-green-600 font-bold text-white border-green-600'>
-                            {listing.RentOrSell}
-                        </div>
+                        <span
+                            className={`px-4 py-1 text-center pt-2 text-lg rounded-full ${listing.activated ? 'bg-green-200 text-green-700' : 'bg-red-200 text-red-700'
+                                }`}
+                        >
+                            {listing.activated ? 'Active' : 'Inactive'}
+                        </span>
                     </div>
 
-                    <div className="md:text-2xl text-xl font-semibold ">
-                        {listing.name}
+                    <div className="md:text-2xl flex md:flex-row flex-col text-xl font-semibold ">
+                        <div> {listing.name} -</div>
                         <span className='text-green-600'>
-                            {listing.RentOrSell ? ` - ETB ${listing.discountedPrice} ${listing.RentOrSell === 'rent' ? (isEng ? '/Month' : '/ወር') : ''}` : ''}
+                            {listing.RentOrSell ? ` ETB ${listing.discountedPrice} ${listing.RentOrSell === 'rent' ? (isEng ? '/Month' : '/ወር') : ''}` : ''}
                         </span>
                     </div>
 
@@ -91,19 +150,42 @@ export default function ViewAdminListing() {
                             <FaParking className="inline-block text-gray-600 mr-1" /> {listing.parking} {isEng ? 'Parking' : 'መኪና መከለያ'}
                         </p>
                     </div>
-                    <div className='flex flex-col md:flex-row md:justify-between md:items-center md:pr-10'>
+                    <div className='flex  md:flex-row md:justify-between md:items-center md:pr-10'>
                         <div className='flex gap-4'>
                             <div className='text-xl'>
                                 {isEng ? 'Listing by' : 'የተመዘገበ በ'} <span className='font-bold'> {listing.userRef}</span>
                             </div>
                         </div>
-                        <div className='flex bg-green-600 p-2 rounded-md text-white w-fit px-5 gap-2 mt-5 text-xl items-center'>
+                        <div className='flex bg-green-600 p-1 rounded-md text-white w-fit px-3 gap-2 mt-2 text-sm items-center'>
                             <FaPhone className='text-white text-xl' />
                             {listing.phoneNumber}
                         </div>
                     </div>
+                    <div className='flex justify-start w-[80%]'>
+                        <div className="mt-2 flex gap-10 justify-between">
+                            {listing.activated ? (<button
+                                onClick={() => handleActivate('deactivate')}
+                                className="px-2 py-1 flex gap-1 items-center bg-red-500 text-white rounded-lg text-xl"
+                            >
+                                <FaToggleOff className="mr-1" />
+                                Deactivate
+                            </button>) : (<button
+                                onClick={() => handleActivate('activate')}
+                                className="px-2 py-1 flex gap-1 items-center bg-green-500 text-white rounded-lg text-2xl md:text-xl"
+                            >
+                                <FaToggleOn className="mr-1" />
+                                Activate
+                            </button>)}
+
+
+
+                        </div>
+                    </div>
+
                 </div>
+
             </div>
+
         </div>
     );
 }

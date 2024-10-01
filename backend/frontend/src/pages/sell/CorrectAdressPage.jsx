@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+import shoppingCartIcon from '../../assets/images/travel2.png'
 import useUser from '../../zustand/useUser'; // Adjust the import based on your state management
 
 const ConfirmationPage = () => {
@@ -46,6 +48,12 @@ const ConfirmationPage = () => {
         });
         return null;
     };
+    const customIcon = L.icon({
+        iconUrl: shoppingCartIcon, // Path to your custom icon
+        iconSize: [30, 30], // Adjust the size as needed
+        iconAnchor: [15, 30], // Center the icon
+    });
+
 
     return (
         <div className="p-7 dark:bg-gray-800 dark:text-white pt-2 pb-44">
@@ -64,7 +72,10 @@ const ConfirmationPage = () => {
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     />
-                    <Marker position={[latitude, longitude]}>
+                    <Marker
+                        position={[latitude, longitude]}
+                        icon={customIcon}
+                    >
                         <Popup>
                             <div>
                                 {formData.streetAddress} | {formData.city}

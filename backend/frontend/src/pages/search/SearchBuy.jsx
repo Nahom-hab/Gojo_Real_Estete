@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import { FaChevronDown, FaSearch } from 'react-icons/fa';
 import SearchListings from '../../component/SearchListings';
 import LeafletMap from './Map';
+import FetchListingHook from '../../Functions/FetchListingHook';
 
 export default function SearchBuy() {
+    FetchListingHook()
+
     const [formData, setFormData] = useState({
         searchQuery: '',
         forSale: 'sale', // default option

@@ -39,6 +39,7 @@ import ViewAdminListing from './pages/admin/view';
 import UserListings from './pages/admin/UserListings';
 import EditListingAdmin from './pages/admin/editListingAdmin';
 import ThemeToggle from './component/toggle';
+import ProtectedAdminRoute from './component/admin/ProtectedAdminRoutes';
 
 function App() {
   return (
@@ -46,66 +47,54 @@ function App() {
       <HeaderConditional />
       <ThemeToggle />
       <Routes>
-
         <Route path='/' element={<Home />}></Route>
         <Route path='/about' element={<About />}></Route>
         <Route path='/afordablityCalculator' element={<AffordabilityCalculator />}></Route>
-        <Route path='/editListing/:id' element={<EditListing />}></Route>
         <Route path='/viewListing/:id' element={<ViewListing />}></Route>
+        <Route path='/sell' element={<SellYourHomePage />}></Route>
+        <Route path='/mylisting' element={<MyListing />}></Route>
+        <Route path='/favorite' element={<Favorite />}></Route>
+        <Route path='/Listings' element={<ShowListing />}></Route>
+        <Route path='/contactUs' element={<ContactUs />}></Route>
+        <Route path='/ListingswithPrice' element={<ListingWithPrice />}></Route>
 
-
-        {/* //auth */}
+        {/* auth */}
         <Route path='/otpcheck' element={<Otpcheck />}></Route>
         <Route path='/signUpSuccess' element={<SignInSuccsus />}></Route>
         <Route path='/login' element={<Login />}></Route>
         <Route path='/signup' element={<Signup />}></Route>
 
-
-
-
-        {/* //sell */}
-        <Route path='/sell' element={<SellYourHomePage />}></Route>
-        <Route path='/addadress' element={<ListingPage />}></Route>
-        <Route path='/ConfirmationPage' element={<ConfirmationPage />}></Route>
-        <Route path='/listingInputs' element={<LIstingInputs />}></Route>
-        <Route path='/listingSuccuss' element={<SuccessListingUpload />}></Route>
-        <Route path='/signupSell' element={<AccountPrompt />}></Route>
-
+        {/* user */}
+        <Route element={<ProtectedRoute />}>
+          <Route path='/editListing/:id' element={<EditListing />}></Route>
+          <Route path='/addadress' element={<ListingPage />}></Route>
+          <Route path='/ConfirmationPage' element={<ConfirmationPage />}></Route>
+          <Route path='/listingInputs' element={<LIstingInputs />}></Route>
+          <Route path='/listingSuccuss' element={<SuccessListingUpload />}></Route>
+          <Route path='/signupSell' element={<AccountPrompt />}></Route>
+          <Route path='/profile' element={<Profile />}></Route>
+        </Route>
 
 
 
         {/* admin */}
-        <Route path='/admin/allListings' element={<ProductList />}></Route>
-        <Route path='/admin/inactive' element={<InactiveListings />}></Route>
-        <Route path='/admin/active' element={<ActiveListings />}></Route>
-        <Route path='/admin/dashboard' element={<Dashboard />}></Route>
-        <Route path='/admin/users' element={<UserDashboard />}></Route>
         <Route path='/admin/login/secret' element={<AdminLogin />}></Route>
-        <Route path='/admin/ViewListing/:id' element={<ViewAdminListing />}></Route>
-        <Route path='/admin/editListing/:id' element={<EditListingAdmin />}></Route>
+        <Route element={<ProtectedAdminRoute />}>
+          <Route path='/admin/allListings' element={<ProductList />}></Route>
+          <Route path='/admin/inactive' element={<InactiveListings />}></Route>
+          <Route path='/admin/active' element={<ActiveListings />}></Route>
+          <Route path='/admin/dashboard' element={<Dashboard />}></Route>
+          <Route path='/admin/users' element={<UserDashboard />}></Route>
+          <Route path='/admin/ViewListing/:id' element={<ViewAdminListing />}></Route>
+          <Route path='/admin/editListing/:id' element={<EditListingAdmin />}></Route>
+          <Route path="/user/:id" element={<UserListings />} />
+        </Route>
 
-
-
-
-
-
-
-        <Route path="/user/:id" element={<UserListings />} />
-        <Route path='/Listings' element={<ShowListing />}></Route>
-        <Route path='/favorite' element={<Favorite />}></Route>
-        <Route path='/contactUs' element={<ContactUs />}></Route>
-        <Route path='/ListingswithPrice' element={<ListingWithPrice />}></Route>
-
-
-        //search
+        {/* search */}
         <Route path='/search' element={<Search />}></Route>
         <Route path='/buy' element={<SearchBuy />}></Route>
         <Route path='/rent' element={<SearchRent />}></Route>
 
-        <Route element={<ProtectedRoute />}>
-          <Route path='/profile' element={<Profile />}></Route>
-          <Route path='/mylisting' element={<MyListing />}></Route>
-        </Route>
       </Routes>
       <FooterConditional />
     </BrowserRouter>

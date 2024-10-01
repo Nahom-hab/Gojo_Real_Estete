@@ -62,8 +62,8 @@ const Dashboard = () => {
                 const response = await fetch('/api/message');
                 if (!response.ok) throw new Error('Network response was not ok');
                 const data = await response.json();
-                setListingNotification(data.filter((d) => d.type === 'listing'));
-                setUserNotification(data.filter((d) => d.type === 'user'));
+                setListingNotification((data.filter((d) => d.type === 'listing')).reverse());
+                setUserNotification((data.filter((d) => d.type === 'user')).reverse());
                 fetchUserMessage();
             } catch (error) {
                 console.error("Failed to fetch notifications:", error);
@@ -77,7 +77,7 @@ const Dashboard = () => {
                 const res = await fetch('/api/feedback');
                 if (!res.ok) throw new Error('Network response was not ok');
                 const Userdata = await res.json();
-                setUserMessage(Userdata);
+                setUserMessage(Userdata.reverse());
             } catch (error) {
                 console.error("Failed to fetch user messages:", error);
             }

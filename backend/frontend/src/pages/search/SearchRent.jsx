@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { FaCaretDown, FaChevronDown, FaSearch } from 'react-icons/fa';
+import { FaChevronDown, FaSearch } from 'react-icons/fa';
 import SearchListings from '../../component/SearchListings';
 import LeafletMap from './Map';
+import FetchListingHook from '../../Functions/FetchListingHook';
 
 export default function SearchRent() {
+    FetchListingHook()
+
     const [formData, setFormData] = useState({
         searchQuery: '',
         forSale: 'rent', // default option

@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
-import { FaCaretDown, FaChevronDown, FaSearch } from 'react-icons/fa';
+import { FaChevronDown, FaSearch } from 'react-icons/fa';
 import SearchListings from '../../component/SearchListings';
 import LeafletMap from './Map';
 import { useLocation } from 'react-router-dom';
+import FetchListingHook from '../../Functions/FetchListingHook';
 
 const Search = () => {
+    FetchListingHook()
+
     const location = useLocation()
     const urlParams = new URLSearchParams(location.search);
     const searchTerm = urlParams.get('searchTerm');

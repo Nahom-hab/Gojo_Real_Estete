@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import ProductCard from '../../component/admin/productCard'; // Import the product card component
 import { useLocation, useNavigate } from 'react-router-dom';
 import useUser from '../../zustand/useUser';
+import FetchListingHook from '../../Functions/FetchListingHook';
 
 export default function ProductList() {
+
     const { AllListings } = useUser()
     const { pathname } = useLocation();
 

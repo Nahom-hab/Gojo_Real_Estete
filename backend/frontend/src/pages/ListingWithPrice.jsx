@@ -2,12 +2,12 @@ import React, { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import ScrollCard from '../component/scrollCard';
 import useUser from '../zustand/useUser';
+import FetchListingHook from '../Functions/FetchListingHook';
 
 export default function ListingWithPrice() {
+  FetchListingHook()
   const { pathname } = useLocation();
   const { AllListings } = useUser()
-
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);

@@ -3,8 +3,10 @@ import FavoriteCard from '../../component/FavoriteCard';
 import { Link, useLocation } from 'react-router-dom';
 import useUser from '../../zustand/useUser';
 import { FaHeart, FaUserAlt, FaSignInAlt, FaSpinner } from 'react-icons/fa'; // Add loading spinner icon
+import FetchListingHook from '../../Functions/FetchListingHook';
 
 export default function Favorite() {
+    FetchListingHook()
     const [FavoritedListing, setFavoritedListing] = useState(null);
     const { user, AllListings, Favorite, setFavorite } = useUser();
     const [loading, setLoading] = useState(true); // State to track loading status
