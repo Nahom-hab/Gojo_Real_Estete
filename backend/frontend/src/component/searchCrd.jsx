@@ -6,7 +6,6 @@ import useUser from '../zustand/useUser';
 export default function CardSearch({ result, similar }) {
     const { user, Favorite, setFavorite } = useUser(); // Default Favorite to an empty array
     const navigate = useNavigate();
-    console.log(Favorite);
     useEffect(() => {
         const fetchFav = async () => {
             try {

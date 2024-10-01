@@ -42,7 +42,6 @@ const ListingPage = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!errors.latitude && !errors.longitude) {
-            console.log('Form Submitted', formData);
             navigate('/ConfirmationPage', { state: { formData } });
         } else {
             console.log('Errors in form data:', errors);

@@ -27,7 +27,6 @@ export default function ProductCardInactive({ product, activationFinished }) {
                 },
             });
 
-            console.log('Response Status:', response.status); // Debugging log
 
             if (response.ok) {
                 const data = await response.json();
@@ -36,7 +35,6 @@ export default function ProductCardInactive({ product, activationFinished }) {
                 }
                 setLoading(false); // Stop loading
 
-                console.log(`Product with id: ${id} has been activated.`);
                 const listingsResponse = await fetch('/api/listing');
                 if (!listingsResponse.ok) {
                     throw new Error('Network response was not ok');

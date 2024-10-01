@@ -16,7 +16,6 @@ export const getAllUser = async (req, res, next) => {
 export const userdata = async (req, res, next) => {
   try {
     const validUser = await User.findOne({ email: req.email }); // Replace with an actual email from your database
-    console.log('Valid User:', validUser);
     if (validUser) {
       const { password, ...otheruserdata } = validUser._doc
       res.json(otheruserdata);

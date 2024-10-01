@@ -21,9 +21,6 @@ export default function ShowListing() {
       listing.RentOrSell === rentorsale
     );
   });
-  console.log(listingData);
-
-
 
 
 

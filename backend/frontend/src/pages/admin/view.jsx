@@ -33,11 +33,9 @@ export default function ViewAdminListing() {
                 const data = await response.json();
                 if (data) {
                     setListing(data.listing)
-                    console.log(`${type}d listing ${listing._id}`);
                 }
                 setLoading(false); // Stop loading
 
-                console.log(`Product with id: ${listing._id} has been ${type}ed.`);
                 const listingsResponse = await fetch('/api/listing');
                 if (!listingsResponse.ok) {
                     throw new Error('Network response was not ok');

@@ -24,7 +24,6 @@ export default function Home() {
         throw new Error('Network response was not ok');
       }
       const result = await response.json();
-      console.log(result);
 
       setAllListings(result); // Set listings in state
       localStorage.setItem("listings", JSON.stringify(result)); // Save to localStorage

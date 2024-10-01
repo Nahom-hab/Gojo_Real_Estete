@@ -17,7 +17,6 @@ router.get('/check-user-status', AuthUser, async (req, res) => {
     // Send back the admin's id, email, and username if they are authenticated as an admin
     const user = await User.findById(req.user.id)
     const { password, ...data } = user
-    console.log(data);
     if (!user) {
         return res.json('user not found')
     }

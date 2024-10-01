@@ -134,7 +134,6 @@ export default function EditListingAdmin() {
                     setError(error || 'Failed to update listing');
                     return;
                 }
-                console.log('succusfully edited');
                 const listingsResponse = await fetch('/api/listing');
                 if (!listingsResponse.ok) {
                     throw new Error('Network response was not ok');

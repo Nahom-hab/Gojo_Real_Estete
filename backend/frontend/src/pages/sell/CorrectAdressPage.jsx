@@ -31,7 +31,6 @@ const ConfirmationPage = () => {
 
     const handleSaveLocation = () => {
         const updatedData = { ...formData, latitude, longitude };
-        console.log('Updated Data:', updatedData);
         setIsChanging(false);
     };
 

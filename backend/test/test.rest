@@ -81,7 +81,6 @@ GET    http://localhost:8000/api/listing/get?type=sale
   //     }
 
   //     const myuser = await res.json();
-  //     console.log(myuser);
   //   } catch (error) {
   //     console.log(error);
   //   }

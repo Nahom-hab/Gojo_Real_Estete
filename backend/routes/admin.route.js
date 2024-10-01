@@ -23,7 +23,6 @@ router.get('/check-admin-status', AdminMiddleWere, async (req, res) => {
     // Send back the admin's id, email, and username if they are authenticated as an admin
     const admin = await Admin.findById(req.admin.id)
     const { password, ...data } = admin
-    console.log(data);
 
 
     if (!admin) {

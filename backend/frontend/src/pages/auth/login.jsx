@@ -41,7 +41,6 @@ const Login = () => {
       const result = await res.json();
       localStorage.setItem('user', JSON.stringify(result));
       setUser(result);
-      console.log(result);
       navigate('/');
     } catch (err) {
       console.error(err);

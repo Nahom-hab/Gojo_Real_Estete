@@ -106,8 +106,8 @@ const Search = () => {
 
 
     };
-
     const handleSubmit = () => { console.log(formData); }
+
     return (
         <div className='border dark:bg-gray-800 dark:text-white border-t-slate-500 pt-3'>
             <div className=' justify-center gap-1 flex'>

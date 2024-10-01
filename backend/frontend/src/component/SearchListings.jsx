@@ -30,7 +30,6 @@ export default function SearchListings({ SearchFields, setListingsForMap }) {
     useEffect(() => {
         try {
             const filteredListings = filterListings(AllListings, SearchFields);
-            console.log('Filtered Listings:', filteredListings);
             const newFilterdData = sortListings(filteredListings, sort)
             setData(newFilterdData);
             setListingsForMap(newFilterdData)
