@@ -128,7 +128,7 @@ const Dashboard = () => {
                             <div>
                                 <h2 className="md:text-3xl text-xl font-bold text-gray-900 mb-4">Recent User Notifications</h2>
                                 <div className="bg-white shadow-lg rounded-lg p-4">
-                                    <ul className='flex flex-col-reverse gap-2'>
+                                    <ul className='flex flex-col gap-2'>
                                         {userNotification.slice(0, 6).map((notification) => (
                                             <li key={notification._id} className="flex items-end p-1 md:p-2 rounded-lg justify-between border-b py-4 hover:bg-gray-200 transition duration-200 cursor-pointer" onClick={() => handleClick(notification.listingId)}>
                                                 <div className='flex gap-2 items-center'>
@@ -149,7 +149,7 @@ const Dashboard = () => {
                             <div>
                                 <h2 className="md:text-3xl text-xl font-bold text-gray-900 mb-4">Recent Listing Notifications</h2>
                                 <div className="bg-white shadow-lg rounded-lg p-1 md:p-4">
-                                    <ul className='flex flex-col-reverse gap-2'>
+                                    <ul className='flex flex-col gap-2'>
                                         {listingNotification.slice(0, 6).map((notification) => (
                                             <li
                                                 key={notification._id}
@@ -178,7 +178,7 @@ const Dashboard = () => {
                         <div className="mt-10 w-full md:w-1/3">
                             <h2 className="md:text-3xl text-xl font-bold text-gray-900 mb-4">User Messages</h2>
                             <div className="bg-white shadow-lg rounded-lg p-4">
-                                <ul className='flex flex-col-reverse gap-2'>
+                                <ul className='flex flex-col gap-2'>
                                     {userMessage.slice(0, 6).map((message) => (
                                         <li key={message._id} className="flex flex-col p-2 rounded-lg border-b  bg-gray-100 hover:bg-gray-200 transition duration-200">
                                             <div className='flex justify-between items-center'>

@@ -23,7 +23,7 @@ const ThemeToggle = () => {
     };
 
     return (
-        <div className="fixed top-5  right-4 flex items-center">
+        <div className="fixed top-5  z-50 right-4 flex items-center">
             <button
                 onClick={handleToggle}
                 className="relative flex items-center border-slate-300 border dark:border-gray-600 p-1 rounded-full w-16 h-8 bg-slate-200 dark:bg-gray-800 cursor-pointer"
