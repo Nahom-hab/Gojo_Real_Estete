@@ -82,7 +82,7 @@ export default function Home() {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
               {isEng ? 'Find your next' : 'ፍጹም ቆንጆ እና ማራኪ'}
               <span className="text-green-500"> {isEng ? 'Perfect' : 'ቤትዎን'} </span>
-              <span className="block">{isEng ? 'place with ease' : 'በቀላሉ ያግኙ'}</span>
+              <span className="block">{isEng ? 'place in Ethiopia' : 'በኢትዮጵያ ያግኙ'}</span>
             </h1>
             <form onSubmit={handleSearch} className="flex w-full max-w-lg mt-8 pr-4 items-center dark:bg-gray-800 bg-white rounded-md p-2 shadow-lg">
               <input
