@@ -21,6 +21,10 @@ export const filterListings = (listings = [], formData = {}) => {
         // Apply filters
         return listings.filter(listing => {
             // Check for RentOrSell
+            if (!listing.activated) {
+                return false
+            }
+
             if (formData.forSale && formData.forSale !== 'both' && listing.RentOrSell !== formData.forSale) {
                 return false;
             }

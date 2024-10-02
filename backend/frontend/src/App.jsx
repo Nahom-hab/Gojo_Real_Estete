@@ -40,6 +40,7 @@ import UserListings from './pages/admin/UserListings';
 import EditListingAdmin from './pages/admin/editListingAdmin';
 import ThemeToggle from './component/toggle';
 import ProtectedAdminRoute from './component/admin/ProtectedAdminRoutes';
+import ListingsOfRectngle from './pages/ListingsOfRectngle';
 
 function App() {
   return (
@@ -56,6 +57,7 @@ function App() {
         <Route path='/favorite' element={<Favorite />}></Route>
         <Route path='/Listings' element={<ShowListing />}></Route>
         <Route path='/contactUs' element={<ContactUs />}></Route>
+        <Route path='/listingsType' element={<ListingsOfRectngle />}></Route>
         <Route path='/ListingswithPrice' element={<ListingWithPrice />}></Route>
 
         {/* auth */}

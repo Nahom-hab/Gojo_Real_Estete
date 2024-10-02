@@ -27,7 +27,7 @@ export default function ProductList() {
     const handleDelete = async (product) => {
         try {
             // Send DELETE request to backend
-            const response = await fetch(`/api/listing/${product._id}`, {
+            const response = await fetch(`/api/listing/admin/${product._id}`, {
                 method: 'DELETE',
             });
 

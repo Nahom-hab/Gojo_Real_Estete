@@ -8,18 +8,38 @@ import useUser from '../zustand/useUser';
 export default function ViewListing() {
   const { pathname } = useLocation();
   const { isEng, AllListings } = useUser(); // Include isEng from state
+  const [owner, setOwner] = useState('')
+  const location = useLocation();
+  const { result } = location.state || {}; // Access state
+  const [listing, setListing] = useState(result);
+  const [loading, setLoading] = useState(false);
+  const [similarData, setSimilarData] = useState(findSimilarListings(listing, AllListings));
+  const [error, setError] = useState(null);
+  const [listingData, setLisingData] = useState(AllListings.filter((list) => list.userRef === listing.userRef))
+
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
-  const location = useLocation();
-  const { result, similar } = location.state || {}; // Access state
-  const [listing, setListing] = useState(result);
-  const [loading, setLoading] = useState(false);
-  const [similarData, setSimilarData] = useState(findSimilarListings(listing, AllListings));
-  const [error, setError] = useState(null);
-  const listingData = AllListings.filter((list) => list.userRef === listing.userRef);
+  useEffect(() => {
+    const fetchUser = async () => {
+      const res = await fetch(`/api/user/${listing.userRef}`)
+      if (res.ok) {
+        const data = await res.json()
+        console.log(data);
+        setOwner(data.username)
+      }
+    }
+    fetchUser()
+  }, [])
+  useEffect(() => {
+    setListing(result)
+    setSimilarData(findSimilarListings(result, AllListings))
+    setLisingData(AllListings.filter((list) => list.userRef === result.userRef))
+  }, [result])
+
+
 
   if (loading) {
     return <p className="text-center text-gray-600">{isEng ? 'Loading...' : 'እቅፍ እባኮትን...'}</p>;
@@ -63,7 +83,7 @@ export default function ViewListing() {
               <FaMapMarkerAlt className="text-green-600 inline-block mr-2" />
               {listing.address}
             </p>
-            <div className='w-16 h-16 px-2 rounded-full border-2 md:mr-20 flex justify-center items-center text-[25px] bg-green-600 font-bold text-white border-green-600'>
+            <div className=' px-3 py-1  rounded-lg md:mr-10 flex justify-center items-center text-[25px] bg-gray-700  text-white '>
               {listing.RentOrSell}
             </div>
           </div>
@@ -84,7 +104,7 @@ export default function ViewListing() {
           <p className="mb-4 font-bold ">
             {isEng ? 'Description:' : 'መግለጫ:'} <span className="dark:text-gray-300 text-gray-600 font-normal">{listing.description}</span>
           </p>
-          <div className="flex gap-4 mb-4">
+          <div className="flex gap-5 mb-4">
             <p className="text-lg">
               <FaBed className="inline-block dark:text-white text-gray-600 mr-1" /> {listing.bedrooms} {isEng ? 'Bed' : 'ክፍል'}
             </p>
@@ -98,7 +118,7 @@ export default function ViewListing() {
           <div className='flex flex-col md:flex-row md:justify-between md:items-center md:pr-10'>
             <div className='flex gap-4'>
               <div className='text-xl'>
-                {isEng ? 'Listing by' : 'የተመዘገበ በ'} <span className='font-bold'> {listing.userRef}</span>
+                {isEng ? 'Listing by' : 'የተመዘገበ በ'} <span className='font-bold'> {owner}</span>
               </div>
             </div>
             <div className='flex bg-green-600 p-2 rounded-md text-white w-fit px-5 gap-2 mt-5 text-xl items-center'>

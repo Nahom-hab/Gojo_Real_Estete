@@ -4,7 +4,7 @@ import useUser from '../../zustand/useUser';
 
 export default function ActiveListings() {
     const { AllListings } = useUser();
-    const [productList, setProductList] = useState(AllListings.filter((li) => !li.activated));
+    const [productList, setProductList] = useState(AllListings.filter((li) => li.activated));
 
     const handleDeactivate = (id) => {
         setProductList(prevList => prevList.filter((li) => li._id !== id));

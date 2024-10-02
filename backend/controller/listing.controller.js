@@ -6,23 +6,13 @@ import User from "../models/userModel.js";
 // @route   POST /api/listings
 // @access  Public (or protected if needed)
 export const createListing = async (req, res) => {
-    const {
-        name, description, address, regularPrice, discountedPrice, bathrooms,
-        bedrooms, phoneNumber, basement, parking, RentOrSell, HomeType,
-        imageURLs, userRef, lat, lon
-    } = req.body;
+
     const { id } = req.user
-
-
     if (userRef !== id) {
         return res.json('cant create a listing with other user id')
     }
     try {
-        const newListing = new Listing({
-            name, description, address, regularPrice, discountedPrice, bathrooms,
-            bedrooms, phoneNumber, basement, parking, RentOrSell, HomeType,
-            imageURLs, userRef, lat, lon
-        });
+        const newListing = new Listing(req.body);
 
 
         const user = await User.findById(userRef)

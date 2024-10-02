@@ -14,7 +14,7 @@ export default function LeafletMap({ listingsForMap }) {
 
     return (
         <div className="w-full h-full">
-            <MapContainer center={[9.06, 38.75]} zoom={10} scrollWheelZoom={true} className="h-full">
+            <MapContainer center={[9.06, 38.75]} zoom={13} scrollWheelZoom={true} className="h-full">
                 <TileLayer
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

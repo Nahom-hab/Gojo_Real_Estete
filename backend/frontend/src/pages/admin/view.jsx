@@ -11,10 +11,24 @@ export default function ViewAdminListing() {
     const [listing, setListing] = useState(result);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [owner, setOwner] = useState('')
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [pathname]);
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            const res = await fetch(`/api/user/${listing.userRef}`)
+            if (res.ok) {
+                const data = await res.json()
+                console.log(data);
+                setOwner(data.username)
+            }
+        }
+        fetchUser()
+    }, [])
+
 
     const handleActivate = async (type) => {
 
@@ -100,7 +114,7 @@ export default function ViewAdminListing() {
                     {listing.imageURLs.length >= 3 && (
                         <div className='flex flex-col md:flex-row gap-1'>
                             <img className='md:w-[60%] w-full object-cover rounded-md h-[260px] md:h-[355px]' src={listing.imageURLs[0]} alt="" />
-                            <div className='flex md:flex-col gap-1'>
+                            <div className='flex md:w-[40%]  md:flex-col gap-1'>
                                 <img className='md:w-[100%] w-[50%] h-44 object-cover rounded-md' src={listing.imageURLs[1]} alt="" />
                                 <img className='md:w-[100%] w-[50%] h-44 object-cover rounded-md' src={listing.imageURLs[2]} alt="" />
                             </div>
@@ -148,10 +162,10 @@ export default function ViewAdminListing() {
                             <FaParking className="inline-block text-gray-600 mr-1" /> {listing.parking} {isEng ? 'Parking' : 'መኪና መከለያ'}
                         </p>
                     </div>
-                    <div className='flex  md:flex-row md:justify-between md:items-center md:pr-10'>
-                        <div className='flex gap-4'>
+                    <div className='flex  md:flex-row justify-between items-center md:items-center md:pr-10'>
+                        <div className='flex '>
                             <div className='text-xl'>
-                                {isEng ? 'Listing by' : 'የተመዘገበ በ'} <span className='font-bold'> {listing.userRef}</span>
+                                {isEng ? 'Listing by' : 'የተመዘገበ በ'} <span className='font-bold'> {owner}</span>
                             </div>
                         </div>
                         <div className='flex bg-green-600 p-1 rounded-md text-white w-fit px-3 gap-2 mt-2 text-sm items-center'>

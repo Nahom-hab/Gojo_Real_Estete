@@ -101,7 +101,7 @@ export default function SearchRent() {
 
     const handleSubmit = () => { console.log(formData); }
     return (
-        <div className='border dark:bg-gray-800 dark:text-white border-t-slate-500 pt-3'>
+        <div className='border dark:bg-gray-800 dark:text-white border-x-0 border-l-0 border-r-0 border-t-slate-500 pt-3'>
             <div className=' justify-center gap-1 flex'>
                 <div className="relative hidden md:block w-[40%] dark:bg-gray-900 dark:text-white  max-w-lg mr-5">
                     <input

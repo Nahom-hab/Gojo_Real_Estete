@@ -7,12 +7,32 @@ import Listing from '../models/listingModel.js'
 export const getAllUser = async (req, res, next) => {
   try {
     const users = await User.find();
+
     res.status(200).json(users);
+
   } catch (error) {
     console.error('Error fetching users:', error);
     res.status(500).json({ message: error.message });
   }
 }
+
+export const getUser = async (req, res, next) => {
+
+  try {
+    const user = await User.findById(req.params.id);
+
+    res.status(200).json(user);
+
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    res.status(500).json({ message: error.message });
+  }
+}
+
+
+
+
+
 export const userdata = async (req, res, next) => {
   try {
     const validUser = await User.findOne({ email: req.email }); // Replace with an actual email from your database

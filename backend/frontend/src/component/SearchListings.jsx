@@ -41,7 +41,7 @@ export default function SearchListings({ SearchFields, setListingsForMap }) {
 
     return (
         <div className='flex w-full justify-center'>
-            <div className=' gap-6 md:overflow-y-scroll  pl-2  w-full md:h-[calc(100vh-145px)]  pt-2'>
+            <div className=' gap-6 md:overflow-y-scroll  w-[98%] md:h-[calc(100vh-145px)]  pt-2'>
                 <div className='font-bold text-[20px] dark:text-white text-gray-600'>Real Estate & Homes For Sale</div>
                 <div className='flex justify-between dark:text-white items-center '>
                     <div className='font-bold text-lg dark:text-gray-300 text-gray-500'>{Data?.length} results</div>
@@ -113,7 +113,7 @@ export default function SearchListings({ SearchFields, setListingsForMap }) {
                 </div>
                 <div className='md:h-[600px] w-full '>
                     {Data ? (Data.length > 0 ? (
-                        <div className='grid  md:grid-cols-2  items-center px-2  justify-center  gap-1  pt-4'>{
+                        <div className='grid  md:grid-cols-2 grid-cols-1  items-center px-1  justify-center  gap-1  pt-4'>{
                             Data.map((data) => (
                                 <CardSearch key={data._id} similar={Data} result={data} />
                             ))

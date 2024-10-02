@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaHeart, FaMapMarkerAlt, FaRegHeart } from 'react-icons/fa';
+import { FaBath, FaBed, FaHeart, FaMapMarkerAlt, FaParking, FaRegHeart } from 'react-icons/fa';
 import useUser from '../zustand/useUser';
 
 export default function CardSearch({ result, similar }) {
@@ -70,15 +70,15 @@ export default function CardSearch({ result, similar }) {
     return (
         <div
             onClick={handleClick}
-            className="dark:bg-gray-900 dark:border-gray-600 dark:text-white mb-3 bg-white border w-full md:w-[320px] border-gray-200 rounded-lg shadow-lg cursor-pointer"
+            className="dark:bg-gray-900 dark:border-gray-600 dark:text-white mb-3 bg-white border w-full  border-gray-200 rounded-2xl p-1 shadow-lg cursor-pointer"
             role="button"
             tabIndex={0}
             onKeyDown={(e) => e.key === 'Enter' && handleClick()}
         >
-            <div className="overflow-hidden h-40 rounded-t-lg">
+            <div className="overflow-hidden h-40 rounded-xl">
                 {result.imageURLs.length > 0 ? (
-                    <div className="relative">
-                        <img src={result.imageURLs[0]} alt="Listing" className="w-full h-auto" />
+                    <div className="relative rounded-xl">
+                        <img src={result.imageURLs[0]} alt="Listing" className="w-full rounded-xl h-auto" />
                         <div className="absolute top-2 right-2">
                             <button
                                 type="button"
@@ -106,28 +106,30 @@ export default function CardSearch({ result, similar }) {
                     </div>
                 )}
             </div>
-            <div className="p-2">
+            <div className="pt-1">
                 <div className='flex justify-between'>
                     <div className="font-semibold whitespace-nowrap dark:text-white text-black md:text-sm text-[19px] mb-1">
                         {result.name}
                     </div>
-                    <div className='bg-green-600 p-3 py-1 rounded-lg text-white'>{result.RentOrSell}</div>
+                    <div className='bg-gray-700 px-3 py-1 text-sm rounded-lg text-white'>{result.RentOrSell}</div>
                 </div>
-                <div className="text-green-600 font-bold text-md pr-2 mb-2">
-                    <span className='text-[12px] font-normal'>ETB</span>
-                    {result.regularPrice.toLocaleString()} {result.RentOrSell === 'rent' ? '/Month' : ''}
+                <div className="text-green-600 font-bold text-sm pr-2 mb-2">
+                    {result.regularPrice.toLocaleString()}birr {result.RentOrSell === 'rent' ? '/month' : ''}
                 </div>
-                <div className="dark:text-gray-400 text-gray-600 flex items-center mb-2 text-[16px]">
-                    <FaMapMarkerAlt className="text-green-500 text-md mr-1" />
-                    <span>{result.address}</span>
+                <div className='flex justify-between items-center pr-2'>
+                    <div className="dark:text-gray-300 text-gray-600 flex items-center mb-2 text-[13px]">
+                        <FaMapMarkerAlt className="text-green-500 text-md mr-1" />
+                        <span>{result.address}</span>
+                    </div>
+
+                    <div className="flex  dark:text-white text-xs gap-3 text-gray-600">
+                        <div className='flex gap-1 items-center'>{result.bathrooms} <span className=' text-gray-800 dark:text-gray-200'><FaBath /></span></div>
+                        <div className='flex gap-1 items-center'>{result.bedrooms} <span className=' text-gray-800 dark:text-gray-200'><FaBed /></span> </div>
+                        <div className='flex gap-1 items-center'>{result.parking} <span className=' text-gray-800 dark:text-gray-200'><FaParking /></span></div>
+
+                    </div>
                 </div>
-                <div className="dark:text-gray-300 text-gray-700 text-xs mb-2">
-                    {result.description.slice(0, 120)}{result.description.length > 120 ? '...' : ''}
-                </div>
-                <div className="flex gap-2 dark:text-white text-xs text-gray-600">
-                    <div>{result.bathrooms} bathrooms</div>
-                    <div>{result.bedrooms} bedrooms</div>
-                </div>
+
             </div>
         </div>
     );

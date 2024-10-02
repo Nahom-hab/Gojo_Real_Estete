@@ -1,11 +1,10 @@
-
 import React, { useRef, useState, useEffect } from 'react';
 import ScrollCard from './scrollCard';
 import left from '../assets/images/left.png';
 import right from '../assets/images/right.png';
 import useUser from '../zustand/useUser';
 import PLaceScrollCard from './PllceHolder';
-
+import { Link } from 'react-router-dom';
 
 const HorizontalScroller = ({ listings }) => {
     const { AllListings, setAllListings } = useUser();
@@ -40,15 +39,23 @@ const HorizontalScroller = ({ listings }) => {
 
     // Scroll functions
     const scrollLeft = () => {
+        const scrollAmount = window.innerWidth < 768 // Example breakpoint for mobile
+            ? scrollRef.current.offsetWidth // 100% of the container on mobile
+            : scrollRef.current.offsetWidth / 4; // 25% of the container on larger screens
+
         scrollRef.current.scrollBy({
-            left: -scrollRef.current.offsetWidth / 4,
+            left: -scrollAmount,
             behavior: 'smooth',
         });
     };
 
     const scrollRight = () => {
+        const scrollAmount = window.innerWidth < 768 // Example breakpoint for mobile
+            ? scrollRef.current.offsetWidth // 100% of the container on mobile
+            : scrollRef.current.offsetWidth / 4; // 25% of the container on larger screens
+
         scrollRef.current.scrollBy({
-            left: scrollRef.current.offsetWidth / 4,
+            left: scrollAmount,
             behavior: 'smooth',
         });
     };
@@ -64,7 +71,7 @@ const HorizontalScroller = ({ listings }) => {
                 </button>
                 <div
                     ref={scrollRef}
-                    className="ml-4 mr-4 flex overflow-x-scroll gap-5 scrollbar-hidden"
+                    className="ml-4 mr-4 flex overflow-x-scroll gap-2 scrollbar-hidden"
                 >
                     {loading ? (
                         <div className='flex gap-5'>
@@ -74,7 +81,7 @@ const HorizontalScroller = ({ listings }) => {
                             ))}
                         </div>
                     ) : listing.length > 0 ? (
-                        listing.map((result) => (
+                        listing.filter((li) => li.activated).slice(0, 8).map((result) => (
                             <ScrollCard key={result._id} similar={false} result={result} />
                         ))
                     ) : (
@@ -86,9 +93,9 @@ const HorizontalScroller = ({ listings }) => {
                     )}
 
                     <div className='flex items-center'>
-                        <div className='w-[170px] dark:text-white text-center p-2 m-2 text-xl mr-12 rounded-xl border dark:border-gray-300 border-black hover:opacity-60 hover:cursor-pointer'>
+                        <Link to={'/search'} className='w-[170px] dark:text-white text-center p-2 m-2 text-xl mr-12 rounded-xl border dark:border-gray-300 border-black hover:opacity-60 hover:cursor-pointer'>
                             Show More
-                        </div>
+                        </Link>
                     </div>
                 </div>
                 <button

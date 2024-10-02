@@ -8,6 +8,7 @@ import {
     manyListing
 } from '../controller/listing.controller.js'
 import AuthUser from '../middlewere/authUser.js';
+import AdminMiddleWere from '../middlewere/authMiddleware.js';
 
 
 const router = express.Router();
@@ -28,10 +29,14 @@ router.get('/:id', getListingById);
 
 // Update a listing by ID
 router.put('/:id', AuthUser, updateListing);
+router.delete('/:id', AuthUser, deleteListing);
 
 
 // Delete a listing by ID
-router.delete('/:id', AuthUser, deleteListing);
+router.put('/admin/:id', AdminMiddleWere, deleteListing);
+
+router.delete('/admin/:id', AdminMiddleWere, deleteListing);
+
 
 
 export default router;

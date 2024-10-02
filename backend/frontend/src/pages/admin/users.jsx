@@ -13,6 +13,8 @@ export default function UserDashboard() {
             setLoading(true); // Set loading to true before fetching
             const response = await fetch('/api/user');
             const usersData = await response.json();
+            console.log(usersData);
+
             setUsers(usersData);
             setLoading(false); // Set loading to false after data is fetched
         };

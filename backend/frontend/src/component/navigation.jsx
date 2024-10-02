@@ -2,6 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { FaChevronDown } from 'react-icons/fa';
 import logo from '../assets/images/logoo.png';
+import gojo from '../assets/images/gojoDark.png';
+
+
 import useUser from '../zustand/useUser';
 import FetchListingHook from '../Functions/FetchListingHook';
 
@@ -48,7 +51,7 @@ export default function Navigation() {
   };
 
   return (
-    <header className="bg-white dark:bg-gray-800 dark:text-white text-gray-600 h-20 w-full py-2 pb-0">
+    <header className="bg-white dark:bg-gray-800 dark:text-white text-gray-600 h-20 w-full  py-2 pb-0">
       <div className="flex justify-between items-center max-w-screen-xl mx-auto px-3">
         <div className={`hidden md:block`}>
           <ul className="flex items-center">
@@ -87,9 +90,11 @@ export default function Navigation() {
             <div className="h-1 w-6 bg-black dark:bg-white"></div>
           </button>
         </div>
-        <Link to="/" className="text-[34px] items-center flex gap-2 font-bold ">
+        <Link to="/" className="text-[34px] items-center md:mr-0 mr-[40%] flex gap-2 font-bold ">
           <img className='w-28 dark:hidden h-16' src={logo} alt="" />
-          <div className='text-white font-2xl hidden dark:block'>Gojo</div>
+          <div className='hidden  dark:block'>
+            <img className='w-24 h-16' src={gojo} alt="" />
+          </div>
         </Link>
         <ul className="hidden md:flex gap-1 items-center ">
           <li>
@@ -132,8 +137,9 @@ export default function Navigation() {
         <nav ref={sidebarRef} className={`fixed top-0 left-0 w-full z-50 h-full dark:bg-gray-800 bg-slate-50 ${menuOpen ? 'block' : 'hidden'} transition-transform duration-300 ease-in-out`}>
           <div className="flex flex-col w-full items-start h-full">
             <div className='flex justify-center w-full'>
-              <Link to="/" onClick={closeSidebar} className="text-[30px] text-blue-950 dark:text-white items-center flex gap-2 font-bold">
-                <img className='w-16 dark:hidden h-10' src={logo} alt="" /> Gojo
+              <Link to="/" onClick={closeSidebar} className="text-[30px] mt-3 text-blue-950 dark:text-white items-center flex gap-2 font-bold">
+                <img className='w-16 dark:hidden h-10' src={logo} alt="" />  <img className='w-24 hidden dark:flex h-16' src={gojo} alt="" />
+
               </Link>
             </div>
             <ul className="w-full mt-8">
@@ -185,6 +191,28 @@ export default function Navigation() {
                 </Link>
                 <FaChevronDown />
               </li>
+              {user ?
+                (
+                  <li className='flex justify-between p-3 px-5 items-center border dark:border-x-0 border-t-gray-400 w-full text-lg '>
+
+                    <Link to="/profile" onClick={closeSidebar} className={`block py-2 mr-16 px-3 ${location.pathname === '/profile' ? 'text-red-500' : ''}`}>
+                      <img className='w-10 h-10 rounded-full' src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-182145777.jpg" alt="" />
+
+                    </Link>
+                  </li>
+
+                ) : (
+                  <li className='flex justify-between p-3 px-5 items-center border dark:border-x-0 border-t-gray-400 w-full text-lg '>
+
+                    <Link to="/login" onClick={closeSidebar} className={`block${location.pathname === '/login' ? 'text-red-500' : ''}`}>
+                      Login
+                    </Link>
+                    <FaChevronDown />
+
+                  </li>
+
+                )}
+
               <li className='flex justify-between p-3 px-5 items-center border dark:border-x-0 border-t-gray-400 w-full text-lg '>
                 <Link to="/afordablityCalculator" onClick={closeSidebar} className={`block ${location.pathname === '/afordablityCalculator' ? 'text-red-500' : ''}`}>
                   {isEng ? 'Affordability Calculator' : 'የማቀነባበል ካልከር'}
@@ -205,21 +233,7 @@ export default function Navigation() {
           </div>
         </nav>
 
-        <div className='flex md:hidden'>
-          {user ?
-            (
-              <Link to="/profile" onClick={closeSidebar} className={`block py-2 mr-16 px-3 ${location.pathname === '/profile' ? 'text-red-500' : ''}`}>
-                <img className='w-10 h-10 rounded-full' src="https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-182145777.jpg" alt="" />
 
-              </Link>
-            ) : (
-              <Link to="/login" onClick={closeSidebar} className={`block py-2 px-3 mr-20 ${location.pathname === '/login' ? 'text-red-500' : ''}`}>
-                Login
-              </Link>
-            )}
-
-
-        </div>
       </div>
     </header >
   );
