@@ -19,7 +19,7 @@ export default function ScrollCard({ result, similar }) {
             tabIndex={0}
             onKeyDown={(e) => e.key === 'Enter' && handleClick()}
         >
-            <div className="overflow-hidden h-40 rounded-xl">
+            <div className="overflow-hidden h-44 rounded-xl">
                 {result.imageURLs.length > 0 ? (
                     <img
                         className="object-cover w-full h-full transition-transform rounded-xl duration-500 transform hover:scale-110"
@@ -32,7 +32,7 @@ export default function ScrollCard({ result, similar }) {
                     </div>
                 )}
             </div>
-            <div className=" pb-0 pr-1 pt-2 pl-1"> {/* Adjust padding */}
+            <div className=" pb-0 pr-1 pt-2 pl-1">
                 <div className='flex justify-between'>
                     <div className="font-semibold dark:text-white text-black text-sm mb-1">{result.name}</div> {/* Adjust font size */}
                     <div className=" dark:text-white px-2 py-1 rounded-lg bg-gray-200 h-fit dark:bg-gray-800 w-fit text-black text-[12px]">{result.RentOrSell}</div> {/* Adjust font size */}

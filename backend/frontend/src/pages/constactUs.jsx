@@ -85,11 +85,11 @@ export default function ContactUs() {
         <div className='dark:bg-gray-800 dark:border-gray-600 mt-[-8px] pb-32'>
             {/* Modal for successful message */}
             {isModalOpen && (
-                <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50 animate-fadeIn">
+                <div className="">
                     <div className="bg-white dark:bg-gray-900 p-8 rounded-lg shadow-lg text-center transform scale-95 transition-transform duration-300">
                         <FaCheckCircle className="text-green-500 mx-auto mb-4 text-4xl animate-bounce" />
-                        <h2 className="text-2xl font-bold mb-4">Message Sent!</h2>
-                        <p className="mb-4">Thank you for contacting us. We will get back to you shortly.</p>
+                        <h2 className="text-2xl dark:text-white font-bold mb-4">Message Sent!</h2>
+                        <p className="mb-4 dark:text-gray-200">Thank you for contacting us. We will get back to you shortly.</p>
                         <button
                             onClick={closeModal}
                             className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300"
@@ -169,7 +169,7 @@ export default function ContactUs() {
                                     name="name"
                                     value={name}
                                     onChange={handleChange}
-                                    className="p-3 bg-gray-200 dark:bg-gray-700 placeholder-black dark:placeholder-white rounded-xl focus:outline-none"
+                                    className="p-3 bg-gray-200 dark:bg-gray-700 placeholder-gray-700 dark:placeholder-gray-300 rounded-xl focus:outline-none"
                                     placeholder={isEng ? 'Your Name' : 'የእርስዎ ስም'}
                                     required
                                 />
@@ -182,7 +182,7 @@ export default function ContactUs() {
                                     name="email"
                                     value={email}
                                     onChange={handleChange}
-                                    className="p-3 bg-gray-200 dark:bg-gray-700 placeholder-black dark:placeholder-white rounded-xl focus:outline-none"
+                                    className="p-3 bg-gray-200 dark:bg-gray-700 placeholder-gray-700 dark:placeholder-gray-300 rounded-xl focus:outline-none"
                                     placeholder={isEng ? 'Your Email (optional)' : 'የእርስዎ ኢሜይል (አማራጭ)'}
                                 />
                             </div>
@@ -194,7 +194,7 @@ export default function ContactUs() {
                                     name="phone"
                                     value={phone}
                                     onChange={handleChange}
-                                    className="p-3 bg-gray-200 dark:bg-gray-700 placeholder-black dark:placeholder-white rounded-xl focus:outline-none"
+                                    className="p-3 bg-gray-200 dark:bg-gray-700 placeholder-gray-700 dark:placeholder-gray-300 rounded-xl focus:outline-none"
                                     placeholder={isEng ? 'Your Phone Number' : 'የእርስዎ የስልክ ቁጥር'}
                                     required />
                             </div>
@@ -205,7 +205,7 @@ export default function ContactUs() {
                                     name="message"
                                     value={message}
                                     onChange={handleChange}
-                                    className="p-3 bg-gray-200 dark:bg-gray-700 placeholder-black dark:placeholder-white rounded-xl focus:outline-none"
+                                    className="p-3 bg-gray-200 dark:bg-gray-700 placeholder-gray-700 dark:placeholder-gray-300 rounded-xl focus:outline-none"
                                     placeholder={isEng ? 'Your Message' : 'የእርስዎ መልዕክት'}
                                     rows="3"
                                     required

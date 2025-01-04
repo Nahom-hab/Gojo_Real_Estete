@@ -12,8 +12,8 @@ export const filterListings = (listings = [], formData = {}) => {
         if (formData.searchQuery) {
             const fuseOptions = {
                 keys: ['address', 'name'],
-                threshold: 0.4, // Adjust this value to control the fuzziness (0 = exact match, 1 = very fuzzy)
-                includeScore: true // Optional: Includes search score if you need to sort results by relevance
+                threshold: 0.4,
+                includeScore: true
             };
             fuse = new Fuse(listings, fuseOptions);
         }

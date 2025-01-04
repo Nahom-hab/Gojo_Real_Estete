@@ -75,7 +75,7 @@ export default function CardSearch({ result, similar }) {
             tabIndex={0}
             onKeyDown={(e) => e.key === 'Enter' && handleClick()}
         >
-            <div className="overflow-hidden h-40 rounded-xl">
+            <div className="overflow-hidden h-44 rounded-xl">
                 {result.imageURLs.length > 0 ? (
                     <div className="relative rounded-xl">
                         <img src={result.imageURLs[0]} alt="Listing" className="w-full rounded-xl h-auto" />

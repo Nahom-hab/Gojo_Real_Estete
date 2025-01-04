@@ -88,7 +88,6 @@ export const login = async (req, res, next) => {
       next(err);
    }
 };
-
 // Retrieve user data by email
 export const userdata = async (req, res, next) => {
    const { email } = req.body;

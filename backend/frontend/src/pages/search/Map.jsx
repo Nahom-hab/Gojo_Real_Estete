@@ -27,8 +27,8 @@ export default function LeafletMap({ listingsForMap }) {
                             icon={customIcon} // Use the custom icon here
                         >
                             <Popup>
-                                <div className="max-w-xs p-3 bg-white rounded-lg shadow-lg">
-                                    <div className='flex items-center justify-between'>
+                                <div className="max-w-xs p-3 bg-gray-100 rounded-lg shadow-lg">
+                                    <div className='flex items-center  justify-between'>
                                         <div>
                                             <div className='text-green-500 font-bold text-lg'>
                                                 {listing.discountedPrice} birr
@@ -42,10 +42,10 @@ export default function LeafletMap({ listingsForMap }) {
                                         <img
                                             src={listing.imageURLs[0]}
                                             alt="Listing"
-                                            className="w-24 h-auto mx-auto mt-2 rounded-md"
+                                            className="w-[120px] object-cover h-24 mt-2 rounded-md"
                                         />
                                         <div>
-                                            <div className="text-lg font-semibold text-gray-800">{listing.name}</div>
+                                            <div className="text-[15px] font-semibold text-gray-800">{listing.name}</div>
                                             <div className="text-gray-600 text-[10px] mt-2">{listing.description}</div>
                                         </div>
                                     </div>

@@ -212,16 +212,9 @@ export default function Navigation() {
                   </li>
 
                 )}
-
-              <li className='flex justify-between p-3 px-5 items-center border dark:border-x-0 border-t-gray-400 w-full text-lg '>
-                <Link to="/afordablityCalculator" onClick={closeSidebar} className={`block ${location.pathname === '/afordablityCalculator' ? 'text-red-500' : ''}`}>
-                  {isEng ? 'Affordability Calculator' : 'የማቀነባበል ካልከር'}
-                </Link>
-                <FaChevronDown />
-              </li>
-              <div className='lg:ml-0 mt-10 ml-6'>
+              <div className='lg:ml-0 mt-6 ml-2'>
                 <select
-                  className='lg:block dark:bg-white dark:text-black  border-none px-5 py-2 text-lg rounded-lg outline-none'
+                  className='lg:block dark:bg-gray-400 dark:text-black bg-gray-200  border-none px-6 py-2 text-lg rounded-lg outline-none'
                   value={isEng ? 'English' : 'Amharic'}
                   onChange={handleLanguageChange}
                 >

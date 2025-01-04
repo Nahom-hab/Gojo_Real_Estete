@@ -40,7 +40,7 @@ export default function SearchListings({ SearchFields, setListingsForMap }) {
 
 
     return (
-        <div className='flex w-full justify-center'>
+        <div className='flex w-full dark:bg-gray-800 justify-center'>
             <div className=' gap-6 md:overflow-y-scroll  w-[98%] md:h-[calc(100vh-145px)]  pt-2'>
                 <div className='font-bold text-[20px] dark:text-white text-gray-600'>Real Estate & Homes For Sale</div>
                 <div className='flex justify-between dark:text-white items-center '>

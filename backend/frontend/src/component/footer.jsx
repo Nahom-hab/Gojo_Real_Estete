@@ -17,7 +17,7 @@ export default function Footer() {
         { nameEng: 'Buy', nameAm: 'ግዢ', path: '/buy' },
         { nameEng: 'Rent', nameAm: 'ኪራይ', path: '/rent' },
         { nameEng: 'Sell', nameAm: 'ሽያጭ', path: '/sell' },
-        { nameEng: 'Affordability Calculator', nameAm: 'የማቀነባበል ካልከር', path: '/affordabilityCalculator' },
+
     ];
 
     return (
@@ -40,9 +40,9 @@ export default function Footer() {
                         </div>
                     </div>
                     <div className='flex justify-center'>
-                        <div className='flex gap-20'>
+                        <div className='flex gap-16'>
                             {/* Company Links */}
-                            <div className="flex flex-col items-start justify-center ">
+                            <div className="flex flex-col items-start  ">
                                 <h3 className="text-lg mb-3 font-semibold">{isEng ? 'Company' : 'ኩባንያ'}</h3>
                                 <ul className="list-none space-y-3">
                                     {links.map((link, index) => (
@@ -67,7 +67,7 @@ export default function Footer() {
                             </div>
 
                             {/* Support Links */}
-                            <div className="flex flex-col items-center sm:items-start">
+                            <div className="flex flex-col items-start">
                                 <h3 className="text-lg mb-3 font-semibold">{isEng ? 'Support' : 'ድጋፍ'}</h3>
                                 <ul className="list-none space-y-3">
                                     <li><a href="#" className="hover:underline transition duration-300">{isEng ? 'Help Center' : 'የእገዛ ማዕከል'}</a></li>

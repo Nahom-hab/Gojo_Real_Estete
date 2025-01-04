@@ -111,7 +111,7 @@ const Search = () => {
     return (
         <div className='border dark:bg-gray-800 dark:text-white border-t-slate-500 border-x-0 border-l-0 border-r-0 pt-3'>
             <div className=' justify-center gap-1 flex'>
-                <div className="relative hidden md:block w-[40%] dark:bg-gray-900 dark:text-white  max-w-lg mr-5">
+                <div className="relative hidden md:block xl:w-[40%] w-[20%]  mr-5">
                     <input
                         name="searchQuery"
                         value={formData.searchQuery}
@@ -120,7 +120,7 @@ const Search = () => {
                         type="text"
                         placeholder="Address, neighbourhood, city"
                     />
-                    <div className="absolute inset-y-0 left-3 flex items-center pointer-events-none">
+                    <div className="absolute  left-3 top-2 flex items-center pointer-events-none">
                         <FaSearch className="text-gray-400 dark:text-white w-5 h-5" />
                     </div>
                 </div>
@@ -508,7 +508,7 @@ const Search = () => {
                     )}
                 </div>
                 <div>
-                    <button onClick={handleSubmit} className='px-6 py-[4px] md:py-[6px] rounded-md bg-blue-500 text-white'>Save Search</button>
+                    <button onClick={handleSubmit} className='px-6 py-[4px] md:py-[6px] rounded-md bg-blue-500 text-white'>Save</button>
                 </div>
                 <div
                     className={`fixed inset-0 ${Object.values(showDropdown).includes(true) ? 'block' : 'hidden'}`}
@@ -519,7 +519,7 @@ const Search = () => {
                 <div className='bg-slate-800 w-[100%]  md:w-[50%]  z-0 md:h-[calc(100vh-145px)]  h-[300px] '>
                     <LeafletMap listingsForMap={listingsForMap} />
                 </div>
-                <div className='w-[100%] md:w-[57%] '>
+                <div className='w-[100%] dark:bg-gray-800 md:w-[57%] '>
                     <SearchListings setListingsForMap={setListingsForMap} SearchFields={formData} />
                 </div>
             </div>

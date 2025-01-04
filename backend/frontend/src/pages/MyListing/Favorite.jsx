@@ -41,7 +41,7 @@ export default function Favorite() {
     }, [pathname]);
 
     return (
-        <div className='flex dark:bg-slate-800 justify-center p-2 pb-60 pt-10 border border-x-0 border-t-gray-400'>
+        <div className='flex dark:bg-slate-800 justify-center p-2 pb-60 pt-10 border border-x-0 border-t-gray-500'>
             {user ? (
                 loading ? ( // Show spinner while loading
                     <div className="flex items-center justify-center mt-20 w-full h-full">
@@ -66,7 +66,7 @@ export default function Favorite() {
                     )
                 )
             ) : (
-                <div className="flex flex-col items-center justify-center dark:bg-gray-900 bg-white p-10 rounded-xl shadow-lg w-full max-w-lg text-center">
+                <div className="flex flex-col items-center justify-center md:dark:bg-gray-900 md:bg-white p-10 rounded-xl shadow-lg w-full max-w-lg text-center">
                     <FaHeart className="text-red-500 animate-spin text-6xl mb-4" />
                     <h2 className="text-3xl font-bold dark:text-gray-300 text-gray-800 mb-4">Save Your Favorite Listings</h2>
                     <p className="dark:text-gray-400 text-gray-600 mb-6 leading-relaxed">

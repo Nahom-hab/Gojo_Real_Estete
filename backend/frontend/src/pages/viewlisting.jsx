@@ -134,7 +134,7 @@ export default function ViewListing() {
           : ''}
 
         {listingData.length > 0 ?
-          <SimilarProducts text={isEng ? `Listings By ${listing.userRef}` : `የ${listing.userRef} ዝርዝሮች`} data={listingData} /> : ''}
+          <SimilarProducts text={isEng ? `Listings By ${owner}` : `የ${owner} ዝርዝሮች`} data={listingData} /> : ''}
 
       </div>
     </div>

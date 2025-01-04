@@ -6,29 +6,32 @@ import User from "../models/userModel.js";
 // @route   POST /api/listings
 // @access  Public (or protected if needed)
 export const createListing = async (req, res) => {
+    console.log(req.body);
 
     const { id } = req.user
-    if (userRef !== id) {
+    if (req.body.userRef !== id) {
         return res.json('cant create a listing with other user id')
     }
     try {
         const newListing = new Listing(req.body);
 
 
-        const user = await User.findById(userRef)
+        const user = await User.findById(req.body.userRef)
+        console.log(user);
+
 
         const savedListing = await newListing.save();
         const newMessage = new Message({
-            name: `${name} in ${address}`,
+            name: `${newListing.name} in ${newListing.address}`,
             listingId: savedListing._id,
-            message: `New listing created for ${RentOrSell} by ${user.username}`,
+            message: `New listing created for ${newListing.RentOrSell} by ${user.username}`,
             type: 'listing'
         })
         await newMessage.save()
 
         res.status(201).json(savedListing);
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        res.status(500).json({ message: error.message });
     }
 };
 export const manyListing = async (req, res) => {

@@ -79,7 +79,7 @@ export default function MyListing() {
             )}
           </div>
         ) : (
-          <div className="flex flex-col items-center justify-center dark:bg-gray-900 bg-white p-10 rounded-xl shadow-lg w-full max-w-lg text-center">
+          <div className="flex flex-col items-center justify-center mb-60  md:dark:bg-gray-900 md:bg-white p-10 rounded-xl shadow-lg w-full max-w-lg text-center">
             <h2 className="text-3xl font-bold dark:text-gray-300 text-gray-800 mb-4">Sign up to have your own  Listings</h2>
             <p className="dark:text-gray-400 text-gray-600 mb-6 leading-relaxed">
               Sign in or create an account to create  listings by your self! This lets you easily  manage your listing homes on any device.

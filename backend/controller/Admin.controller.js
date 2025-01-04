@@ -13,15 +13,16 @@ export const loginAdmin = async (req, res) => {
         const admin = await Admin.findOne({ username });
 
         if (admin && (await bcrypt.compare(password, admin.password))) {
-            const token = jwt.sign({ id: admin._id, role: 'admin' }, process.env.JWT_ADMIN_SECRET, { expiresIn: '1h' });
+            const token = jwt.sign({ id: admin._id, role: 'admin' }, process.env.JWT_ADMIN_SECRET, { expiresIn: '2w' });
 
             // Send JWT token as cookie
             res.cookie('token', token, {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === 'production',
                 sameSite: 'strict',
-                maxAge: 3600000, // 1 hour
+                maxAge: 14 * 24 * 60 * 60 * 1000, // 2 weeks in milliseconds
             });
+
             const { password, ...data } = admin
             res.json({ message: 'Login successful', adminData: data._doc });
         } else {
@@ -31,6 +32,16 @@ export const loginAdmin = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+
+export const CreateAdmin = async (req, res, next) => {
+    const admin = new Admin(req.body)
+    admin.save()
+    res.json('succsus')
+}
+
+
+
 
 
 // @desc    Admin logout

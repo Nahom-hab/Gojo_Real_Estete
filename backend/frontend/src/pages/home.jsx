@@ -196,13 +196,13 @@ export default function Home() {
 
               {/* Main Title */}
               <div className='flex flex-col'>
-                <div className='absolute bottom-10 left-5 right-5 text-white text-xl md:text-3xl font-bold z-10 hover:mt-[-60px] transition-all duration-500 group-hover:-translate-y-8'>
+                <div className='absolute bottom-10 left-5 text-white text-xl md:text-3xl font-bold z-10 hover:mt-[-30px] transition-all duration-500 group-hover:-translate-y-[80px]'>
                   Rental Shops in Addis Ababa
                   <div className='text-sm text-gray-200'>Get Your own rental shops in addis </div>
                 </div>
 
                 {/* Hover Text with Additional Information */}
-                <div className='absolute bottom-[-80px]  p-4 text-gray-200 text-sm font-medium opacity-0 group-hover:opacity-100 group-hover:translate-y-[-80px] transition-all duration-500'>
+                <div className='absolute bottom-[-80px]  p-4 text-gray-200 text-lg font-medium opacity-0 group-hover:opacity-100 group-hover:translate-y-[-80px] transition-all duration-500'>
                   <div> Discover the vibrant marketplace in Addis Ababa!</div>
                   <div>Get started on your entrepreneurial journey today!</div>
 
